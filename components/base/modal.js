@@ -19,7 +19,7 @@ export default function Modal(props) {
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog onClose={() => {if (!isDisable) setIsOpen(false)}}>
-        <div className='w-full h-full fixed inset-0 flex items-center justify-center p-3'>
+        <div className='w-full h-full fixed inset-0 flex items-center justify-center p-3 z-20'>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -34,7 +34,7 @@ export default function Modal(props) {
                 <div className='w-12 mr-4'>
                   <Image src={props.typeModal === 'fps' ? FpsIcon : VRIcon} alt='icon-control' />
                 </div>
-                <div>
+                <div className='text-black'>
                   <span className='text-sm capitalize font-medium'>tutorial</span>
                   <h2 className='capitalize font-bold'>{props.title}</h2>
                 </div>
@@ -43,7 +43,7 @@ export default function Modal(props) {
                 {props.typeModal === 'vr' && <Image src={XrModule} alt='image xr controller' />}
                 {props.children}
               </div>
-              <div className='text-end'>
+              <div className='text-end text-black'>
                 <button type='button' onClick={() => setIsOpen(false)} disabled={isDisable}>Oke</button>
               </div>
             </Dialog.Panel>

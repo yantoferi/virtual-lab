@@ -1,10 +1,25 @@
+"use client"
+
+import MyButton from "@/components/base/button"
 import Modal from "@/components/base/modal"
+import Tutorial from "@/components/contents/tutorial"
+import { useState } from "react"
 import { IoMdDisc } from "react-icons/io"
+import { TfiTarget } from "react-icons/tfi"
 
 export default function TutorialFps() {
+  const [isLock, setIsLock] = useState(false)
+
+  const changeLocked = status => {
+    setIsLock(status)
+  }
+
   return (
-    <div className='w-full h-full bg-gray-100'>
-      <h2 className='text-black'>This is fps</h2>
+    <div className='w-full h-full bg-gray-100 relative'>
+      {isLock? <div className='absolute left-1/2 top-1/2 -transform-y-1/2 -transform-x-1/2 z-10'>
+        <TfiTarget className='w-6 h-6 text-sky-600' />
+      </div>:<MyButton />}
+      <Tutorial mode='fps' updateIsLock={changeLocked} />
       <Modal typeModal='fps' title='Perspektif orang pertama'>
         <ol>
           {content.map((item, id) => (
@@ -12,7 +27,7 @@ export default function TutorialFps() {
               <div className='p-1 mr-3'>
                 <IoMdDisc className='w-4 h-4 text-sky-400' />
               </div>
-              <div>
+              <div className='text-black'>
                 <p className='font-medium'>{item.subtitle}</p>
                 <p className='text-gray-400'>{item.description}</p>
               </div>

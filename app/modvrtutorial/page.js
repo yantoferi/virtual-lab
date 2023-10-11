@@ -1,10 +1,11 @@
 import Modal from "@/components/base/modal"
+import Tutorial from "@/components/contents/tutorial"
 import { IoMdDisc } from "react-icons/io"
 
 export default function TutorialVr() {
   return (
     <div className='w-full h-full bg-gray-100'>
-      <h2 className='text-black'>This is VR</h2>
+      <Tutorial mode='vr' />
       <Modal typeModal='vr' title='Perspektif VR'>
         <ol>
           {content.map((item, id) => (
@@ -12,7 +13,7 @@ export default function TutorialVr() {
               <div className='p-1 mr-3'>
                 <IoMdDisc className='w-4 h-4 text-sky-400' />
               </div>
-              <div>
+              <div className='text-black'>
                 <p className='font-medium'>{item.subtitle}</p>
                 <p className='text-gray-400'>{item.description}</p>
               </div>
