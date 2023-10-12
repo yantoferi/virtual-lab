@@ -16,7 +16,7 @@ export function Room(props) {
   const { nodes, materials } = useGLTF('models/room-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <RigidBody colliders='trimesh' type='fixed'>
+      <RigidBody colliders='trimesh' type='fixed' friction={0}>
         <mesh castShadow receiveShadow geometry={nodes.Object_2.geometry} material={materials.material} rotation={[-Math.PI / 2, 0, 0]} scale={0.5} />
       </RigidBody>
     </group>

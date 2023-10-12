@@ -10,6 +10,7 @@ import { CapsuleCollider, RigidBody, vec3, quat } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
 import { Vector3 } from "three"
 
+const charRotate = quat()
 const vectorMovement = new Vector3()
 
 export function Adam(props) {
@@ -28,18 +29,27 @@ export function Adam(props) {
   // Loop frame
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
+    const offsetCam = new Vector3(0, 0.3, -0.1)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
 
+    offsetCam.applyQuaternion(currentRotate)
+    offsetCam.add(currentPos)
+    state.camera.position.copy(offsetCam)
+
     vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 50 : 20) * delta)
+    vectorMovement.applyQuaternion(currentRotate)
     adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
+
+    charRotate.setFromEuler(state.camera.rotation)
+    adam.current.setRotation(quat({ ...currentRotate, y: charRotate.y, w: charRotate.w }), true)
   })
 
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={0.5} enabledRotations={[false, false, false]} friction={0}>
+        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1} enabledRotations={[false, false, false]} friction={0}>
           <CapsuleCollider ref={colliderRef} args={[0.1, 0.08]} />
           <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.003} position-y={-0.18}>
             <primitive object={nodes.mixamorigHips} />
