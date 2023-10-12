@@ -8,6 +8,9 @@ import React, { useRef } from 'react'
 import { useGLTF, useAnimations, useKeyboardControls } from '@react-three/drei'
 import { CapsuleCollider, RigidBody, vec3, quat } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
+import { Vector3 } from "three"
+
+const vectorMovement = new Vector3()
 
 export function Adam(props) {
   // Refs
@@ -28,14 +31,17 @@ export function Adam(props) {
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
+
+    vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 50 : 20) * delta)
+    adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
   })
 
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={0.5}>
+        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={0.5} enabledRotations={[false, false, false]} friction={0}>
           <CapsuleCollider ref={colliderRef} args={[0.1, 0.08]} />
-          <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.003} position-y={-0.18}>
+          <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.003} position-y={-0.18}>
             <primitive object={nodes.mixamorigHips} />
           </group>
           <skinnedMesh name="Ch23_Belt" geometry={nodes.Ch23_Belt.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Belt.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.003} />

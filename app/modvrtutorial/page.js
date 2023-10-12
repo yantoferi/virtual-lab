@@ -1,10 +1,14 @@
+"use client"
+
 import Modal from "@/components/base/modal"
 import Tutorial from "@/components/contents/tutorial"
+import { VRButton } from "@react-three/xr"
 import { IoMdDisc } from "react-icons/io"
 
 export default function TutorialVr() {
   return (
     <div className='w-full h-full bg-gray-100'>
+      <VRButton />
       <Tutorial mode='vr' />
       <Modal typeModal='vr' title='Perspektif VR'>
         <ol>
