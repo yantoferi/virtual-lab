@@ -4,16 +4,73 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/Book.glb --transform --
 Files: /home/TA/resource/Laboratory/Book.glb [1.52MB] > Book-transformed.glb [164.02KB] (89%)
 */
 
+import { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
+import { Vector3 } from 'three'
+import { Interactive, useXR } from '@react-three/xr'
 
 export function Book(props) {
+  // Refs
+  const bookRef = useRef(null)
+  const parentRef = useRef(null)
+
+  // useGLTF
   const { nodes, materials } = useGLTF('models/Book-transformed.glb')
+
+  const [isDynamic, setIsDynamic] = useState(true)
+  const [idControl, setIdControl] = useState(0)
+
+  // XR
+  const { session, controllers } = useXR()
+
+  useFrame((state, delta) => {
+    const adam = state.scene.getObjectByName('Adam')
+    if (!isDynamic && parentRef.current && parentRef.current.userData.parentType === 'rigid_parent') {
+      const offset = new Vector3(0, 0.1, -0.3)
+      offset.applyQuaternion(adam.quaternion)
+      offset.add(adam.position)
+      parentRef.current.position.copy(offset)
+    }
+    if (session && controllers.length !== 0) {
+      const gripPos = controllers[idControl].grip.matrixWorld
+      if (!isDynamic && parentRef.current && parentRef.current.userData.parentType === 'rigid_parent') {
+        parentRef.current.position.copy(new Vector3().setFromMatrixPosition(gripPos))
+        parentRef.current.position.add(new Vector3(0, -0.09, -0.1))
+      }
+    }
+  })
+
+  const grabObject = (xrEvent) => {
+    setIsDynamic(false)
+    if (!parentRef.current) {
+      parentRef.current = xrEvent.intersection?.object.parent
+    } else {
+      parentRef.current = null
+    }
+    const indexControl = ['right', 'left']
+    const leftOrRight = indexControl.indexOf(xrEvent.target.inputSource.handedness)
+    setIdControl(leftOrRight)
+  }
+
   return (
     <group {...props} dispose={null}>
-      <RigidBody colliders='cuboid' type={props.dynamic? 'dynamic':'kinematicPosition'} userData={{type: 'rigid_parent'}}>
-        <mesh castShadow receiveShadow geometry={nodes['Book_-_Encyclopedia'].geometry} material={materials.DefaultMaterial} position={[-1.242, 0.434, 0.624]} rotation={[0, 1.571, 0]} scale={0.08} onClick={(event) => props.getEvent(event.eventObject)} />
-      </RigidBody>
+      <Interactive
+        onSelectStart={grabObject}
+        onSelectEnd={() => setIsDynamic(true)}
+      >
+        <RigidBody ref={bookRef} colliders='cuboid' type={isDynamic? 'dynamic' : 'kinematicPosition'} userData={{ type: 'rigid_parent' }}>
+          <mesh castShadow receiveShadow geometry={nodes['Book_-_Encyclopedia'].geometry} material={materials.DefaultMaterial} position={[-1.242, 0.434, 0.624]} rotation={[0, 1.571, 0]} scale={0.08} onClick={(event) => {
+            setIsDynamic(!isDynamic)
+            if (!parentRef.current) {
+              parentRef.current = event.object.parent
+            } else {
+              parentRef.current = null
+            }
+          }} />
+        </RigidBody>
+      </Interactive>
     </group>
   )
 }
