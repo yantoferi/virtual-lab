@@ -27,7 +27,7 @@ export function Book(props) {
 
   useFrame((state, delta) => {
     const adam = state.scene.getObjectByName('Adam')
-    if (!isDynamic && parentRef.current && parentRef.current.userData.parentType === 'rigid_parent') {
+    if (!isDynamic && parentRef.current && parentRef.current.userData.type === 'rigid_parent') {
       const offset = new Vector3(0, 0.1, -0.3)
       offset.applyQuaternion(adam.quaternion)
       offset.add(adam.position)
@@ -35,7 +35,7 @@ export function Book(props) {
     }
     if (session && controllers.length !== 0) {
       const gripPos = controllers[idControl].grip.matrixWorld
-      if (!isDynamic && parentRef.current && parentRef.current.userData.parentType === 'rigid_parent') {
+      if (!isDynamic && parentRef.current && parentRef.current.userData.type === 'rigid_parent') {
         parentRef.current.position.copy(new Vector3().setFromMatrixPosition(gripPos))
         parentRef.current.position.add(new Vector3(0, -0.09, -0.1))
       }
