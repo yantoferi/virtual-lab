@@ -8,12 +8,15 @@ Source: https://sketchfab.com/3d-models/sitting-room-with-baked-textures-61fdbbe
 Title: Sitting Room with Baked Textures
 */
 
-import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
 
 export function Room(props) {
   const { nodes, materials } = useGLTF('models/room-transformed.glb')
+  useFrame(() => {
+    // 
+  }, 1)
   return (
     <group {...props} dispose={null}>
       <RigidBody colliders='trimesh' type='fixed' friction={0}>

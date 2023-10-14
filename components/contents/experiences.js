@@ -29,7 +29,7 @@ export default function Experiences() {
 	}
 
 	useFrame((state, delta) => {
-		const offsetObject = new Vector3(0, -0.05, -0.07)
+		const offsetObject = new Vector3(0, -0.02, -0.01)
 		const adam = state.scene.getObjectByName('Adam')
 
 		if (target.obj) {
@@ -37,7 +37,7 @@ export default function Experiences() {
 			const parent = scene.getObjectByProperty('uuid', parentUuid)
 			offsetObject.applyQuaternion(adam.quaternion)
 			offsetObject.add(adam.position)
-			parent.position.copy(offsetObject)
+			parent.position.copy(state.camera.position)
 		}
 	})
 	return (
