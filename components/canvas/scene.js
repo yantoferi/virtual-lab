@@ -2,10 +2,11 @@
 
 import { Canvas } from "@react-three/fiber"
 import { gate } from "../utils/tunnel"
+import { Preload } from "@react-three/drei"
 
 export default function Scene(props) {
   return (
-    <Canvas camera={{position: [0, 1, 1]}} eventSource={props.source}
+    <Canvas shadows camera={{position: [0, 1, 1]}} eventSource={props.source}
       style={{
         width: '100%',
         height: '100vh',
@@ -14,6 +15,7 @@ export default function Scene(props) {
       }}
     >
       <gate.Out />
+      <Preload all />
     </Canvas>
   )
 }
