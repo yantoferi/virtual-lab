@@ -12,7 +12,7 @@ export function Ball(props) {
   const { nodes, materials } = useGLTF('models/Ball-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <RigidBody colliders='ball' type='dynamic' userData={{type: 'rigid_parent'}}>
+      <RigidBody colliders='ball' type={props.dynamic? 'dynamic':'kinematicPosition'} userData={{type: 'rigid_parent'}}>
         <group position={[-1.244, 0.499, -1.518]} scale={0.7} onClick={(event) => props.getEvent(event.eventObject)}>
           <mesh castShadow receiveShadow geometry={nodes.Mesh.geometry} material={materials.blanco} />
           <mesh castShadow receiveShadow geometry={nodes.Mesh_1.geometry} material={materials.tango} />

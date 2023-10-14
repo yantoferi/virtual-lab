@@ -49,7 +49,7 @@ export function Adam(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1} enabledRotations={[false, false, false]} friction={0}>
+        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1} enabledRotations={[false, false, false]} friction={0} name='Adam'>
           <CapsuleCollider ref={colliderRef} args={[0.1, 0.08]} />
           <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.003} position-y={-0.18}>
             <primitive object={nodes.mixamorigHips} />
