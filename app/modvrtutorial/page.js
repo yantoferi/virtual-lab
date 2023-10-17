@@ -36,11 +36,11 @@ const content = [
   },
   {
     subtitle: 'Kendali',
-    description: 'Gunakan tombol thumbstick sebelah kanan untuk bergerak. Tekan tombol X pada controller kiri untuk berlari dan Y untuk melompat',
+    description: 'Gunakan tombol thumbstick sebelah kiri untuk bergerak. Tekan tombol grip pada controller kiri untuk berlari dan grip controller kanan untuk melompat',
   },
   {
     subtitle: 'Interaksi',
-    description: 'Ada beberapa objek yang dapat menerima interaksi anda. Arahkan controller kepada objek, jika objek berubah warna maka anda dapat berinteraksi dengan menahan trigger controller',
+    description: 'Ada beberapa objek yang dapat menerima interaksi anda. Arahkan controller kepada objek, maka akan ada instruksi untuk menekan trigger controller',
   },
   {
     subtitle: 'Akhiri tutorial',

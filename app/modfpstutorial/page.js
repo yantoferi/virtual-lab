@@ -19,7 +19,7 @@ export default function TutorialFps() {
       {isLock? <div className='absolute left-1/2 top-1/2 -transform-y-1/2 -transform-x-1/2 z-10'>
         <TfiTarget className='w-6 h-6 text-sky-600' />
       </div>:<MyButton />}
-      <Tutorial mode='fps' updateIsLock={changeLocked} />
+      <Tutorial mode='fps' updateIsLock={changeLocked} locked={isLock} />
       <Modal typeModal='fps' title='Perspektif orang pertama'>
         <ol>
           {content.map((item, id) => (
@@ -50,7 +50,7 @@ const content = [
   },
   {
     subtitle: 'Interaksi',
-    description: 'Ada beberapa objek yang dapat menerima interaksi anda. Arahkan ikon corsair kepada objek, jika objek berubah warna maka anda dapat berinteraksi dengan menekan klik kiri pada mouse.',
+    description: 'Ada beberapa objek yang dapat menerima interaksi anda. Arahkan ikon corsair kepada objek, maka akan ada instruksi untuk klik kiri pada mouse',
   },
   {
     subtitle: 'Akhiri tutorial',

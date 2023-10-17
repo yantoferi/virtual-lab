@@ -13,7 +13,7 @@ export default function Wrapper({ children }) {
 		{ name: 'right', keys: ['d'] },
 		{ name: 'jump', keys: ['Space'] },
 		{ name: 'run', keys: ['ShiftLeft'] },
-		{ name: 'action', keys: ['f'] },
+		{ name: 'quit', keys: ['q'] },
 	], [])
 
 	return (

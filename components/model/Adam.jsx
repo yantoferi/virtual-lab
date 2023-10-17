@@ -4,11 +4,13 @@ Command: npx gltfjsx@6.2.13 ../../asset/Adam.glb --transform --shadows
 Files: ../../asset/Adam.glb [36.21MB] > Adam-transformed.glb [2.33MB] (94%)
 */
 
-import React, { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGLTF, useAnimations, useKeyboardControls } from '@react-three/drei'
-import { CapsuleCollider, RigidBody, vec3, quat } from '@react-three/rapier'
+import { CapsuleCollider, RigidBody, vec3, quat, useRapier } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
 import { Vector3 } from "three"
+import { Ray } from '@dimforge/rapier3d-compat'
+import { useController, useXR } from '@react-three/xr'
 
 const charRotate = quat()
 const vectorMovement = new Vector3()
@@ -23,24 +25,88 @@ export function Adam(props) {
   const { nodes, materials, animations } = useGLTF('models/Adam-transformed.glb')
   const { actions } = useAnimations(animations, group)
 
+  const [pose, setPose] = useState("Idle")
+
   // Keyboard controls
-  const [, getKey] = useKeyboardControls()
+  const [subkey, getKey] = useKeyboardControls()
+
+  // Rapier
+  const { world } = useRapier()
+
+  // useXR
+  const leftGrip = useController('left')
+  const rightGrip = useController('right')
+  const { session, player } = useXR()
+
+  // Effect
+  useEffect(() => {
+    actions[pose].reset().fadeIn(0.5).play()
+
+    return () => {
+      actions[pose]?.fadeOut(0.5)
+    }
+  }, [pose, actions])
+  useEffect(() => {
+    subkey(state => state, pressed => {
+      if (pressed.forward) {
+        setPose('Walking')
+      }
+      if (pressed.backward) {
+        setPose('Backward')
+      }
+      if (pressed.left) {
+        setPose('Left')
+      }
+      if (pressed.right) {
+        setPose('Right')
+      }
+      if (pressed.run) {
+        setPose('Running')
+      }
+      if (Object.values(pressed).every(key => !key)) {
+        setPose('Idle')
+      }
+    })
+  }, [subkey])
 
   // Loop frame
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
+    const offsetVR = new Vector3(0, 0.23, -0.1)
     const offsetCam = new Vector3(0, 0.3, -0.1)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
 
-    offsetCam.applyQuaternion(currentRotate)
-    offsetCam.add(currentPos)
-    state.camera.position.copy(offsetCam)
+    if (session && player) {
+      offsetVR.applyQuaternion(currentRotate)
+      offsetVR.add(currentPos)
+      player.position.copy(offsetVR)
+    } else {
+      offsetCam.applyQuaternion(currentRotate)
+      offsetCam.add(currentPos)
+      state.camera.position.copy(offsetCam)
+    }
 
-    vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 50 : 20) * delta)
+    if (session && leftGrip) {
+      const direction = leftGrip.inputSource?.gamepad.axes
+      const gripRun = leftGrip.inputSource?.gamepad.buttons[1].pressed
+      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 50 : 20) * delta)
+    } else {
+      vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 50 : 20) * delta)
+    }
     vectorMovement.applyQuaternion(currentRotate)
-    adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
+    if (props.isLocked || session) adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
+
+    const raycastJump = new Ray(currentPos, { x: 0, y: -1, z: 0 })
+    const hitFloor = world.castRay(raycastJump, 0.3, false, undefined, undefined, undefined, colliderRef.current, adam.current)
+
+    if (session && rightGrip && (hitFloor?.toi <= 0.2)) {
+      const gripJump = rightGrip.inputSource?.gamepad.buttons[1].pressed
+      adam.current.applyImpulse({ x: 0, y: gripJump? 0.008:0, z: 0 }, true)
+    } else if (!session && jump && (hitFloor?.toi <= 0.2)) {
+      adam.current.applyImpulse({ x: 0, y: 0.008, z: 0 }, true)
+    }
 
     charRotate.setFromEuler(state.camera.rotation)
     adam.current.setRotation(quat({ ...currentRotate, y: charRotate.y, w: charRotate.w }), true)
