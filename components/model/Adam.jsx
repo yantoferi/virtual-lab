@@ -15,6 +15,7 @@ import { useController, useXR } from '@react-three/xr'
 const charRotate = quat()
 const rayDirection = vec3()
 const vectorMovement = new Vector3()
+let direction, gripJump
 
 export function Adam(props) {
   // Refs
@@ -92,42 +93,45 @@ export function Adam(props) {
     }
 
     // Movement
-    if (session && leftGrip) {
-      const direction = leftGrip.inputSource?.gamepad.axes
+    if (session && leftGrip && rightGrip) {
+      direction = leftGrip.inputSource?.gamepad.axes
+      gripJump = rightGrip.inputSource?.gamepad.buttons[1].pressed
       const gripRun = leftGrip.inputSource?.gamepad.buttons[1].pressed
       vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 40 : 20) * delta)
     } else {
       vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 40 : 20) * delta)
     }
     vectorMovement.applyQuaternion(currentRotate)
-    if (props.isLocked || session) adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
+    adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
 
     // Raycast for jump
     const raycastJump = new Ray(currentPos, { x: 0, y: -1, z: 0 })
     const hitFloor = world.castRay(raycastJump, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
 
-    // Raycast for auto step
+    // Jump
+    if ((jump || gripJump) && (hitFloor?.toi <= 0.19)) {
+      adam.current.setLinvel({ x: 0, y: 1.6, z: 0 }, true)
+    }
+
+    // Raycast for auto step stairs
+    if (direction) {
+      rayDirection.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).applyQuaternion(currentRotate)
+    } else {
+      rayDirection.set(right - left, 0, backward - forward).applyQuaternion(currentRotate)
+    }
     const raycastTop = new Ray(
       currentPos,
-      rayDirection.set(right - left, 0, backward - forward).applyQuaternion(currentRotate)
+      rayDirection
     )
     const raycastBot = new Ray(
       minOrigin,
-      rayDirection.set(right - left, 0, backward - forward).applyQuaternion(currentRotate)
+      rayDirection
     )
     const hitMax = world.castRay(raycastTop, 0.1, true, undefined, undefined, colliderRef.current, adam.current)
     const hitMin = world.castRay(raycastBot, 0.1, true, undefined, undefined, colliderRef.current, adam.current)
 
-    // Jump
-    if (session && rightGrip && (hitFloor?.toi <= 0.19)) {
-      const gripJump = rightGrip.inputSource?.gamepad.buttons[1].pressed
-      adam.current.setLinvel({ x: 0, y: gripJump? 1.6:0, z: 0 }, true)
-    } else if (!session && jump && (hitFloor?.toi <= 0.19)) {
-      adam.current.setLinvel({ x: 0, y: 1.6, z: 0 }, true)
-    }
-
     // Auto step stairs
-    if (!hitMax && hitMin && (forward || backward || left || right)) {
+    if (!hitMax && hitMin) {
       adam.current.setLinvel({ x: 0, y: 1.3, z: 0 }, true)
     }
 
@@ -139,7 +143,7 @@ export function Adam(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={3} enabledRotations={[false, false, false]} friction={0} name='Adam'>
+        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1.5} enabledRotations={[false, false, false]} friction={0} name='Adam'>
           <CapsuleCollider ref={colliderRef} args={[0.1, 0.08]} />
           <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.003} position-y={-0.18}>
             <primitive object={nodes.mixamorigHips} />

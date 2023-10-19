@@ -9,7 +9,7 @@ import { Controllers } from "@react-three/xr"
 
 const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 // const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
-// const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
+const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
 const Views = dynamic(() => import('@/components/canvas/views'))
@@ -24,7 +24,7 @@ export default function Simulation(props) {
       <Wrapper>
         {props.mode === 'vr' && <Controllers rayMaterial='red' />}
         <Labter />
-        {/* <Labs /> */}
+        <Labs />
         <Stair />
         <Adam isLocked={props.locked} />
         <RigidBody colliders='hull' type='fixed'>

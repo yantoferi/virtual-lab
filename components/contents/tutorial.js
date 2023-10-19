@@ -8,7 +8,6 @@ import Experiences from "./experiences"
 
 const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Room = dynamic(() => import('../model/Room').then(mod => mod.Room))
-const TV = dynamic(() => import('../model/Television').then(mod => mod.TV))
 const Views = dynamic(() => import('@/components/canvas/views'))
 
 export default function Tutorial(props) {
@@ -22,7 +21,6 @@ export default function Tutorial(props) {
 				{props.mode === 'vr' && <Controllers rayMaterial='red' />}
 				<Room />
 				<Adam isLocked={props.locked} />
-				<TV />
 				<Experiences />
 			</Wrapper>
 		</Views>
