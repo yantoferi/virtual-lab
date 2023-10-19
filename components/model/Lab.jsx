@@ -6,6 +6,7 @@ Files: /home/TA/resource/Lab.glb [7.33MB] > Lab-transformed.glb [425.16KB] (94%)
 
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { RigidBody } from '@react-three/rapier'
 
 export function Labs(props) {
   const { nodes, materials } = useGLTF('models/Lab-transformed.glb')
@@ -14,10 +15,12 @@ export function Labs(props) {
   }, 2)
   return (
     <group {...props} dispose={null}>
-      <group position={[10.904, 0.3, -3.486]}>
-        <mesh castShadow receiveShadow geometry={nodes.Cube013.geometry} material={materials.Plastic} />
-        <mesh castShadow receiveShadow geometry={nodes.Cube013_1.geometry} material={materials['ceramic room']} />
-      </group>
+      <RigidBody colliders='trimesh' type='fixed'>
+        <group position={[10.904, 0.3, -3.486]}>
+          <mesh castShadow receiveShadow geometry={nodes.Cube013.geometry} material={materials.Plastic} />
+          <mesh castShadow receiveShadow geometry={nodes.Cube013_1.geometry} material={materials['ceramic room']} />
+        </group>
+      </RigidBody>
     </group>
   )
 }

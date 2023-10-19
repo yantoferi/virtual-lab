@@ -13,6 +13,7 @@ import { Ray } from '@dimforge/rapier3d-compat'
 import { useController, useXR } from '@react-three/xr'
 
 const charRotate = quat()
+const rayDirection = vec3()
 const vectorMovement = new Vector3()
 
 export function Adam(props) {
@@ -72,12 +73,14 @@ export function Adam(props) {
   // Loop frame
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
-    const offsetVR = new Vector3(0, 0.23, -0.1)
-    const offsetCam = new Vector3(0, 0.3, -0.1)
+    const offsetVR = new Vector3(0, 0.23, -0.15)
+    const offsetCam = new Vector3(0, 0.3, -0.15)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
+    const minOrigin = new Vector3().copy(currentPos).add(new Vector3(0, -0.12, 0))
 
+    // Movement camera
     if (session && player) {
       offsetVR.applyQuaternion(currentRotate)
       offsetVR.add(currentPos)
@@ -88,34 +91,55 @@ export function Adam(props) {
       state.camera.position.copy(offsetCam)
     }
 
+    // Movement
     if (session && leftGrip) {
       const direction = leftGrip.inputSource?.gamepad.axes
       const gripRun = leftGrip.inputSource?.gamepad.buttons[1].pressed
-      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 50 : 20) * delta)
+      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 40 : 20) * delta)
     } else {
-      vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 50 : 20) * delta)
+      vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 40 : 20) * delta)
     }
     vectorMovement.applyQuaternion(currentRotate)
     if (props.isLocked || session) adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
 
+    // Raycast for jump
     const raycastJump = new Ray(currentPos, { x: 0, y: -1, z: 0 })
-    const hitFloor = world.castRay(raycastJump, 0.3, false, undefined, undefined, undefined, colliderRef.current, adam.current)
+    const hitFloor = world.castRay(raycastJump, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
 
-    if (session && rightGrip && (hitFloor?.toi <= 0.2)) {
+    // Raycast for auto step
+    const raycastTop = new Ray(
+      currentPos,
+      rayDirection.set(right - left, 0, backward - forward).applyQuaternion(currentRotate)
+    )
+    const raycastBot = new Ray(
+      minOrigin,
+      rayDirection.set(right - left, 0, backward - forward).applyQuaternion(currentRotate)
+    )
+    const hitMax = world.castRay(raycastTop, 0.1, true, undefined, undefined, colliderRef.current, adam.current)
+    const hitMin = world.castRay(raycastBot, 0.1, true, undefined, undefined, colliderRef.current, adam.current)
+
+    // Jump
+    if (session && rightGrip && (hitFloor?.toi <= 0.19)) {
       const gripJump = rightGrip.inputSource?.gamepad.buttons[1].pressed
-      adam.current.applyImpulse({ x: 0, y: gripJump? 0.008:0, z: 0 }, true)
-    } else if (!session && jump && (hitFloor?.toi <= 0.2)) {
-      adam.current.applyImpulse({ x: 0, y: 0.008, z: 0 }, true)
+      adam.current.setLinvel({ x: 0, y: gripJump? 1.6:0, z: 0 }, true)
+    } else if (!session && jump && (hitFloor?.toi <= 0.19)) {
+      adam.current.setLinvel({ x: 0, y: 1.6, z: 0 }, true)
     }
 
+    // Auto step stairs
+    if (!hitMax && hitMin && (forward || backward || left || right)) {
+      adam.current.setLinvel({ x: 0, y: 1.3, z: 0 }, true)
+    }
+
+    // Rotation by camera
     charRotate.setFromEuler(state.camera.rotation)
     adam.current.setRotation(quat({ ...currentRotate, y: charRotate.y, w: charRotate.w }), true)
-  }, 5)
+  }, 3)
 
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1} enabledRotations={[false, false, false]} friction={0} name='Adam'>
+        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={3} enabledRotations={[false, false, false]} friction={0} name='Adam'>
           <CapsuleCollider ref={colliderRef} args={[0.1, 0.08]} />
           <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.003} position-y={-0.18}>
             <primitive object={nodes.mixamorigHips} />
