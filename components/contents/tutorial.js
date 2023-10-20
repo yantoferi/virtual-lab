@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { Environment, PerspectiveCamera, PointerLockControls } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import Wrapper from "../utils/wrapper"
 import Experiences from "./experiences"
@@ -16,7 +16,7 @@ export default function Tutorial(props) {
 		<Views styling='w-full h-full'>
 			<PerspectiveCamera makeDefault position={[0, 1, 2]} />
 			<ambientLight color='white' intensity={2} />
-			<Environment files='../../public/hdr/cloudy.hdr' background />
+			{/* <Environment files='../../public/hdr/cloudy.hdr' background /> */}
 			{props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
 			<Wrapper>
 				{props.mode === 'vr' && <Controllers rayMaterial='red' />}
