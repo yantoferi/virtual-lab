@@ -4,10 +4,12 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/RoomTV.glb --transform 
 Files: /home/TA/resource/Laboratory/RoomTV.glb [2.28MB] > RoomTV-transformed.glb [378.62KB] (83%)
 */
 
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, useVideoTexture } from '@react-three/drei'
 
 export function RoomTV(props) {
   const { nodes, materials } = useGLTF('models/RoomTV-transformed.glb')
+  const texture = useVideoTexture('../../public/videos/video_1.mp4', { loop: true })
+  console.log(texture)
   return (
     <group {...props} dispose={null}>
       <group position={[0.207, 0.142, 2.153]} rotation={[-Math.PI / 2, 0, -1.325]} scale={0.6}>
