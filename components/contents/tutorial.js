@@ -8,7 +8,7 @@ import Experiences from "./experiences"
 
 const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Room = dynamic(() => import('../model/Room').then(mod => mod.Room))
-const Television = dynamic(() => import('../model/RoomTV').then(mod => mod.RoomTV))
+const RoomTV = dynamic(() => import('../model/RoomTV').then(mod => mod.RoomTV))
 const Views = dynamic(() => import('@/components/canvas/views'))
 
 export default function Tutorial(props) {
@@ -16,13 +16,13 @@ export default function Tutorial(props) {
 		<Views styling='w-full h-full'>
 			<PerspectiveCamera makeDefault position={[0, 1, 2]} />
 			<ambientLight color='white' intensity={2} />
-			<Environment files='hdr/cloudy.hdr' background />
+			<Environment files='../../public/hdr/cloudy.hdr' background />
 			{props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
 			<Wrapper>
 				{props.mode === 'vr' && <Controllers rayMaterial='red' />}
 				<Room />
 				<Adam isLocked={props.locked} />
-				<Television />
+				<RoomTV />
 				<Experiences />
 			</Wrapper>
 		</Views>

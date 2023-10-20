@@ -13,6 +13,7 @@ const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
 const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
+const Tables = dynamic(() => import('../model/Table').then(mod => mod.Tables))
 const Views = dynamic(() => import('@/components/canvas/views'))
 
 export default function Simulation(props) {
@@ -29,6 +30,7 @@ export default function Simulation(props) {
         <Stair />
         <Adam isLocked={props.locked} />
         <Roof />
+        <Tables />
         <RigidBody colliders='hull' type='fixed'>
           <Plane args={[50, 50]} receiveShadow rotation-x={-Math.PI / 2}>
             <meshPhysicalMaterial color='whitesmoke' />
