@@ -15,7 +15,7 @@ export default function TutorialFps() {
   }
 
   return (
-    <div className='w-full h-full bg-gray-100 relative'>
+    <div className='w-full h-full relative'>
       {isLock? <div className='absolute left-1/2 top-1/2 -transform-y-1/2 -transform-x-1/2 z-10'>
         <TfiTarget className='w-6 h-6 text-sky-600' />
       </div>:<MyButton />}

@@ -1,11 +1,14 @@
-export default function Lighting() {
+function SimulationLight() {
   return (
     <>
-      {/* <directionalLight color='white' intensity={3} position={[1.5, 9, 8]} castShadow>
-        <vector2 args={[2048, 2048]} attach='shadow-mapSize' />
-        <orthographicCamera args={[-60, 60, 60, -60]} attach='shadow-camera' />
-      </directionalLight> */}
-      <ambientLight color='white' intensity={2} />
+      <directionalLight color='white' intensity={3} position={[2, 7, 8]} castShadow shadow-size={2048}>
+        <orthographicCamera args={[-40, 40, 40, -40]} attach='shadow-camera' />
+      </directionalLight>
+      <ambientLight color='white' intensity={4} />
     </>
   )
+}
+
+export {
+  SimulationLight,
 }
