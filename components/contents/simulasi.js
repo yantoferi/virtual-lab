@@ -9,7 +9,7 @@ import { RigidBody } from "@react-three/rapier"
 import { Controllers } from "@react-three/xr"
 import DoorLocation from '../../public/location/doorlocation.json'
 
-// const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
+const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
 const Door = dynamic(() => import('../model/Door').then(mod => mod.Door))
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
@@ -34,7 +34,7 @@ export default function Simulation(props) {
           <Labter />
           <Cover />
           <Labs />
-          {/* <Adam isLocked={props.locked} /> */}
+          <Adam isLocked={props.locked} />
           {DoorLocation.map(datas => datas.data.map(item => {
             const yAxes = item.y
             const zAxes = item.z

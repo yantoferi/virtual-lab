@@ -40,7 +40,7 @@ export function RoomTV(props) {
       <mesh castShadow receiveShadow geometry={nodes.Cabinet1.geometry} material={materials.ceramic} position={[0.326, 0.058, 2.284]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
       <group position={[-0.214, 0.465, 2.185]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6}>
         <Interactive onSelect={changeVideo}>
-          <mesh castShadow receiveShadow geometry={nodes.TV_1.geometry} onClick={changeVideo}
+          <mesh castShadow receiveShadow geometry={nodes.TV_1.geometry} onClick={changeVideo} rotation-z={-Math.PI}
             onPointerEnter={event => { if (event.distance <= 0.7) toast.info('Klik untuk mengubah video!', { autoClose: 1000 }) }}>
             <meshStandardMaterial map={texture} attach='material' />
           </mesh>
