@@ -1,0 +1,9 @@
+.content {
+  background-color: blue;
+  width: 1200px;
+  height: 700px;
+}
+
+.inner-content {
+  background-color: red;
+}
