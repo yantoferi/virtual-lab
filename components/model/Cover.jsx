@@ -5,9 +5,13 @@ Files: /home/TA/resource/Laboratory/Cover.glb [14.45MB] > Cover-transformed.glb 
 */
 
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 
 export function Cover(props) {
   const { nodes, materials } = useGLTF('models/Cover-transformed.glb')
+  useFrame(() => {
+    // 
+  }, 4)
   return (
     <group {...props} dispose={null}>
       <group position={[-8.142, 2.88, 6.44]}>
