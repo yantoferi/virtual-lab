@@ -14,7 +14,7 @@ const Door = dynamic(() => import('../model/Door').then(mod => mod.Door))
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
 // const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
-// const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
+const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
 // const Tables = dynamic(() => import('../model/Table').then(mod => mod.Tables))
 // const Lands = dynamic(() => import('../model/Lands').then(mod => mod.Lands))
 const Views = dynamic(() => import('@/components/canvas/views'))
@@ -32,6 +32,7 @@ export default function Simulation(props) {
           <Labter />
           <Cover />
           <Labs />
+          <Stair />
           <Adam isLocked={props.locked} />
           {DoorLocation.map(datas => datas.data.map(item => {
             const yAxes = item.y
