@@ -2,10 +2,9 @@
 
 import { Suspense } from "react"
 import dynamic from "next/dynamic"
-import { OrbitControls, PerspectiveCamera, Plane, PointerLockControls } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls } from "@react-three/drei"
 import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
-import { RigidBody } from "@react-three/rapier"
 import { Controllers } from "@react-three/xr"
 import DoorLocation from '../../public/location/doorlocation.json'
 
@@ -25,8 +24,7 @@ export default function Simulation(props) {
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
         <PerspectiveCamera makeDefault position={[0, 2, 3]} />
-        {/* {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />} */}
-        <OrbitControls />
+        {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
         <SimulationLight />
         {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
