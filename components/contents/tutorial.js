@@ -24,7 +24,7 @@ export default function Tutorial(props) {
 					{props.mode === 'vr' && <Controllers rayMaterial='red' />}
 					<Room />
 					<Adam isLocked={props.locked} />
-					<RoomTV />
+					<RoomTV occlude={props.mode === 'vr'? true:false} />
 					<Experiences />
 				</Wrapper>
 			</Suspense>

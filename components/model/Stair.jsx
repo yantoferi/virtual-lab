@@ -16,7 +16,7 @@ export function Stair(props) {
   return (
     <group {...props} dispose={null}>
       <group position={[-2.932, 2.717, -3.017]} rotation={[Math.PI, 0, Math.PI]} scale={0.3}>
-        <RigidBody colliders='trimesh' type='fixed'>
+        <RigidBody colliders='trimesh' type='fixed' friction={1.5}>
           <mesh castShadow receiveShadow geometry={nodes.Cube011.geometry} material={materials['White Tiles Marble PBR Texture Seamless.001']} />
           <mesh castShadow receiveShadow geometry={nodes.Cube011_1.geometry} material={materials.Plastic} />
         </RigidBody>

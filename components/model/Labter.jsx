@@ -15,7 +15,7 @@ export function Labter(props) {
   }, 1)
   return (
     <group {...props} dispose={null}>
-      <RigidBody colliders='trimesh' type='fixed' friction={1.2}>
+      <RigidBody colliders='trimesh' type='fixed' friction={1.5}>
         <mesh castShadow receiveShadow geometry={nodes.Cube006.geometry} material={materials['labter-floor']} />
         <mesh castShadow receiveShadow geometry={nodes.Cube006_1.geometry} material={materials['White Wall 02-Freepoly.org']} />
         <mesh castShadow receiveShadow geometry={nodes.Cube006_2.geometry} material={materials['Default white wall']} />

@@ -3,7 +3,6 @@
 import { Canvas } from "@react-three/fiber"
 import { gate } from "../utils/tunnel"
 import { Preload } from "@react-three/drei"
-import { LinearToneMapping, ACESFilmicToneMapping, SRGBColorSpace } from "three"
 
 export default function Scene(props) {
   return (

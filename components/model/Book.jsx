@@ -12,23 +12,31 @@ import { toast } from 'react-toastify'
 export function Book(props) {
   const { nodes, materials } = useGLTF('models/Book-transformed.glb')
   return (
-    <group {...props} dispose={null}>
-      <Interactive onSelect={xrEvent => {
+    <Interactive
+      onSelect={xrEvent => {
+        if (xrEvent.intersection?.distance >= 0.18) {
+          return;
+        }
         const obj = xrEvent.intersection?.object.parent
         const index = xrEvent.target.index
         props.getObject(obj, index)
-      }} onHover={() => toast.info('Klik trigger untuk ambil benda', {autoClose: 1000})}>
-        <RigidBody colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} position={[1.3, 0.2, -0.7]} userData={{ type: 'rigid_parent' }}>
-          <mesh castShadow receiveShadow geometry={nodes.Old_Book_ST_Ives.geometry} material={materials['Old Book: St. Ives']} scale={0.6}
+      }}
+      onHover={(xrEvent) => {
+        if ((xrEvent.intersection?.distance <= 0.18) && props.objectId === '') {
+          toast.info('Klik trigger untuk ambil benda', { autoClose: 1000 })
+        }
+      }}
+    >
+      <RigidBody colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} position={[1.3, 0.2, -0.7]} userData={{ type: 'rigid_parent' }}>
+        <mesh castShadow receiveShadow geometry={nodes.Old_Book_ST_Ives.geometry} material={materials['Old Book: St. Ives']} scale={0.6}
           onClick={event => {
             if (event.distance <= 0.7) props.getObject(event.eventObject.parent)
           }}
           onPointerEnter={event => {
-            if (props.objectId === '' && (event.distance <= 0.7)) toast.info('Klik kiri untuk ambil benda', {autoClose: 1000})
+            if (props.objectId === '' && (event.distance <= 0.7)) toast.info('Klik kiri untuk ambil benda', { autoClose: 1000 })
           }} />
-        </RigidBody>
-      </Interactive>
-    </group>
+      </RigidBody>
+    </Interactive>
   )
 }
 

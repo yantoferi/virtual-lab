@@ -1,11 +1,13 @@
 "use client"
 
-import { Suspense } from "react"
 import dynamic from "next/dynamic"
-import { PerspectiveCamera, PointerLockControls } from "@react-three/drei"
+import { Suspense, useEffect, useMemo } from "react"
+import { useLoader, useThree } from "@react-three/fiber"
+import { Environment, PerspectiveCamera, PointerLockControls } from "@react-three/drei"
+import { Controllers } from "@react-three/xr"
+import { Audio, AudioListener, AudioLoader } from "three"
 import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
-import { Controllers } from "@react-three/xr"
 import DoorLocation from '../../public/location/doorlocation.json'
 
 const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
@@ -13,7 +15,7 @@ const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
 const Door = dynamic(() => import('../model/Door').then(mod => mod.Door))
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
-// const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
+const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
 // const Tables = dynamic(() => import('../model/Table').then(mod => mod.Tables))
 // const Lands = dynamic(() => import('../model/Lands').then(mod => mod.Lands))
@@ -26,14 +28,15 @@ export default function Simulation(props) {
         <PerspectiveCamera makeDefault position={[0, 2, 3]} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
         <SimulationLight />
-        {/* <Environment files='hdr/cloudy.hdr' background /> */}
+        <Environment files='hdr/cloudy.hdr' background />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
           <Labter />
-          <Cover />
           <Labs />
+          <Cover />
+          <Roof />
           <Stair />
-          <Adam isLocked={props.locked} />
+          <Adam />
           {DoorLocation.map(datas => datas.data.map(item => {
             const yAxes = item.y
             const zAxes = item.z
@@ -41,13 +44,28 @@ export default function Simulation(props) {
               <Door key={index} position={[pos, yAxes, zAxes]} rigidX={pos} />
             ))
           }))}
-          {/* <RigidBody colliders='hull' type='fixed'>
-            <Plane args={[50, 50]} receiveShadow rotation-x={-Math.PI / 2} position-y={0.3}>
-              <meshPhysicalMaterial color='whitesmoke' />
-            </Plane>
-          </RigidBody> */}
         </Wrapper>
       </Suspense>
     </Views>
+  )
+}
+
+function Sounds() {
+  const listener = useMemo(() => new AudioListener(), [])
+  const audio = useMemo(() => new Audio(listener), [])
+  const bufferAudio = useLoader(AudioLoader, '/audio/Reaching-Out.mp3')
+
+  const { camera } = useThree()
+
+  useEffect(() => {
+    camera.add(listener)
+    audio.setBuffer(bufferAudio)
+    audio.setLoop(true)
+    audio.play()
+
+    return () => audio.stop()
+  }, [])
+  return (
+    <group />
   )
 }

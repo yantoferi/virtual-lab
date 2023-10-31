@@ -4,14 +4,19 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/RoomTV.glb --transform 
 Files: /home/TA/resource/Laboratory/RoomTV.glb [2.28MB] > RoomTV-transformed.glb [378.62KB] (83%)
 */
 
+import { useRef } from 'react'
 import { Html, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { Interactive } from '@react-three/xr'
+import { Interactive, useXR } from '@react-three/xr'
 import { toast } from 'react-toastify'
 import Styles from '../../app/styles.module.css'
+import { DoubleSide } from 'three'
 
 export function RoomTV(props) {
+  const screen = useRef(null)
   const { nodes, materials } = useGLTF('models/RoomTV-transformed.glb')
+
+  const {controllers} = useXR()
 
   useFrame(() => {
     // 
@@ -28,10 +33,10 @@ export function RoomTV(props) {
       <mesh castShadow receiveShadow geometry={nodes.Cabinet1.geometry} material={materials.ceramic} position={[0.326, 0.058, 2.284]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
       <group position={[-0.214, 0.465, 2.185]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6}>
         <Interactive>
-          <mesh geometry={nodes.TV_1.geometry}
+          <mesh ref={screen} geometry={nodes.TV_1.geometry}
             onPointerEnter={event => { if (event.distance <= 0.7) toast.info('Tekan esc untuk realese cursor', { autoClose: 1000 }) }}>
             {/* <meshStandardMaterial map={texture} attach='material' /> */}
-            <Html className={Styles.content} transform scale={0.04} position-x={0.038} zIndexRange={[10010, 0]}>
+            <Html className={Styles.content} transform scale={0.04} position-x={0.038} occlude={props.occlude && [...controllers]} castShadow receiveShadow material={<meshStandardMaterial side={DoubleSide} opacity={0.1} />}>
               <div className='w-full h-full text-black'>
                 <iframe src='https://itk.ac.id/' className='w-full h-full' title='ITK' />
               </div>
