@@ -13,9 +13,9 @@ export default function SimulationFps() {
   }
   return (
     <div className='w-full h-full bg-white relative'>
-      {isLock? <div className='absolute left-1/2 top-1/2 -transform-y-1/2 -transform-x-1/2 z-10'>
+      {isLock ? <div className='absolute left-1/2 top-1/2 -transform-y-1/2 -transform-x-1/2 z-10'>
         <TfiTarget className='w-6 h-6 text-sky-600' />
-      </div>:<MyButton />}
+      </div> : <MyButton />}
       <Simulation mode='fps' updateIsLock={changeLocked} locked={isLock} />
     </div>
   )

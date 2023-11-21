@@ -50,7 +50,7 @@ const content = [
   },
   {
     subtitle: 'Interaksi',
-    description: 'Ada beberapa objek yang dapat menerima interaksi anda. Arahkan ikon corsair kepada objek, maka akan ada instruksi untuk klik kiri pada mouse',
+    description: 'Ada beberapa objek yang dapat menerima interaksi anda. Arahkan ikon corsair kepada objek, maka akan ada instruksi tertentu yang diberikan',
   },
   {
     subtitle: 'Akhiri tutorial',

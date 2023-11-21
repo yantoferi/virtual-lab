@@ -75,11 +75,11 @@ export function Adam(props) {
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
     const offsetVR = new Vector3(0, 0.23, -0.15)
-    const offsetCam = new Vector3(0, 0.3, -0.15)
+    const offsetCam = new Vector3(0, 1, -0.2)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
-    const minOrigin = new Vector3().copy(currentPos).add(new Vector3(0, -0.12, 0))
+    const minOrigin = new Vector3().copy(currentPos).add(new Vector3(0, -0.4, 0))
 
     // Movement camera
     if (session && player) {
@@ -97,20 +97,20 @@ export function Adam(props) {
       direction = leftGrip.inputSource?.gamepad.axes
       gripJump = rightGrip.inputSource?.gamepad.buttons[1].pressed
       const gripRun = leftGrip.inputSource?.gamepad.buttons[1].pressed
-      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 40 : 20) * delta)
+      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 4:2))
     } else {
-      vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 40 : 20) * delta)
+      vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 4 : 2))
     }
     vectorMovement.applyQuaternion(currentRotate)
     adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
 
     // Raycast for jump
     const raycastJump = new Ray(currentPos, { x: 0, y: -1, z: 0 })
-    const hitFloor = world.castRay(raycastJump, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
+    const hitFloor = world.castRay(raycastJump, 1.3, true, undefined, undefined, colliderRef.current, adam.current)
 
     // Jump
-    if ((jump || gripJump) && (hitFloor?.toi <= 0.19)) {
-      adam.current.setLinvel({ x: 0, y: 1.6, z: 0 }, true)
+    if ((jump || gripJump) && (hitFloor?.toi <= 0.6)) {
+      adam.current.setLinvel({ x: 0, y: 3, z: 0 }, true)
     }
 
     // Raycast for auto step stairs
@@ -127,12 +127,12 @@ export function Adam(props) {
       minOrigin,
       rayDirection
     )
-    const hitMax = world.castRay(raycastTop, 0.1, true, undefined, undefined, colliderRef.current, adam.current)
-    const hitMin = world.castRay(raycastBot, 0.1, true, undefined, undefined, colliderRef.current, adam.current)
+    const hitMax = world.castRay(raycastTop, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
+    const hitMin = world.castRay(raycastBot, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
 
     // Auto step stairs
     if (!hitMax && hitMin) {
-      adam.current.setLinvel({ x: 0, y: 1.3, z: 0 }, true)
+      adam.current.setLinvel({ x: 0, y: 2, z: 0 }, true)
     }
 
     // Rotation by camera
@@ -144,18 +144,18 @@ export function Adam(props) {
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
         <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1.5} enabledRotations={[false, false, false]} friction={0} name='Adam'>
-          <CapsuleCollider ref={colliderRef} args={[0.1, 0.08]} />
-          <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={.003} position-y={-0.18}>
+          <CapsuleCollider ref={colliderRef} args={[0.4, 0.2]} />
+          <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.010} position-y={-0.6}>
             <primitive object={nodes.mixamorigHips} />
           </group>
-          <skinnedMesh name="Ch23_Belt" geometry={nodes.Ch23_Belt.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Belt.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Body" geometry={nodes.Ch23_Body.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Body.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Eyelashes" geometry={nodes.Ch23_Eyelashes.geometry} material={materials.Ch23_hair} skeleton={nodes.Ch23_Eyelashes.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Hair" geometry={nodes.Ch23_Hair.geometry} material={materials.Ch23_hair} skeleton={nodes.Ch23_Hair.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Pants" geometry={nodes.Ch23_Pants.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Pants.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Shirt" geometry={nodes.Ch23_Shirt.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Shirt.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Shoes" geometry={nodes.Ch23_Shoes.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Shoes.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
-          <skinnedMesh name="Ch23_Suit" geometry={nodes.Ch23_Suit.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Suit.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={.003} />
+          <skinnedMesh name="Ch23_Belt" geometry={nodes.Ch23_Belt.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Belt.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Body" geometry={nodes.Ch23_Body.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Body.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Eyelashes" geometry={nodes.Ch23_Eyelashes.geometry} material={materials.Ch23_hair} skeleton={nodes.Ch23_Eyelashes.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Hair" geometry={nodes.Ch23_Hair.geometry} material={materials.Ch23_hair} skeleton={nodes.Ch23_Hair.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Pants" geometry={nodes.Ch23_Pants.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Pants.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Shirt" geometry={nodes.Ch23_Shirt.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Shirt.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Shoes" geometry={nodes.Ch23_Shoes.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Shoes.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
+          <skinnedMesh name="Ch23_Suit" geometry={nodes.Ch23_Suit.geometry} material={materials.Ch23_body} skeleton={nodes.Ch23_Suit.skeleton} rotation={[Math.PI / 2, 0, 0]} scale={0.010} />
         </RigidBody>
       </group>
     </group>

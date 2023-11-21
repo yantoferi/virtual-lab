@@ -12,36 +12,32 @@ import { toast } from 'react-toastify'
 export function Bottle(props) {
   const { nodes, materials } = useGLTF('models/Bottle-transformed.glb')
   return (
-    <group {...props} dispose={null}>
-      <group>
-        <Interactive
-          onSelect={xrEvent => {
-            if (xrEvent.intersection?.distance >= 0.18) {
-              return;
-            }
-            const obj = xrEvent.intersection?.object.parent
-            const index = xrEvent.target.index
-            props.getObject(obj, index)
+    <Interactive
+      onSelect={xrEvent => {
+        if (xrEvent.intersection?.distance >= 0.18) {
+          return;
+        }
+        const obj = xrEvent.intersection?.object.parent
+        const index = xrEvent.target.index
+        props.getObject(obj, index)
+      }}
+      onHover={(xrEvent) => {
+        if ((xrEvent.intersection?.distance <= 0.18) && props.objectId === '') {
+          toast.info('Klik trigger untuk ambil benda', { autoClose: 1000 })
+        }
+      }}
+    >
+      <RigidBody {...props} colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} userData={{ type: 'rigid_parent' }}>
+        <mesh castShadow receiveShadow geometry={nodes.multi_cleaner_bottle.geometry} material={materials.multi_cleaner_bottle} scale={0.6}
+          onClick={event => {
+            if (event.distance <= 0.7) props.getObject(event.eventObject.parent)
           }}
-          onHover={(xrEvent) => {
-            if ((xrEvent.intersection?.distance <= 0.18) && props.objectId === '') {
-              toast.info('Klik trigger untuk ambil benda', { autoClose: 1000 })
-            }
+          onPointerEnter={event => {
+            if (props.objectId === '' && (event.distance <= 0.7)) toast.info('Klik kiri untuk ambil benda', { autoClose: 1000 })
           }}
-        >
-          <RigidBody colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} position={[0.621, 0.4, -1.721]} userData={{ type: 'rigid_parent' }}>
-            <mesh castShadow receiveShadow geometry={nodes.multi_cleaner_bottle.geometry} material={materials.multi_cleaner_bottle} scale={0.6}
-              onClick={event => {
-                if (event.distance <= 0.7) props.getObject(event.eventObject.parent)
-              }}
-              onPointerEnter={event => {
-                if (props.objectId === '' && (event.distance <= 0.7)) toast.info('Klik kiri untuk ambil benda', { autoClose: 1000 })
-              }}
-            />
-          </RigidBody>
-        </Interactive>
-      </group>
-    </group>
+        />
+      </RigidBody>
+    </Interactive>
   )
 }
 

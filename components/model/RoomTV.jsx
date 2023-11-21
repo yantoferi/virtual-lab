@@ -4,19 +4,27 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/RoomTV.glb --transform 
 Files: /home/TA/resource/Laboratory/RoomTV.glb [2.28MB] > RoomTV-transformed.glb [378.62KB] (83%)
 */
 
-import { useRef } from 'react'
-import { Html, useGLTF } from '@react-three/drei'
+import { useRef, useState } from 'react'
+import { useGLTF, useVideoTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { Interactive, useXR } from '@react-three/xr'
+import { Interactive } from '@react-three/xr'
 import { toast } from 'react-toastify'
-import Styles from '../../app/styles.module.css'
-import { DoubleSide } from 'three'
 
 export function RoomTV(props) {
   const screen = useRef(null)
   const { nodes, materials } = useGLTF('models/RoomTV-transformed.glb')
 
-  const {controllers} = useXR()
+  const [idVideo, setIdVideo] = useState(1)
+
+  const texture = useVideoTexture(`/videos/video_${idVideo}.mp4`)
+
+  const changeVideo = () => {
+    if (idVideo === 4) {
+      setIdVideo(1)
+      return;
+    }
+    setIdVideo(idVideo + 1)
+  }
 
   useFrame(() => {
     // 
@@ -32,15 +40,26 @@ export function RoomTV(props) {
       <mesh castShadow receiveShadow geometry={nodes.Cabinet_cover.geometry} material={materials['wood (Oak Matt Antracite Gray)']} position={[-0.214, 0.052, 2.173]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
       <mesh castShadow receiveShadow geometry={nodes.Cabinet1.geometry} material={materials.ceramic} position={[0.326, 0.058, 2.284]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
       <group position={[-0.214, 0.465, 2.185]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6}>
-        <Interactive>
-          <mesh ref={screen} geometry={nodes.TV_1.geometry}
-            onPointerEnter={event => { if (event.distance <= 0.7) toast.info('Tekan esc untuk realese cursor', { autoClose: 1000 }) }}>
-            {/* <meshStandardMaterial map={texture} attach='material' /> */}
-            <Html className={Styles.content} transform scale={0.04} position-x={0.038} occlude={props.occlude && [...controllers]} castShadow receiveShadow material={<meshStandardMaterial side={DoubleSide} opacity={0.1} />}>
-              <div className='w-full h-full text-black'>
-                <iframe src='https://itk.ac.id/' className='w-full h-full' title='ITK' />
-              </div>
-            </Html>
+        <Interactive
+          onSelect={xrEvent => {
+            if (xrEvent.intersection?.distance >= 0.18) {
+              return;
+            }
+            changeVideo()
+          }}
+          onHover={(xrEvent) => {
+            if ((xrEvent.intersection?.distance <= 0.18) && props.objectId === '') {
+              toast.info('Klik trigger untuk ubah video', { autoClose: 1000 })
+            }
+          }}
+        >
+          <mesh ref={screen} geometry={nodes.TV_1.geometry} rotation-z={-Math.PI}
+            onPointerEnter={event => {
+              if (event.distance <= 0.7) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
+            }}
+            onClick={changeVideo}
+          >
+            <meshStandardMaterial map={texture} attach='material' />
           </mesh>
         </Interactive>
         <mesh castShadow receiveShadow geometry={nodes.TV_2.geometry} material={materials.frame} />

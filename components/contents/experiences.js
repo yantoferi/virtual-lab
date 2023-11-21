@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useFrame } from "@react-three/fiber"
 import { Vector3 } from "three"
 import { useXR } from "@react-three/xr"
@@ -56,9 +56,9 @@ export default function Experiences() {
 		}
 	}, 3)
 	return (
-		<>
-			<Bottle getObject={getObject} dynamic={isDynamic} objectId={objectUuid} />
-			<Book getObject={getObject} dynamic={isDynamic} objectId={objectUuid} />
-		</>
+		<Suspense fallback={null}>
+			<Bottle getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[0.621, 0.5, -1.721]} />
+			<Book getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[1.3, 0.2, -0.7]} />
+		</Suspense>
 	)
 }

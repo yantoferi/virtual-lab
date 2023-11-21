@@ -27,7 +27,7 @@ export function Book(props) {
         }
       }}
     >
-      <RigidBody colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} position={[1.3, 0.2, -0.7]} userData={{ type: 'rigid_parent' }}>
+      <RigidBody {...props} colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} userData={{ type: 'rigid_parent' }}>
         <mesh castShadow receiveShadow geometry={nodes.Old_Book_ST_Ives.geometry} material={materials['Old Book: St. Ives']} scale={0.6}
           onClick={event => {
             if (event.distance <= 0.7) props.getObject(event.eventObject.parent)
