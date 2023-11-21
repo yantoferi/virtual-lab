@@ -138,7 +138,7 @@ export function Adam(props) {
     // Rotation by camera
     charRotate.setFromEuler(state.camera.rotation)
     adam.current.setRotation(quat({ ...currentRotate, y: charRotate.y, w: charRotate.w }), true)
-  }, 10)
+  }, 20)
 
   return (
     <group ref={group} {...props} dispose={null}>
