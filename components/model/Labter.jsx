@@ -11,7 +11,7 @@ export function Labter(props) {
   const { nodes, materials } = useGLTF('models/Labter-transformed.glb')
   useFrame(() => {
     // 
-  }, 3)
+  }, 1)
   return (
     <group {...props} dispose={null}>
       <RigidBody colliders='trimesh' type='fixed'>
