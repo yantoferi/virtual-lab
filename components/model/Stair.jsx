@@ -11,7 +11,7 @@ export function Stair(props) {
   const { nodes, materials } = useGLTF('models/Stair-transformed.glb')
   useFrame(() => {
     // 
-  }, 4)
+  }, 2)
   return (
     <group {...props} dispose={null}>
       <RigidBody colliders='trimesh' type='fixed'>

@@ -41,7 +41,7 @@ export default function Experiences() {
 
 	useFrame((state) => {
 		if (objectUuid !== '') {
-			const offset = new Vector3(0, 0.1, -0.3)
+			const offset = new Vector3(0, 0.5, -0.5)
 			const benda = state.scene.getObjectByProperty('uuid', objectUuid)
 			const adam = state.scene.getObjectByName('Adam')
 			
@@ -57,8 +57,8 @@ export default function Experiences() {
 	}, 3)
 	return (
 		<Suspense fallback={null}>
-			<Bottle getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[0.621, 0.5, -1.721]} />
-			<Book getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[1.3, 0.2, -0.7]} />
+			<Bottle getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[1, 1, -5]} />
+			<Book getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[4, 1, -0.7]} />
 		</Suspense>
 	)
 }

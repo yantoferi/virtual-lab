@@ -14,7 +14,7 @@ export function Book(props) {
   return (
     <Interactive
       onSelect={xrEvent => {
-        if (xrEvent.intersection?.distance >= 0.18) {
+        if (xrEvent.intersection?.distance >= 0.5) {
           return;
         }
         const obj = xrEvent.intersection?.object.parent
@@ -22,18 +22,18 @@ export function Book(props) {
         props.getObject(obj, index)
       }}
       onHover={(xrEvent) => {
-        if ((xrEvent.intersection?.distance <= 0.18) && props.objectId === '') {
+        if ((xrEvent.intersection?.distance <= 0.5) && props.objectId === '') {
           toast.info('Klik trigger untuk ambil benda', { autoClose: 1000 })
         }
       }}
     >
       <RigidBody {...props} colliders='cuboid' type={props.dynamic ? "dynamic" : "kinematicPosition"} userData={{ type: 'rigid_parent' }}>
-        <mesh castShadow receiveShadow geometry={nodes.Old_Book_ST_Ives.geometry} material={materials['Old Book: St. Ives']} scale={0.6}
+        <mesh castShadow receiveShadow geometry={nodes.Old_Book_ST_Ives.geometry} material={materials['Old Book: St. Ives']} scale={1.6}
           onClick={event => {
-            if (event.distance <= 0.7) props.getObject(event.eventObject.parent)
+            if (event.distance <= 1.5) props.getObject(event.eventObject.parent)
           }}
           onPointerEnter={event => {
-            if (props.objectId === '' && (event.distance <= 0.7)) toast.info('Klik kiri untuk ambil benda', { autoClose: 1000 })
+            if (props.objectId === '' && (event.distance <= 1.5)) toast.info('Klik kiri untuk ambil benda', { autoClose: 1000 })
           }} />
       </RigidBody>
     </Interactive>

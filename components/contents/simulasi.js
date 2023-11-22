@@ -19,7 +19,13 @@ const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
 // const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
 const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet))
-const Views = dynamic(() => import('@/components/canvas/views'))
+const Views = dynamic(() => import('@/components/canvas/views'), {
+  loading: () => (
+    <div>
+      <h1>Loading views...</h1>
+    </div>
+  )
+})
 
 export default function Simulation(props) {
   return (
@@ -32,8 +38,8 @@ export default function Simulation(props) {
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
           <Adam />
-          <Labter />
           <Labs />
+          <Labter />
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
           ))}
@@ -43,7 +49,7 @@ export default function Simulation(props) {
           {stairsLocate.map(stair => (
             <Stair key={stair.id} pos={stair.position} rot={stair.rotation} />
           ))}
-          <Plane args={[130, 130]} rotation-x={-Math.PI/2} receiveShadow>
+          <Plane args={[130, 130]} rotation-x={-Math.PI / 2} receiveShadow>
             <meshStandardMaterial color='whitesmoke' />
           </Plane>
         </Wrapper>

@@ -18,7 +18,7 @@ export function RoomTV(props) {
 
   const texture = useVideoTexture(`/videos/video_${idVideo}.mp4`)
 
-  const changeVideo = () => {
+  const changeVideo = (event) => {
     if (idVideo === 4) {
       setIdVideo(1)
       return;
@@ -30,7 +30,7 @@ export function RoomTV(props) {
     // 
   }, 4)
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} scale={3}>
       <group position={[0.207, 0.142, 2.153]} rotation={[-Math.PI / 2, 0, -1.325]} scale={0.6}>
         <mesh castShadow receiveShadow geometry={nodes.book_cover005_1.geometry} material={materials['book_cover.005']} />
         <mesh castShadow receiveShadow geometry={nodes.book_cover005_2.geometry} material={materials.book_paper} />
@@ -42,27 +42,27 @@ export function RoomTV(props) {
       <group position={[-0.214, 0.465, 2.185]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6}>
         <Interactive
           onSelect={xrEvent => {
-            if (xrEvent.intersection?.distance >= 0.18) {
+            if (xrEvent.intersection?.distance >= 0.5) {
               return;
             }
             changeVideo()
           }}
           onHover={(xrEvent) => {
-            if ((xrEvent.intersection?.distance <= 0.18) && props.objectId === '') {
+            if ((xrEvent.intersection?.distance <= 0.5) && props.objectId === '') {
               toast.info('Klik trigger untuk ubah video', { autoClose: 1000 })
             }
           }}
         >
           <mesh ref={screen} geometry={nodes.TV_1.geometry} rotation-z={-Math.PI}
             onPointerEnter={event => {
-              if (event.distance <= 0.7) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
+              if (event.distance <= 1.5) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
             }}
             onClick={changeVideo}
           >
             <meshStandardMaterial map={texture} attach='material' />
           </mesh>
         </Interactive>
-        <mesh castShadow receiveShadow geometry={nodes.TV_2.geometry} material={materials.frame} />
+        <mesh castShadow receiveShadow position-x={-0.07} geometry={nodes.TV_2.geometry} material={materials.frame} />
       </group>
     </group>
   )

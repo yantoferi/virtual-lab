@@ -74,7 +74,7 @@ export function Adam(props) {
   // Loop frame
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
-    const offsetVR = new Vector3(0, 0.23, -0.15)
+    const offsetVR = new Vector3(0, 0.8, -0.25)
     const offsetCam = new Vector3(0, 1, -0.2)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
@@ -143,7 +143,7 @@ export function Adam(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={1.5} enabledRotations={[false, false, false]} friction={0} name='Adam'>
+        <RigidBody ref={adam} colliders={false} type='dynamic' position-y={2} enabledRotations={[false, false, false]} friction={0} name='Adam'>
           <CapsuleCollider ref={colliderRef} args={[0.4, 0.2]} />
           <group name="Armature" rotation={[Math.PI / 2, 0, -Math.PI]} scale={0.010} position-y={-0.6}>
             <primitive object={nodes.mixamorigHips} />

@@ -29,12 +29,6 @@ export function Labter(props) {
           <mesh castShadow receiveShadow geometry={nodes.Plane012_1.geometry} material={materials['Plaster wall floor 1']} />
         </group>
         <mesh castShadow receiveShadow geometry={nodes.Floor_4.geometry} material={materials['Plaster wall floor 1']} position={[0, 14, 0]} />
-        <group position={[-0.424, 7, 31.274]} rotation={[Math.PI, 0, Math.PI]}>
-          <mesh castShadow receiveShadow geometry={nodes.Cube004.geometry} material={materials['Plaster lppm']} />
-          <mesh castShadow receiveShadow geometry={nodes.Cube004_1.geometry} material={materials['Black glass']} />
-        </group>
-        <mesh castShadow receiveShadow geometry={nodes.Auditorium.geometry} material={materials['Plaster audit']} position={[-0.905, 9.5, 29.715]} />
-        <mesh castShadow receiveShadow geometry={nodes.Kalterisasi.geometry} material={materials['Plaster labs']} position={[-0.399, 2.5, 34.133]} />
       </RigidBody>
     </group>
   )

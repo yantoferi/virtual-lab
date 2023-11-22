@@ -10,7 +10,7 @@ export function Labs(props) {
   const { nodes, materials } = useGLTF('models/Lab-transformed.glb')
   useFrame(() => {
     // 
-  }, 5)
+  }, 4)
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Lab.geometry} material={materials['Plaster labs']} position={[0, 0.5, 0]} />
