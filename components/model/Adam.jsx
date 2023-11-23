@@ -82,15 +82,15 @@ export function Adam(props) {
     const minOrigin = new Vector3().copy(currentPos).add(new Vector3(0, -0.4, 0))
 
     // Movement camera
-    // if (session && player) {
-    //   offsetVR.applyQuaternion(currentRotate)
-    //   offsetVR.add(currentPos)
-    //   player.position.copy(offsetVR)
-    // } else {
-    //   offsetCam.applyQuaternion(currentRotate)
-    //   offsetCam.add(currentPos)
-    //   state.camera.position.copy(offsetCam)
-    // }
+    if (session && player) {
+      offsetVR.applyQuaternion(currentRotate)
+      offsetVR.add(currentPos)
+      player.position.copy(offsetVR)
+    } else {
+      offsetCam.applyQuaternion(currentRotate)
+      offsetCam.add(currentPos)
+      state.camera.position.copy(offsetCam)
+    }
 
     // Movement
     if (session && leftGrip && rightGrip) {

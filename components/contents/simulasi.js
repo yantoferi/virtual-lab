@@ -11,7 +11,7 @@ import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
 import { stairsLocate, toiletLocate, doorsLocate } from "../base/location"
 
-// const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
+const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom))
 const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
 const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door))
@@ -41,6 +41,7 @@ export default function Simulation(props) {
         {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
+          <Adam />
           <Bigroom />
           <Labs />
           <LabkomD />

@@ -5,6 +5,7 @@ Files: /home/TA/resource/Laboratory/Labter.glb [11.84MB] > Labter-transformed.gl
 */
 
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
 
 export function Labter(props) {
