@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { useFrame, useLoader, useThree } from "@react-three/fiber"
-import { Cylinder, Environment, PerspectiveCamera, Plane, PointerLockControls } from "@react-three/drei"
+import { Cylinder, Environment, OrbitControls, PerspectiveCamera, Plane, PointerLockControls } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import { CylinderCollider, RigidBody } from "@react-three/rapier"
 import { Audio, AudioListener, AudioLoader } from "three"
@@ -11,14 +11,17 @@ import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
 import { stairsLocate, toiletLocate, doorsLocate } from "../base/location"
 
-const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
-// const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
+// const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
+const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom))
+const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
 const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door))
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
-// const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
+const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
 const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet))
+const LabkomD = dynamic(() => import('../model/assets/Asset_labkom_d').then(mod => mod.LabkomD))
+const LabSipil = dynamic(() => import('../model/assets/Asset_labkom_sipil').then(mod => mod.LabSipil))
 const Views = dynamic(() => import('@/components/canvas/views'), {
   loading: () => (
     <div>
@@ -32,14 +35,19 @@ export default function Simulation(props) {
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
         <PerspectiveCamera makeDefault position={[0, 2, 3]} fov={55} />
-        {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
+        {/* {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />} */}
+        <OrbitControls />
         <SimulationLight />
         {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
-          <Adam />
+          <Bigroom />
           <Labs />
+          <LabkomD />
+          <LabSipil />
           <Labter />
+          <Cover />
+          <Roof />
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
           ))}
