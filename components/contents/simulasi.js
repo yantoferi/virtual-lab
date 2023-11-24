@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { useFrame, useLoader, useThree } from "@react-three/fiber"
-import { Cylinder, Environment, PerspectiveCamera, Plane, PointerLockControls } from "@react-three/drei"
+import { Cylinder, Environment, OrbitControls, PerspectiveCamera, Plane, PointerLockControls } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import { CylinderCollider, RigidBody } from "@react-three/rapier"
 import { Audio, AudioListener, AudioLoader } from "three"
@@ -11,40 +11,40 @@ import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
 import { stairsLocate, toiletLocate, doorsLocate } from "../base/location"
 
-const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
-const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom))
-const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover))
-const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door))
-const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs))
-const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter))
-const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop))
-const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair))
-const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet))
-const LabkomD = dynamic(() => import('../model/assets/Asset_labkom_d').then(mod => mod.LabkomD))
-const LabSipil = dynamic(() => import('../model/assets/Asset_labkom_sipil').then(mod => mod.LabSipil))
+// const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
+// const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom), {ssr: false})
+const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), {ssr: false})
+const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door), {ssr: false})
+const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs), {ssr: false})
+const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter), {ssr: false})
+const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), {ssr: false})
+const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair), {ssr: false})
+const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet), {ssr: false})
+const LabkomD = dynamic(() => import('../model/assets/Asset_labkom_d').then(mod => mod.LabkomD), {ssr: false})
+const Industri = dynamic(() => import('../model/assets/Asset_lab_industri').then(mod => mod.LabIndustri), {ssr: false})
 const Views = dynamic(() => import('@/components/canvas/views'), {
   loading: () => (
     <div>
       <h1>Loading views...</h1>
     </div>
-  )
+  ), ssr: false
 })
 
 export default function Simulation(props) {
   return (
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
-        <PerspectiveCamera makeDefault position={[0, 2, 3]} fov={55} />
-        {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
+        <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} />
+        {/* {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />} */}
+        <OrbitControls />
         <SimulationLight />
         {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
-          <Adam />
-          <Bigroom />
+          {/* <Bigroom /> */}
           <Labs />
           <LabkomD />
-          <LabSipil />
+          <Industri />
           <Labter />
           <Cover />
           <Roof />
@@ -53,7 +53,7 @@ export default function Simulation(props) {
           ))}
           {toiletLocate.map(toilet => (
             <Toilet key={toilet.id} position={toilet.position} rotation={toilet.rotation} />
-          ))}
+          ))} 
           {stairsLocate.map(stair => (
             <Stair key={stair.id} pos={stair.position} rot={stair.rotation} />
           ))}

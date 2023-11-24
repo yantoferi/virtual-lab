@@ -7,10 +7,10 @@ import { Controllers } from "@react-three/xr"
 import Wrapper from "../utils/wrapper"
 import Experiences from "./experiences"
 
-const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
-const Room = dynamic(() => import('../model/Room').then(mod => mod.Room))
-const RoomTV = dynamic(() => import('../model/RoomTV').then(mod => mod.RoomTV))
-const Views = dynamic(() => import('@/components/canvas/views'))
+const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam), {ssr: false})
+const Room = dynamic(() => import('../model/Room').then(mod => mod.Room), {ssr: false})
+const RoomTV = dynamic(() => import('../model/RoomTV').then(mod => mod.RoomTV), {ssr: false})
+const Views = dynamic(() => import('@/components/canvas/views'), {ssr: false})
 
 export default function Tutorial(props) {
 	return (

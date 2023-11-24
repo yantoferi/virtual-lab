@@ -16,7 +16,7 @@ export function Labter(props) {
   return (
     <group {...props} dispose={null}>
       <group position={[0, 0.5, 0]}>
-        <RigidBody colliders='trimesh'>
+        <RigidBody colliders='trimesh' type='fixed'>
           <mesh castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials.Plaster} />
           <mesh castShadow receiveShadow geometry={nodes.Plane005_1.geometry} material={materials['ceramic floor 1']} />
           <mesh castShadow receiveShadow geometry={nodes.Plane005_2.geometry} material={materials['Plaster wall floor 1']} />
