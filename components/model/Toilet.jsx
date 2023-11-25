@@ -10,7 +10,7 @@ export function Toilet(props) {
   const { nodes, materials } = useGLTF('models/Toilet-transformed.glb')
   useFrame(() => {
     // 
-  }, 6)
+  }, 14)
   return (
     <group {...props} dispose={null}>
       <group>

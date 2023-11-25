@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
-import { useEffect, useState, Suspense } from "react"
+import { useEffect, useState, Suspense, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
 import { Vector3 } from "three"
 import { useXR } from "@react-three/xr"
@@ -13,6 +13,9 @@ const Book = dynamic(() => import('../model/Book').then(mod => mod.Book))
 
 export default function Experiences() {
 	const router = useRouter()
+
+	const offset = useMemo(() => new Vector3(), [])
+	const offsetVR = useMemo(() => new Vector3(), [])
 
 	const [objectUuid, setObjectUuid] = useState('')
 	const [isDynamic, setIsDynamic] = useState(true)
@@ -40,8 +43,9 @@ export default function Experiences() {
 	}
 
 	useFrame((state) => {
+		offset.set(0, 0.5, -0.55)
+		offsetVR.set(0, -0.05, -0.1)
 		if (objectUuid !== '') {
-			const offset = new Vector3(0, 0.5, -0.5)
 			const benda = state.scene.getObjectByProperty('uuid', objectUuid)
 			const adam = state.scene.getObjectByName('Adam')
 			
@@ -49,7 +53,7 @@ export default function Experiences() {
 			offset.add(adam.position)
 			if (session && (controllers.length > 0)) {
 				benda.position.copy(new Vector3().setFromMatrixPosition(controllers[idController].grip.matrixWorld))
-				benda.position.add(new Vector3(0, -0.05, -0.1))
+				benda.position.add(offsetVR)
 			} else {
 				benda.position.copy(offset)
 			}

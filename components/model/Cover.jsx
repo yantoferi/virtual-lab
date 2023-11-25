@@ -12,14 +12,14 @@ export function Cover(props) {
   const { nodes, materials } = useGLTF('models/Cover-transformed.glb')
   useFrame(() => {
     // 
-  }, 23)
+  }, 10)
   return (
     <group {...props} dispose={null}>
       <group position={[15.218, 0.25, -44.201]}>
         <RigidBody colliders='trimesh' type='fixed'>
           <mesh castShadow receiveShadow geometry={nodes.Plane010.geometry} material={materials['Black glass']} />
-          <mesh castShadow receiveShadow geometry={nodes.Plane010_1.geometry} material={materials['Plaster wall cover']} />
         </RigidBody>
+          <mesh castShadow receiveShadow geometry={nodes.Plane010_1.geometry} material={materials['Plaster wall cover']} />
       </group>
     </group>
   )

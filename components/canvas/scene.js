@@ -6,13 +6,14 @@ import { Preload } from "@react-three/drei"
 
 export default function Scene(props) {
   return (
-    <Canvas shadows camera={{ position: [0, 1, 1] }}
+    <Canvas shadows
       eventSource={props.source}
       style={{
         width: '100%',
         height: '100vh',
         position: 'absolute',
         inset: 0,
+        pointerEvents: 'none',
       }}
     >
       <gate.Out />

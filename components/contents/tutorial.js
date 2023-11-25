@@ -18,7 +18,6 @@ export default function Tutorial(props) {
 			<Suspense fallback={null}>
 				<PerspectiveCamera makeDefault position={[0, 1, 2]} fov={55} />
 				<ambientLight color='white' intensity={2} />
-				{/* <Environment files='hdr/cloudy.hdr' background /> */}
 				{props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
 				<Wrapper>
 					{props.mode === 'vr' && <Controllers rayMaterial='red' />}

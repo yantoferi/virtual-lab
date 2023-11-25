@@ -7,6 +7,7 @@ Files: /home/TA/resource/Laboratory/RoomTV.glb [2.28MB] > RoomTV-transformed.glb
 import { useRef, useState } from 'react'
 import { useGLTF, useVideoTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { RigidBody } from '@react-three/rapier'
 import { Interactive } from '@react-three/xr'
 import { toast } from 'react-toastify'
 
@@ -37,7 +38,9 @@ export function RoomTV(props) {
       </group>
       <mesh castShadow receiveShadow geometry={nodes.book_cover006.geometry} material={materials['book_cover.006']} position={[0.207, 0.157, 2.153]} rotation={[-Math.PI / 2, 0, -1.458]} scale={0.6} />
       <mesh castShadow receiveShadow geometry={nodes.book_cover007.geometry} material={materials['book_cover.007']} position={[-0.614, 0.225, 2.164]} rotation={[-Math.PI / 2, 0, -0.615]} scale={0.6} />
-      <mesh castShadow receiveShadow geometry={nodes.Cabinet_cover.geometry} material={materials['wood (Oak Matt Antracite Gray)']} position={[-0.214, 0.052, 2.173]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
+      <RigidBody colliders='cuboid' type='fixed'>
+        <mesh castShadow receiveShadow geometry={nodes.Cabinet_cover.geometry} material={materials['wood (Oak Matt Antracite Gray)']} position={[-0.214, 0.052, 2.173]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
+      </RigidBody>
       <mesh castShadow receiveShadow geometry={nodes.Cabinet1.geometry} material={materials.ceramic} position={[0.326, 0.058, 2.284]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6} />
       <group position={[-0.214, 0.465, 2.185]} rotation={[-Math.PI, 0, -Math.PI]} scale={0.6}>
         <Interactive

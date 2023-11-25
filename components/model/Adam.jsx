@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.13 ../../asset/Adam.glb --transform --shadows
 Files: ../../asset/Adam.glb [36.21MB] > Adam-transformed.glb [2.33MB] (94%)
 */
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useGLTF, useAnimations, useKeyboardControls } from '@react-three/drei'
 import { CapsuleCollider, RigidBody, vec3, quat, useRapier } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
@@ -12,9 +12,7 @@ import { Vector3 } from "three"
 import { Ray } from '@dimforge/rapier3d-compat'
 import { useController, useXR } from '@react-three/xr'
 
-const charRotate = quat()
-const rayDirection = vec3()
-const vectorMovement = new Vector3()
+
 let direction, gripJump
 
 export function Adam(props) {
@@ -22,6 +20,17 @@ export function Adam(props) {
   const group = useRef()
   const adam = useRef()
   const colliderRef = useRef()
+
+  const charRotate = useMemo(() => quat(), [])
+  const offsetCam = useMemo(() => new Vector3(), [])
+  const offsetVR = useMemo(() => new Vector3(), [])
+  const offsetOrigin = useMemo(() => new Vector3(0, -0.4, 0), [])
+  const minOrigin = useMemo(() => new Vector3(), [])
+  const rayDirection = useMemo(() => vec3(), [])
+  const raycastJump = useMemo(() => new Ray({x: 0, y: 0, z: 0}, { x: 0, y: -1, z: 0 }), [])
+  const raycastTop = useMemo(() => new Ray(), [])
+  const raycastBot = useMemo(() => new Ray(), [])
+  const vectorMovement = useMemo(() => new Vector3(), [])
 
   // useGLTF
   const { nodes, materials, animations } = useGLTF('models/Adam-transformed.glb')
@@ -74,12 +83,12 @@ export function Adam(props) {
   // Loop frame
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
-    const offsetVR = new Vector3(0, 0.8, -0.25)
-    const offsetCam = new Vector3(0, 1, -0.2)
+    offsetVR.set(0, 0.8, -0.25)
+    offsetCam.set(0, 0.9, -0.3)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
-    const minOrigin = new Vector3().copy(currentPos).add(new Vector3(0, -0.4, 0))
+    minOrigin.copy(currentPos).add(offsetOrigin)
 
     // Movement camera
     if (session && player) {
@@ -97,7 +106,7 @@ export function Adam(props) {
       direction = leftGrip.inputSource?.gamepad.axes
       gripJump = rightGrip.inputSource?.gamepad.buttons[1].pressed
       const gripRun = leftGrip.inputSource?.gamepad.buttons[1].pressed
-      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 4:2))
+      vectorMovement.set(direction ? direction[2] : 0, 0, direction ? direction[3] : 0).multiplyScalar((gripRun ? 4 : 2))
     } else {
       vectorMovement.set(right - left, 0, backward - forward).multiplyScalar((run ? 4 : 2))
     }
@@ -105,7 +114,7 @@ export function Adam(props) {
     adam.current.setLinvel({ ...vectorMovement, y: currentVeloc.y }, true)
 
     // Raycast for jump
-    const raycastJump = new Ray(currentPos, { x: 0, y: -1, z: 0 })
+    raycastJump.origin = currentPos
     const hitFloor = world.castRay(raycastJump, 1.3, true, undefined, undefined, colliderRef.current, adam.current)
 
     // Jump
@@ -119,14 +128,8 @@ export function Adam(props) {
     } else {
       rayDirection.set(right - left, 0, backward - forward).applyQuaternion(currentRotate)
     }
-    const raycastTop = new Ray(
-      currentPos,
-      rayDirection
-    )
-    const raycastBot = new Ray(
-      minOrigin,
-      rayDirection
-    )
+    raycastTop.origin = currentPos; raycastTop.dir = rayDirection
+    raycastBot.origin = minOrigin; raycastBot.dir = rayDirection
     const hitMax = world.castRay(raycastTop, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
     const hitMin = world.castRay(raycastBot, 0.3, true, undefined, undefined, colliderRef.current, adam.current)
 
