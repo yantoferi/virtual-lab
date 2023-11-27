@@ -30,16 +30,10 @@ export function LabkomD(props) {
 
   useFrame(() => {
     // 
-  }, 5)
+  }, 15)
   return (
     <group {...props} dispose={null}>
       <group>
-        <group position={[25.899, 9.5, -34.34]} rotation={[0, -Math.PI / 2, 0]}>
-          <mesh castShadow receiveShadow geometry={nodes.Cube026.geometry} material={materials['Persian walnut PBR texture seamless.003']} />
-          <mesh castShadow receiveShadow geometry={nodes.Cube026_1.geometry} material={materials['Persian walnut PBR texture seamless.002']} />
-          <mesh castShadow receiveShadow geometry={nodes.Cube026_2.geometry} material={materials.PaletteMaterial002} />
-          <mesh castShadow receiveShadow geometry={nodes.Cube026_3.geometry} material={materials.PaletteMaterial001} />
-        </group>
         {tablePosition.map((table, id) => (
           <RigidBody key={id} colliders='cuboid' type='fixed' position={[...table.position]} rotation={[0, Math.PI / 2, 0]}>
             <group>
@@ -48,22 +42,6 @@ export function LabkomD(props) {
             </group>
           </RigidBody>
         ))}
-        <mesh castShadow receiveShadow geometry={nodes.Office_Chair_REX.geometry} material={materials['Office Chair_Fabric']} position={[25.134, 9.5, -37.415]} rotation={[0, -Math.PI / 2, 0]} />
-        <group position={[18.091, 9.5, -33.376]} rotation={[0, Math.PI / 2, 0]} scale={1.641}>
-          <RigidBody colliders='cuboid' type='fixed'>
-            <mesh castShadow receiveShadow geometry={nodes.Cube027.geometry} material={materials.tv_wood} />
-          </RigidBody>
-          <mesh castShadow receiveShadow geometry={nodes.Cube027_1.geometry} material={materials.PaletteMaterial003} />
-          <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry} material={materials.PaletteMaterial004} />
-          <mesh castShadow receiveShadow geometry={nodes.Cube027_3.geometry} material={materials.PaletteMaterial005} />
-        </group>
-        <group position={[24.284, 10.47, -37.505]} scale={0.844}>
-          <mesh castShadow receiveShadow geometry={nodes.Untitled002.geometry} material={materials.PaletteMaterial006} />
-          <mesh castShadow receiveShadow geometry={nodes.Untitled002_1.geometry} material={materials['display.002']} />
-          <mesh castShadow receiveShadow geometry={nodes.Untitled002_2.geometry}>
-            <meshStandardMaterial map={vidTexture} />
-          </mesh>
-        </group>
       </group>
     </group>
   )

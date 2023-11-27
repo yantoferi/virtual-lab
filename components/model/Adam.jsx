@@ -71,9 +71,6 @@ export function Adam(props) {
       if (pressed.right) {
         setPose('Right')
       }
-      if (pressed.run) {
-        setPose('Running')
-      }
       if (Object.values(pressed).every(key => !key)) {
         setPose('Idle')
       }
@@ -141,7 +138,7 @@ export function Adam(props) {
     // Rotation by camera
     charRotate.setFromEuler(state.camera.rotation)
     adam.current.setRotation(quat({ ...currentRotate, y: charRotate.y, w: charRotate.w }), true)
-  }, 20)
+  }, 30)
 
   return (
     <group ref={group} {...props} dispose={null}>

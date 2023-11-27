@@ -8,6 +8,7 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody, useRapier, vec3, quat } from '@react-three/rapier'
 import { Euler } from 'three'
+import { Interactive } from '@react-three/xr'
 
 export function Door(props) {
   // Refs
@@ -18,16 +19,15 @@ export function Door(props) {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const {world} = useRapier()
+  const { world } = useRapier()
 
   useEffect(() => {
-    const [currentLeft, currentRight] = [quat(doorLeft.current.rotation()), quat(doorRight.current.rotation())]
     if (isOpen) {
-      doorLeft.current.setRotation(quat().setFromAxisAngle(vec3({x:0, y:1, z:0}), Math.PI/2 - props.rotation[1]))
-      doorRight.current.setRotation(quat().setFromAxisAngle(vec3({x:0, y:1, z:0}), Math.PI/2 - props.rotation[1]))
+      doorLeft.current.setRotation(quat().setFromAxisAngle(vec3({ x: 0, y: 1, z: 0 }), Math.PI / 2 - props.rotation[1]))
+      doorRight.current.setRotation(quat().setFromAxisAngle(vec3({ x: 0, y: 1, z: 0 }), Math.PI / 2 - props.rotation[1]))
     } else {
-      doorLeft.current.setRotation(quat().setFromAxisAngle(vec3({x:0, y:1, z:0}), props.rotation[1]))
-      doorRight.current.setRotation(quat().setFromAxisAngle(vec3({x:0, y:1, z:0}), props.rotation[1] !== 0? -props.rotation[1]:-Math.PI ))
+      doorLeft.current.setRotation(quat().setFromAxisAngle(vec3({ x: 0, y: 1, z: 0 }), props.rotation[1]))
+      doorRight.current.setRotation(quat().setFromAxisAngle(vec3({ x: 0, y: 1, z: 0 }), props.rotation[1] !== 0 ? -props.rotation[1] : -Math.PI))
     }
   }, [isOpen])
 
@@ -39,14 +39,16 @@ export function Door(props) {
     // 
   }, 3)
   return (
-    <group {...props} dispose={null} onClick={openDoor}>
-      <RigidBody ref={doorLeft} colliders='cuboid' type='fixed' position-z={0.85}>
-        <mesh castShadow receiveShadow geometry={nodes.Door_double.geometry} material={materials['Afromosia Fine Wood']} position-z={-0.85} />
-      </RigidBody>
-      <RigidBody ref={doorRight} colliders='cuboid' type='fixed' position-z={-0.85}>
-        <mesh castShadow receiveShadow geometry={nodes.Door_double.geometry} material={materials['Afromosia Fine Wood']} position-z={-0.85} />
-      </RigidBody>
-    </group>
+    <Interactive onSelect={openDoor}>
+      <group {...props} dispose={null} onClick={openDoor}>
+        <RigidBody ref={doorLeft} colliders='cuboid' type='fixed' position-z={0.85}>
+          <mesh castShadow receiveShadow geometry={nodes.Door_double.geometry} material={materials['Afromosia Fine Wood']} position-z={-0.85} />
+        </RigidBody>
+        <RigidBody ref={doorRight} colliders='cuboid' type='fixed' position-z={-0.85}>
+          <mesh castShadow receiveShadow geometry={nodes.Door_double.geometry} material={materials['Afromosia Fine Wood']} position-z={-0.85} />
+        </RigidBody>
+      </group>
+    </Interactive>
   )
 }
 

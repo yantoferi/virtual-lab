@@ -16,7 +16,7 @@ export default function Tutorial(props) {
 	return (
 		<Views styling='w-full h-full'>
 			<Suspense fallback={null}>
-				<PerspectiveCamera makeDefault position={[0, 1, 2]} fov={55} />
+				<PerspectiveCamera makeDefault position={[0, 1, 2]} fov={55} far={20} />
 				<ambientLight color='white' intensity={2} />
 				{props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
 				<Wrapper>

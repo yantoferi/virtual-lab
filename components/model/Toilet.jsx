@@ -5,6 +5,7 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/Toilet.glb --shadows
 
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { RigidBody } from '@react-three/rapier'
 
 export function Toilet(props) {
   const { nodes, materials } = useGLTF('models/Toilet-transformed.glb')
@@ -14,7 +15,9 @@ export function Toilet(props) {
   return (
     <group {...props} dispose={null}>
       <group>
-        <mesh castShadow receiveShadow geometry={nodes.Plane006.geometry} material={materials['Plaster toilets']} />
+        <RigidBody colliders='cuboid' type='fixed'>
+          <mesh castShadow receiveShadow geometry={nodes.Plane006.geometry} material={materials['Plaster toilets']} />
+        </RigidBody>
         <mesh castShadow receiveShadow geometry={nodes.Plane006_1.geometry} material={materials['Plaster toilet top']} />
       </group>
     </group>
