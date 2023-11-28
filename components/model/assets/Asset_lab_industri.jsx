@@ -12,7 +12,7 @@ export function LabIndustri(props) {
   const { nodes, materials } = useGLTF('models/Asset_lab_industri-transformed.glb')
   useFrame(() => {
     // 
-  }, 7)
+  }, 17)
   return (
     <group {...props} dispose={null}>
       <group>
@@ -49,8 +49,8 @@ export function LabIndustri(props) {
         <RigidBody colliders='cuboid' type='fixed'>
           <mesh castShadow receiveShadow geometry={nodes['File_Cabinets-Freepolyorg'].geometry} material={materials['01 - Default']} position={[25.073, 5, -38.043]} />
         </RigidBody>
-        <RigidBody colliders='ball' type='dynamic' mass={2}>
-          <mesh castShadow receiveShadow geometry={nodes.defaultMaterial.geometry} material={materials.DefaultMaterial} position={[23.358, 5.898, -34.352]} rotation={[0, Math.PI / 4, 0]} scale={0.291} />
+        <RigidBody colliders='cuboid' type='dynamic' mass={2}>
+          <mesh castShadow receiveShadow geometry={nodes.defaultMaterial.geometry} material={materials.DefaultMaterial} position={[23.358, 6.898, -34.352]} rotation={[0, Math.PI / 4, 0]} scale={0.291} />
         </RigidBody>
         <instancedMesh args={[nodes['706336_w'].geometry, materials.FirstAidSupply3, 5]} castShadow receiveShadow instanceMatrix={nodes['706336_w'].instanceMatrix} />
         <instancedMesh args={[nodes['z0073-24-Unit-First-Aid-Kit-OSHA-Metal-Box014'].geometry, materials.FirstAidSupply2, 5]} castShadow receiveShadow instanceMatrix={nodes['z0073-24-Unit-First-Aid-Kit-OSHA-Metal-Box014'].instanceMatrix} />

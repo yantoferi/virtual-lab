@@ -21,7 +21,7 @@ const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), 
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair), {ssr: false})
 const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet), {ssr: false})
 const LabkomD = dynamic(() => import('../model/assets/Asset_labkom_d').then(mod => mod.LabkomD), {ssr: false})
-// const Industri = dynamic(() => import('../model/assets/Asset_lab_industri').then(mod => mod.LabIndustri), {ssr: false})
+const Industri = dynamic(() => import('../model/assets/Asset_lab_industri').then(mod => mod.LabIndustri), {ssr: false})
 const Views = dynamic(() => import('@/components/canvas/views'), {ssr: false})
 
 export default function Simulation(props) {
@@ -38,6 +38,7 @@ export default function Simulation(props) {
           <Adam />
           <Bigroom />
           <Cover />
+          <Industri />
           <Labter />
           <Labs />
           <LabkomD />
