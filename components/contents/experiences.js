@@ -44,7 +44,7 @@ export default function Experiences() {
 
 	useFrame((state) => {
 		offset.set(0, 0.5, -0.55)
-		offsetVR.set(0, -0.05, -0.1)
+		offsetVR.set(0, -0.08, -0.13)
 		if (objectUuid !== '') {
 			const benda = state.scene.getObjectByProperty('uuid', objectUuid)
 			const adam = state.scene.getObjectByName('Adam')
