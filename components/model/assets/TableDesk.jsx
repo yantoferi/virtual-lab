@@ -12,7 +12,7 @@ export function TableDesk(props) {
   const { nodes, materials } = useGLTF('models/TableDesk-transformed.glb')
   useFrame(() => {
     // 
-  }, 14)
+  }, 20)
   return (
     <group {...props} dispose={null}>
       <group rotation={[0, Math.PI / 2, 0]}>

@@ -11,7 +11,7 @@ export function Labs(props) {
   const { nodes, materials } = useGLTF('models/Lab-transformed.glb')
   useFrame(() => {
     // 
-  }, 3)
+  }, 4)
   return (
     <group {...props} dispose={null}>
       {bigLabPos.map((bigLab, id) => (

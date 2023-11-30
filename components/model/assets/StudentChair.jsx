@@ -11,10 +11,10 @@ export function ClassChair(props) {
   const { nodes, materials } = useGLTF('models/StudentChair-transformed.glb')
   useFrame(() => {
     // 
-  }, 10)
+  }, 12)
   return (
     <group {...props} dispose={null}>
-      <group position={[0, 0.597, 0]} scale={0.7}>
+      <group position={[0, 0.597, -0.5]} scale={0.7}>
         <mesh castShadow receiveShadow geometry={nodes.Plane110_Plane096.geometry} material={materials.PaletteMaterial002} />
         <mesh castShadow receiveShadow geometry={nodes.Plane110_Plane096_1.geometry} material={materials.PaletteMaterial001} />
       </group>

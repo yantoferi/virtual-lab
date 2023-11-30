@@ -11,7 +11,7 @@ export function Computer(props) {
   const { nodes, materials } = useGLTF('models/Computer-transformed.glb')
   useFrame(() => {
     // 
-  }, 12)
+  }, 14)
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Untitled075.geometry} material={materials.PaletteMaterial002} />

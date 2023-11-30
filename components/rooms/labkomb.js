@@ -15,7 +15,7 @@ export default function LabkomB() {
           <TableDesk key={id} position={[posX, 9.5, posZ]} rotation={[0, -Math.PI / 2, 0]} />
         ))
       ))}
-      <WhiteBoard position={[22.1261, 9.5, -5.29514]} scale={0.8} rotation-y={-Math.PI / 2} />
+      <WhiteBoard position={[22.1261, 9.5, -5.29514]} scale={0.6} rotation-y={-Math.PI / 2} />
       {compPosition[0].map(posX => (
         compPosition[2].map((posZ, id) => (
           <Computer key={id} position={[posX, 10.4697, posZ]} rotation-y={-Math.PI / 2} />
