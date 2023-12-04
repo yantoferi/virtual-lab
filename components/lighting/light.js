@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { useHelper } from "@react-three/drei"
-import { DirectionalLightHelper } from "three"
+import { DirectionalLightHelper, PointLightHelper } from "three"
 
 function SimulationLight() {
   const light = useRef(null)
@@ -15,6 +15,15 @@ function SimulationLight() {
   )
 }
 
+function RoomLight(props) {
+  const point = useRef(null)
+  useHelper(point, PointLightHelper, 1, 'red')
+  return (
+    <pointLight ref={point} {...props} color='white' castShadow intensity={20} shadow-bias={-0.0001} />
+  )
+}
+
 export {
   SimulationLight,
+  RoomLight,
 }

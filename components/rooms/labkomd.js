@@ -4,7 +4,9 @@ import dynamic from "next/dynamic"
 import { Suspense } from "react"
 
 const Computer = dynamic(() => import('../model/assets/Computer').then(mod => mod.Computer), { ssr: false })
+const OfficeChair = dynamic(() => import('../model/assets/OfficeChair').then(mod => mod.OfficeChair), { ssr: false })
 const TableDesk = dynamic(() => import('../model/assets/TableDesk').then(mod => mod.TableDesk), { ssr: false })
+const WhiteBoard = dynamic(() => import('../model/assets/Whiteboard').then(mod => mod.Whiteboard), { ssr: false })
 
 export default function LabkomD() {
   return (

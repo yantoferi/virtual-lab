@@ -6,6 +6,7 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Lab.glb --shadows --keepgroups
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import { RoomLight } from '../lighting/light'
 
 export function Labs(props) {
   const { nodes, materials } = useGLTF('models/Lab-transformed.glb')
@@ -39,6 +40,7 @@ export function Labs(props) {
           <mesh castShadow receiveShadow geometry={nodes['Lab-top_small'].geometry} material={materials['Plaster lab small top']} position={[-0.092, 4.15, 0]} />
         </group>
       ))}
+      <RoomLight position={[0, 8, -28.5]} targetPos={[0, 6, -28.5]} />
     </group>
   )
 }
