@@ -4,11 +4,27 @@ import dynamic from "next/dynamic"
 import { Suspense } from "react"
 
 const CncMachine = dynamic(() => import('../model/assets/CncMachine').then(mod => mod.CncMachine), {ssr: false})
+const DrillPress = dynamic(() => import('../model/assets/Drill_press').then(mod => mod.DrillPress), {ssr: false})
+const LatheMachine = dynamic(() => import('../model/assets/Desk_lathe_animated').then(mod => mod.LatheMachine), {ssr: false})
+const Printer = dynamic(() => import('../model/assets/PrinterThree').then(mod => mod.PrinterThree), {ssr: false})
+const TableRead = dynamic(() => import('../model/assets/TableReading').then(mod => mod.TableReading), {ssr: false})
 
 export default function WorkshopC() {
   return (
     <Suspense fallback={null}>
-      <CncMachine position={[0, 0.12, 0]} />
+      <CncMachine position={[-2.0663, 0.8, 4]} scale={0.3} />
+      <DrillPress position={[-4.50348, 1.25979, 0.158228]} scale={0.1} />
+      <LatheMachine position={[-3.14039, 0.890086, 7.31312]} rotation={[0, -Math.PI, 0]} scale={1} />
+      {tableReadPos.map((table, id) => (
+        <TableRead key={id} position={[...table.position]} rotation={[...table.rotation]} />
+      ))}
+      <Printer position={[4.04788, 1.41249, 4.6743]} />
     </Suspense>
   )
 }
+
+const tableReadPos = [
+  {position: [4.02509, 0.5, 1.16583], rotation: [0, Math.PI/2, 0]},
+  {position: [4.02509, 0.5, 2.89401], rotation: [0, Math.PI/2, 0]},
+  {position: [4.02509, 0.5, 4.55132], rotation: [0, Math.PI/2, 0]},
+]
