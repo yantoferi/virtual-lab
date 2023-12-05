@@ -27,7 +27,7 @@ export default function Simulation(props) {
   return (
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
-        <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={30} />
+        <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={25} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
         <SimulationLight />
         <Wrapper>
