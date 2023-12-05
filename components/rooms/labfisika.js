@@ -14,7 +14,7 @@ const WoodShelf = dynamic(() => import('../model/assets/WoodShelf').then(mod => 
 export default function PhysicLab() {
   return (
     <Suspense fallback={null}>
-      <WhiteBoard position={[0, 5, -23.9169]} scale={0.6} />
+      <WhiteBoard position={[0, 5, -23.9169]} scale={0.6} rotation-y={Math.PI/2} />
       <CabinetClose position={[-2.04833, 5, -8.46838]} />
       {cabinetPos.map((cabinet, id) => (
         <GreyCabinet key={id} position={[...cabinet.position]} rotation={[...cabinet.rotation]} />
@@ -76,11 +76,11 @@ const woodShelfPos = [
 const cabinetPos = [
   {
     position: [-3.53584, 5, -23.9169],
-    rotation: [0, 0, 0]
+    rotation: [0, Math.PI / 2, 0]
   },
   {
     position: [-2.30754, 5, -23.9169],
-    rotation: [0, 0, 0]
+    rotation: [0, Math.PI / 2, 0]
   },
   {
     position: [-3.53584, 5, -8.48353],

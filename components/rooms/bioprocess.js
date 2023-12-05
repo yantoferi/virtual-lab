@@ -17,7 +17,16 @@ export default function Bioprocess() {
       <Laminar position={[23.4458, 4.89652, -22.9061]} rotation={[0, -Math.PI, 0]} />
       <GreyCabinet position={[21.7127, 5, -22.7704]} rotation={[0, -Math.PI/2, 0]} />
       <CabinetClose position={[25.1567, 5, -22.737]} rotation={[0, 0, 0]} />
-      <Microscope position={[25.6835, 5.91236, -29.2646]} rotation={[0, -Math.PI, 0]} scale={0.01} />
+      <Microscope position={[25.6835, 6.31236, -29.2646]} rotation={[0, -Math.PI, 0]} scale={0.01} />
+      {tableDeskPos.map((table, id) => (
+        <TableDesk key={id} position={[...table.position]} rotation={[...table.rotation]} />
+      ))}
+      {officeTablePos.map((table, id) => (
+        <TableOffice key={id} position={[...table.position]} rotation={[...table.rotation]} />
+      ))}
+      {woodShelfPos.map((table, id) => (
+        <WoodShelf key={id} position={[...table.position]} rotation={[...table.rotation]} />
+      ))}
     </Suspense>
   )
 }
@@ -115,7 +124,7 @@ const woodShelfPos = [
 const tableDeskPos = [
   {
     position: [20.2833, 5, -22.8671],
-    rotation: [0, -Math.PI, 0]
+    rotation: [0, Math.PI/2, 0]
   },
   {
     position: [25.6835, 5, -29.2646],

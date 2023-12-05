@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
 
-const Cupboard = dynamic(() => import('../model/assets/CupboardDark').then(mod => mod.Cupboard), {ssr: false})
+const GreyCabinet = dynamic(() => import('../model/assets/GreyCabinet').then(mod => mod.GreyCabinet), {ssr: false})
 const ReadTable = dynamic(() => import('../model/assets/TableReading').then(mod => mod.TableReading), {ssr: false})
 const WoodShelf = dynamic(() => import('../model/assets/WoodShelf').then(mod => mod.WoodShelf), {ssr: false})
 
@@ -20,9 +20,9 @@ export default function Chemistry() {
           <WoodShelf key={id} position={[posX, 5.90835, posZ]} />
         ))
       ))}
-      {cupboardDark[0].map(posX => (
-        cupboardDark[2].map((posZ, id) => (
-          <Cupboard key={id} position={[posX, 5, posZ]} rotation-y={(id === 1) && -Math.PI} />
+      {cabinetPos[0].map(posX => (
+        cabinetPos[2].map((posZ, id) => (
+          <GreyCabinet key={id} position={[posX, 5, posZ]} rotation-y={id === 1?  Math.PI/2:-Math.PI/2} />
         ))
       ))}
     </Suspense>
@@ -41,8 +41,8 @@ const woodShelfPos = [
   [-4.40417, -1.50446, 1.39525, 4.29496]
 ]
 
-const cupboardDark = [
+const cabinetPos = [
   [-3.19055, -1.97646, -0.75912, 0.457183, 1.67014],
   [5],
-  [7.95045, -7.92045],
+  [7.65045, -7.62045],
 ]
