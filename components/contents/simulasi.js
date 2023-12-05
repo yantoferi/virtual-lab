@@ -35,10 +35,10 @@ export default function Simulation(props) {
           <Adam />
           <Labter />
           <Labs />
-          <Bigroom />
+          {/* <Bigroom />
           <Cover />
           <Roof />
-          <AllRooms />
+          <AllRooms /> */}
 
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
