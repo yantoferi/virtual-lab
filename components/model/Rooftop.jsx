@@ -11,7 +11,7 @@ export function Rooftop(props) {
   const { nodes, materials } = useGLTF('models/Rooftop-transformed.glb')
   useFrame(() => {
     // 
-  }, 12)
+  }, 22)
   return (
     <group {...props} dispose={null}>
       <group position={[-4.275, 18.446, -16.574]} rotation={[0, Math.PI / 2, 0]}>

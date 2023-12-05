@@ -3,36 +3,21 @@
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo } from "react"
 import { useLoader, useThree } from "@react-three/fiber"
-import { Environment, OrbitControls, PerspectiveCamera, Plane, PointerLockControls } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import { Audio, AudioListener, AudioLoader } from "three"
 import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
 import { stairsLocate, toiletLocate, doorsLocate, singleDoorPos } from "../base/location"
-import LabkomD from "../rooms/labkomd"
-import LabkomE from "../rooms/labkome"
-import LabkomC from "../rooms/labkomc"
-import LabkomB from "../rooms/labkomb"
-import Industri from "../rooms/labindustri"
-import LabkomA from "../rooms/labkoma"
-import DesignRoom from "../rooms/labdesain"
-import Bioprocess from "../rooms/bioprocess"
-import KuliahUmum from "../rooms/kuliahumum"
-import LabkomNew from "../rooms/labkomnew"
-import AsistenLabA from "../rooms/asistenlab_a"
-import AsistenLabB from "../rooms/asistenlab_b"
-import Chemistry from "../rooms/labkimia"
-import PhysicLab from "../rooms/labfisika"
-import Lppm from "../rooms/lppm"
-import { RigidBody } from "@react-three/rapier"
+import AllRooms from "./rooms"
 
 const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom), { ssr: false })
-// const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), {ssr: false})
+const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), {ssr: false})
 const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door), { ssr: false })
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs), { ssr: false })
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter), { ssr: false })
-// const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), {ssr: false})
+const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), {ssr: false})
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair), { ssr: false })
 const SingleDoor = dynamic(() => import('../model/assets/SingleDoor').then(mod => mod.SingleDoor), { ssr: false })
 const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet), { ssr: false })
@@ -44,31 +29,16 @@ export default function Simulation(props) {
       <Suspense fallback={null}>
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={30} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
-        {/* <OrbitControls /> */}
         <SimulationLight />
-        {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
           <Adam />
           <Labter />
           <Labs />
           <Bigroom />
-
-          <LabkomNew />
-          <KuliahUmum />
-          <Bioprocess />
-          <DesignRoom />
-          <LabkomA />
-          <LabkomB />
-          <LabkomC />
-          <LabkomD />
-          <LabkomE />
-          <Industri />
-          <AsistenLabA />
-          <AsistenLabB />
-          <Chemistry />
-          <PhysicLab />
-          <Lppm />
+          <Cover />
+          <Roof />
+          <AllRooms />
 
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
@@ -82,11 +52,6 @@ export default function Simulation(props) {
           {stairsLocate.map(stair => (
             <Stair key={stair.id} pos={stair.position} rot={stair.rotation} />
           ))}
-          <RigidBody colliders='hull' type="fixed">
-            <Plane args={[50, 50, 50]} rotation-x={-Math.PI / 2} position-y={0.45}>
-              <meshBasicMaterial color='grey' />
-            </Plane>
-          </RigidBody>
         </Wrapper>
       </Suspense>
     </Views>

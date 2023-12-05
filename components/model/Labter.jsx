@@ -6,6 +6,7 @@ Files: /home/TA/resource/Laboratory/Labter.glb [11.84MB] > Labter-transformed.gl
 
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { RigidBody } from '@react-three/rapier'
 
 export function Labter(props) {
   const { nodes, materials } = useGLTF('models/Labter-transformed.glb')
@@ -15,9 +16,11 @@ export function Labter(props) {
   return (
     <group {...props} dispose={null}>
       <group position={[0, 0.5, 0]}>
-        <mesh castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials.Plaster} />
-        <mesh castShadow receiveShadow geometry={nodes.Plane005_1.geometry} material={materials['ceramic floor 1']} />
-        <mesh castShadow receiveShadow geometry={nodes.Plane005_2.geometry} material={materials['Plaster wall floor 1']} />
+        <RigidBody colliders='trimesh' type='fixed'>
+          <mesh castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials.Plaster} />
+          <mesh castShadow receiveShadow geometry={nodes.Plane005_1.geometry} material={materials['ceramic floor 1']} />
+          <mesh castShadow receiveShadow geometry={nodes.Plane005_2.geometry} material={materials['Plaster wall floor 1']} />
+        </RigidBody>
       </group>
     </group>
   )

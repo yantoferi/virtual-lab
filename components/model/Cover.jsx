@@ -12,7 +12,7 @@ export function Cover(props) {
   const { nodes, materials } = useGLTF('models/Cover-transformed.glb')
   useFrame(() => {
     // 
-  }, 10)
+  }, 20)
   return (
     <group {...props} dispose={null}>
       <group position={[15.218, 0.25, -44.201]}>
