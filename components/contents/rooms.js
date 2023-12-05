@@ -13,6 +13,7 @@ import AsistenLabB from "../rooms/asistenlab_b"
 import Chemistry from "../rooms/labkimia"
 import PhysicLab from "../rooms/labfisika"
 import Lppm from "../rooms/lppm"
+import WorkshopC from "../rooms/WorkshopC"
 
 export default function AllRooms() {
     return (
@@ -32,6 +33,7 @@ export default function AllRooms() {
             <Chemistry />
             <PhysicLab />
             <Lppm />
+            <WorkshopC />
         </>
     )
 }

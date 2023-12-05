@@ -7,13 +7,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody, useRapier, vec3, quat } from '@react-three/rapier'
-import { Euler } from 'three'
 import { Interactive } from '@react-three/xr'
+import { useRouter } from 'next/navigation'
 
 export function Door(props) {
   // Refs
   const doorLeft = useRef(null)
   const doorRight = useRef(null)
+  const router = useRouter()
 
   const { nodes, materials } = useGLTF('models/Door-transformed.glb')
 
@@ -23,6 +24,7 @@ export function Door(props) {
 
   useEffect(() => {
     if (isOpen) {
+      router.push('/labkom')
       doorLeft.current.setRotation(quat().setFromAxisAngle(vec3({ x: 0, y: 1, z: 0 }), Math.PI / 2 - props.rotation[1]))
       doorRight.current.setRotation(quat().setFromAxisAngle(vec3({ x: 0, y: 1, z: 0 }), Math.PI / 2 - props.rotation[1]))
     } else {
