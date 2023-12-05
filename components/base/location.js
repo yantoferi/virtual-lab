@@ -272,8 +272,65 @@ const doorsLocate = [
   },
 ]
 
+const singleDoorPos = [
+  {
+    position: [3.29312, 0.5, -43.3932],
+    rotation: [0, 0, 0]
+  },
+  {
+    position: [3.29312, 0.5, -46.6577],
+    rotation: [0, 0, 0]
+  },
+
+  {
+    position: [3.29312, 5, -43.3932],
+    rotation: [0, 0, 0]
+  },
+  {
+    position: [3.29312, 5, -46.6577],
+    rotation: [0, 0, 0]
+  },
+
+  {
+    position: [3.29312, 9.5, -43.3932],
+    rotation: [0, 0, 0]
+  },
+  {
+    position: [3.29312, 9.5, -46.6577],
+    rotation: [0, 0, 0]
+  },
+
+  {
+    position: [18.7069, 0.5, 11.9754],
+    rotation: [0, 0, 0]
+  },
+  {
+    position: [18.7069, 0.5, 15.2398],
+    rotation: [0, 0, 0]
+  },
+
+  {
+    position: [18.7069, 5, 11.9754],
+    rotation: [0, 0, 0]
+  },
+  {
+    position: [18.7069, 5, 15.2398],
+    rotation: [0, 0, 0]
+  },
+
+  {
+    position: [18.7069, 9.5, 11.9754],
+    rotation: [0, 0, 0]
+  },
+  {
+    position: [18.7069, 9.5, 15.2398],
+    rotation: [0, 0, 0]
+  },
+]
+
 export {
   stairsLocate,
   toiletLocate,
   doorsLocate,
+  singleDoorPos,
 }

@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 export default function Template({ children }) {
   const parent = useRef(null)
   return (
-    <div ref={parent} className='parent w-full h-screen bg-[#151515] relative'>
+    <div ref={parent} className='parent w-full h-screen relative'>
       {children}
       <Scene source={parent} />
       <ToastContainer position='bottom-left' hideProgressBar style={{zIndex: 10000}} />
