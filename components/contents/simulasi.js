@@ -31,7 +31,7 @@ export default function Simulation(props) {
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
         {/* <OrbitControls /> */}
         <SimulationLight />
-        <Environment files='hdr/cloudy.hdr' background />
+        {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
           <Adam />
