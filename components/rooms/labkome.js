@@ -14,6 +14,9 @@ export default function LabkomE() {
         <TableDesk key={id} position={[...table.position]} />
       ))}
       <GreyCabinet position={[25.899, 9.5, -34.34]} />
+      {officeChairPos.map((chair, id) => (
+        <OfficeChair key={id} position={[...chair.position]} rotation={[...chair.rotation]} />
+      ))}
     </Suspense>
   )
 }
@@ -68,5 +71,58 @@ const tablePosition = [
   {
     position: [20.7883, 9.5, -31.2865],
     rotation: [0, Math.PI / 2, 0]
+  },
+]
+
+const officeChairPos = [
+  {
+    position: [25.1833, 9.5, -37.5438],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [25.1833, 9.5, -36.1375],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [25.1833, 9.5, -32.551],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [25.1833, 9.5, -31.1861],
+    rotation: [0, -Math.PI/2, 0],
+  },
+
+  {
+    position: [23.1833, 9.5, -37.5438],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [23.1833, 9.5, -36.1375],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [23.1833, 9.5, -32.551],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [23.1833, 9.5, -31.1861],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  
+  {
+    position: [21.3, 9.5, -37.5438],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [21.3, 9.5, -36.1375],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [21.3, 9.5, -32.551],
+    rotation: [0, -Math.PI/2, 0],
+  },
+  {
+    position: [21.3, 9.5, -31.1861],
+    rotation: [0, -Math.PI/2, 0],
   },
 ]

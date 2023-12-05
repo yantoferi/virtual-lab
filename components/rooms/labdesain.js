@@ -23,6 +23,9 @@ export default function DesignRoom() {
       {tableReadPos.map((table, id) => (
         <ReadTable key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
+      {labChairPos.map((chair, id) => (
+        <OfficeChair key={id} position={[...chair.position]} rotation={[...chair.rotation]} />
+      ))}
     </Suspense>
   )
 }

@@ -10,8 +10,14 @@ import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
 import { stairsLocate, toiletLocate, doorsLocate, singleDoorPos } from "../base/location"
 import LabkomD from "../rooms/labkomd"
+import LabkomE from "../rooms/labkome"
+import LabkomC from "../rooms/labkomc"
+import LabkomB from "../rooms/labkomb"
+import Industri from "../rooms/labindustri"
+import LabkomA from "../rooms/labkoma"
+import DesignRoom from "../rooms/labdesain"
 
-const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
+// const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom), {ssr: false})
 // const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), {ssr: false})
 const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door), {ssr: false})
@@ -28,17 +34,24 @@ export default function Simulation(props) {
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={30} />
-        {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
-        {/* <OrbitControls /> */}
+        {/* {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />} */}
+        <OrbitControls />
         <SimulationLight />
         {/* <Environment files='hdr/cloudy.hdr' background /> */}
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
-          <Adam />
           <Labter />
           <Labs />
           <Bigroom />
+
+          <DesignRoom />
+          <LabkomA />
+          <LabkomB />
+          <LabkomC />
           <LabkomD />
+          <LabkomE />
+          <Industri />
+
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
           ))}

@@ -20,7 +20,7 @@ export default function Industri() {
       {tablePosition.map((table, id) => (
         <TableDesk key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
-      {fillCabinetPos.map((cab, id) => (
+      {fileCabinetPos.map((cab, id) => (
         <CabinetBook key={id} position={[...cab.position]} rotation={[...cab.rotation]} />
       ))}
       {tableLabPos.map((table, id) => (
@@ -69,7 +69,7 @@ const officeChairPos = [
   },
 ]
 
-const fillCabinetPos = [
+const fileCabinetPos = [
   {
     position: [25.5676, 5, -38.1751],
     rotation: [0, 0, 0]

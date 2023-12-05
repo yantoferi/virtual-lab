@@ -8,22 +8,23 @@ const OfficeChair = dynamic(() => import('../model/assets/OfficeChair').then(mod
 const TableDesk = dynamic(() => import('../model/assets/TableDesk').then(mod => mod.TableDesk), { ssr: false })
 const WhiteBoard = dynamic(() => import('../model/assets/Whiteboard').then(mod => mod.Whiteboard), { ssr: false })
 
-export default function LabkomC() {
+export default function LabkomA() {
   return (
     <Suspense fallback={null}>
       {tablePosition[0].map(posX => (
         tablePosition[2].map((posZ, id) => (
-          <TableDesk key={id} position={[posX, 9.5, posZ]} rotation={[0, -Math.PI / 2, 0]} />
+          <TableDesk key={id} position={[posX, 5, posZ]} rotation={[0, -Math.PI / 2, 0]} />
         ))
       ))}
+      <WhiteBoard position={[22.1261, 5, -5.29514]} scale={0.6} rotation-y={-Math.PI / 2} />
       {compPosition[0].map(posX => (
         compPosition[2].map((posZ, id) => (
-          <Computer key={id} position={[posX, 10.4697, posZ]} rotation-y={-Math.PI / 2} />
+          <Computer key={id} position={[posX, 6, posZ]} rotation-y={-Math.PI / 2} />
         ))
       ))}
       {chairPosition[0].map(posX => (
         chairPosition[2].map((posZ, id) => (
-          <OfficeChair key={id} position={[posX, 9.5, posZ]} rotation-y={-Math.PI} />
+          <OfficeChair key={id} position={[posX, 5, posZ]} rotation-y={-Math.PI} />
         ))
       ))}
     </Suspense>
@@ -33,19 +34,19 @@ export default function LabkomC() {
 const tablePosition = [
   [25.6065, 24.2045, 22.8023, 20.6444, 19.2396, 17.8477,],
   [9.5,],
-  [-19.5276, -17.6938, -15.813, -13.5259, -11.7391, -9.95233],
+  [-3.33357, -1.6213, 0.195651, 2.70477, 4.50009, 6.33867],
 ]
 
 const chairPosition = [
   [25.3782, 23.9682, 22.542, 20.4675, 19.0089, 17.6313],
   [9.5,],
-  [-18.7, -16.8945, -14.9667, -12.7332, -10.9464, -9.11261,],
+  [-2.54355, -0.777023, 1.03813, 3.51766, 5.30033, 7.18023],
   Math.PI
 ]
 
 const compPosition = [
   [25.3532, 23.9403, 22.5108, 20.4038, 18.9909, 17.578],
   [10.4697,],
-  [-10.065, -11.8584, -13.6237, -15.943, -17.7928, -19.6332],
-  Math.PI/2
+  [6.23774, 4.37576, 2.58762, 0.086474, -1.72686, -3.43077],
+  Math.PI / 2
 ]

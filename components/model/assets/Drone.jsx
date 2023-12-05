@@ -9,9 +9,13 @@ Title: Dji FPV by SDC -  High performance drone
 */
 
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 
 export function Drone(props) {
   const { nodes, materials } = useGLTF('models/Drone-transformed.glb')
+  useFrame(() => {
+    // 
+  }, 20)
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Object_5.geometry} material={materials.PaletteMaterial001} position={[0, 1.017, -0.135]} rotation={[-2.046, 0, 0]} />

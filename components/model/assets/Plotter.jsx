@@ -9,9 +9,13 @@ Title: plotter
 */
 
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 
 export function Plotter(props) {
   const { nodes, materials } = useGLTF('models/Plotter-transformed.glb')
+  useFrame(() => {
+    // 
+  }, 20)
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes['3D_PLOTTER_SCOCCA_PLASTICA_OPACA_BIANCA_0'].geometry} material={materials.PLASTICA_OPACA_BIANCA} position={[-0.662, 0.903, -0.225]} rotation={[-Math.PI / 2, 0, 0]} scale={0.01} />

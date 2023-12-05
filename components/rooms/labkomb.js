@@ -22,6 +22,11 @@ export default function LabkomB() {
           <Computer key={id} position={[posX, 10.4697, posZ]} rotation-y={-Math.PI / 2} />
         ))
       ))}
+      {chairPosition[0].map(posX => (
+        chairPosition[2].map((posZ, id) => (
+          <OfficeChair key={id} position={[posX, 9.5, posZ]} rotation-y={-Math.PI} />
+        ))
+      ))}
     </Suspense>
   )
 }
