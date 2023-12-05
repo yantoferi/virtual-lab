@@ -81,7 +81,7 @@ export function Adam(props) {
   useFrame((state, delta) => {
     const { forward, backward, left, right, jump, run } = getKey()
     offsetVR.set(0, 0.8, -0.25)
-    offsetCam.set(0, 0.9, -0.3)
+    offsetCam.set(0, 0.9, run? -0.6:-0.4)
     const currentPos = vec3(adam.current.translation())
     const currentRotate = quat(adam.current.rotation())
     const currentVeloc = vec3(adam.current.linvel())
