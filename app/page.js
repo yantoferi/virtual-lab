@@ -7,6 +7,7 @@ import { DiJavascript1, DiReact } from "react-icons/di"
 import { BiLogoBlender } from "react-icons/bi"
 import { SiNetlify } from "react-icons/si"
 import { FaGithubSquare } from "react-icons/fa"
+import Link from "next/link"
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
       <div className="content flex flex-wrap-reverse items-center">
         <div>
           <p className="text-[#ac1ed0] mb-2">SIMULASI VIRTUAL LAB</p>
-          <h1 className="text-4xl font-bold mb-6 leading-tight">Virtual Reality Lab Terpadu ITK</h1>
+          <h1 className="text-4xl font-bold mb-6 text-white leading-tight">Virtual Reality Lab Terpadu ITK</h1>
           <p className="text-[#5b5f73] mb-5">Sebuah simulasi virtual untuk berkenalan dengan lingkungan lab terpadu itk melalui pengalaman yang baru.</p>
           <div>
             <Menu as="div" className="relative">
@@ -25,12 +26,12 @@ export default function Home() {
                   <HiMiniChevronDown />
                 </div>
               </Menu.Button>
-              <Menu.Items className="absolute top-full left-0">
+              <Menu.Items className="absolute top-full left-0 text-white">
                 <Menu.Item>
-                  <p>Hello</p>
+                  <Link href='/modfpssimulasi'>Hello</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <p>World</p>
+                  <Link href='/modfvrsimulasi'>Hello</Link>
                 </Menu.Item>
               </Menu.Items>
             </Menu>
@@ -43,16 +44,16 @@ export default function Home() {
           <DiJavascript1 className="w-8 h-8 mx-4 sm:mx-8 md:mx-12" />
         </div>
         <div>
-          <DiReact className="w-8 h-8 mx-4 sm:mx-8 md:mx-12"  />
+          <DiReact className="w-8 h-8 mx-4 sm:mx-8 md:mx-12" />
         </div>
         <div>
-          <BiLogoBlender className="w-8 h-8 mx-4 sm:mx-8 md:mx-12"  />
+          <BiLogoBlender className="w-8 h-8 mx-4 sm:mx-8 md:mx-12" />
         </div>
         <div>
-          <SiNetlify className="w-8 h-8 mx-4 sm:mx-8 md:mx-12"  />
+          <SiNetlify className="w-8 h-8 mx-4 sm:mx-8 md:mx-12" />
         </div>
         <div>
-          <FaGithubSquare className="w-8 h-8 mx-4 sm:mx-8 md:mx-12"  />
+          <FaGithubSquare className="w-8 h-8 mx-4 sm:mx-8 md:mx-12" />
         </div>
       </div>
     </main>

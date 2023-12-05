@@ -9,15 +9,16 @@ import { Audio, AudioListener, AudioLoader } from "three"
 import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
 import { stairsLocate, toiletLocate, doorsLocate, singleDoorPos } from "../base/location"
+import LabkomD from "../rooms/labkomd"
 
-// const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
+const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom), {ssr: false})
 // const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), {ssr: false})
-// const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door), {ssr: false})
+const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door), {ssr: false})
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs), {ssr: false})
-// const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter), {ssr: false})
+const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter), {ssr: false})
 // const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), {ssr: false})
-// const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair), {ssr: false})
+const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair), {ssr: false})
 const SingleDoor = dynamic(() => import('../model/assets/SingleDoor').then(mod => mod.SingleDoor), {ssr: false})
 const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet), {ssr: false})
 const Views = dynamic(() => import('@/components/canvas/views'), {ssr: false})
@@ -27,26 +28,29 @@ export default function Simulation(props) {
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={30} />
-        {/* {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />} */}
-        <OrbitControls />
+        {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
+        {/* <OrbitControls /> */}
         <SimulationLight />
-        {/* <Environment files='hdr/cloudy.hdr' background /> */}
+        <Environment files='hdr/cloudy.hdr' background />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
+          <Adam />
+          <Labter />
           <Labs />
           <Bigroom />
-          {/* {doorsLocate.map(door => (
+          <LabkomD />
+          {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
-          ))} */}
+          ))}
           {toiletLocate.map(toilet => (
             <Toilet key={toilet.id} position={toilet.position} rotation={toilet.rotation} />
           ))}
           {singleDoorPos.map((door, id) => (
             <SingleDoor key={id} position={door.position} rotation={door.rotation} />
           ))}
-          {/* {stairsLocate.map(stair => (
+          {stairsLocate.map(stair => (
             <Stair key={stair.id} pos={stair.position} rot={stair.rotation} />
-          ))} */}
+          ))}
         </Wrapper>
       </Suspense>
     </Views>

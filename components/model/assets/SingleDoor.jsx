@@ -5,10 +5,14 @@ Files: /home/TA/resource/Laboratory/assets/SingleDoor.glb [4.96MB] > SingleDoor-
 */
 
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 
 export function SingleDoor(props) {
   const { nodes, materials } = useGLTF('models/SingleDoor-transformed.glb')
-  return (
+  useFrame(() => {
+    // 
+  }, 3)
+  return ( 
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Door_double002.geometry} material={materials['Afromosia Fine Wood']} />
       <mesh castShadow receiveShadow geometry={nodes.Handle002.geometry} material={materials.Handle_Metal} position={[0.022, 1.257, 0.065]} scale={1.962} />
