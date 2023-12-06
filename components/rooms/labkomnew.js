@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const Computer = dynamic(() => import('../model/assets/Computer').then(mod => mod.Computer), { ssr: false })
 const OfficeChair = dynamic(() => import('../model/assets/OfficeChair').then(mod => mod.OfficeChair), { ssr: false })
@@ -25,6 +27,11 @@ export default function LabkomNew() {
           <OfficeChair key={id} position={[posX, 9.5, posZ]} rotation-y={-Math.PI} />
         ))
       ))}
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[0, 9.5, -32.4005]} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }

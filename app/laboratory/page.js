@@ -17,6 +17,7 @@ import Industri from '@/components/rooms/labindustri'
 import Bioprocess from '@/components/rooms/bioprocess'
 import LabkomA from '@/components/rooms/labkoma'
 import KuliahUmum from '@/components/rooms/kuliahumum'
+import LabkomNew from '@/components/rooms/labkomnew'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const InitialPlane = dynamic(() => import('@/components/model/assets/initialplane'), {ssr: false})
@@ -148,7 +149,37 @@ export default function Laboratory() {
                     <>
                       <Adam position={[0, 11, 0]} />
                       <KuliahUmum />
-                      <BigLab position={[0, 9.5, 0]} rotation={[0, -Math.PI, 0]} />
+                      <BigLab position={[0, 9.5, 0]} rotation={[0, 0, 0]} />
+                      <InitialPlane position={[0, 9.5, 0]} />
+                    </>
+                  )
+                
+                case 'kultam_b':
+                  return (
+                    <>
+                      <Adam position={[0, 11, -16.2002]} />
+                      <KuliahUmum />
+                      <BigLab position={[0, 9.5, -16.2002]} rotation={[0, 0, 0]} />
+                      <InitialPlane position={[0, 9.5, -16.2002]} />
+                    </>
+                  )
+                
+                case 'kultam_c':
+                  return (
+                    <>
+                      <Adam position={[0, 11, -28.4005]} />
+                      <KuliahUmum />
+                      <SmallLab position={[0, 9.5, -32.4005]} rotation={[0, 0, 0]} />
+                      <InitialPlane position={[0, 9.5, -32.4005]} />
+                    </>
+                  )
+                
+                case 'labkom_new':
+                  return (
+                    <>
+                      <Adam position={[0, 11, -35.4005]} />
+                      <LabkomNew />
+                      <SmallLab position={[0, 9.5, -32.4005]} rotation={[0, 0, 0]} />
                     </>
                   )
 
