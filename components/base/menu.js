@@ -18,8 +18,8 @@ export default function Menus() {
         <Popover.Panel className="absolute right-0">
           <div className="w-28 bg-[#5b5f73] backdrop-opacity-50 backdrop-blur-xl rounded p-3">
             <ul className="text-sm">
-              <li>Home</li>
-              <li>About</li>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
               <li>Feature</li>
               <li>GitHub</li>
             </ul>
@@ -28,8 +28,8 @@ export default function Menus() {
       </Popover>
       <div className="hidden md:block basis-80">
         <ul className="flex justify-around text-sm text-[#5b5f73]">
-          <li>Home</li>
-          <li>About</li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
           <li>Feature</li>
           <li>GitHub</li>
         </ul>
