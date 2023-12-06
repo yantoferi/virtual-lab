@@ -14,6 +14,7 @@ import WorkshopC from '@/components/rooms/WorkshopC'
 import LabkomC from '@/components/rooms/labkomc'
 import LabkomB from '@/components/rooms/labkomb'
 import Industri from '@/components/rooms/labindustri'
+import Bioprocess from '@/components/rooms/bioprocess'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const InitialPlane = dynamic(() => import('@/components/model/assets/initialplane'), {ssr: false})
@@ -82,6 +83,16 @@ export default function Laboratory() {
                     <>
                       <Adam position={[21.7127, 5, -32.4185]} />
                       <Industri />
+                      <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+                      <InitialPlane position={[21.7127, 5, -30.4185]} />
+                    </>
+                  )
+                
+                case 'bioprocess':
+                  return (
+                    <>
+                      <Adam position={[21.7127, 5, -28.4185]} />
+                      <Bioprocess />
                       <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                       <InitialPlane position={[21.7127, 5, -30.4185]} />
                     </>
