@@ -45,7 +45,7 @@ export default function Simulation(props) {
             <Door key={door.id} position={door.position} rotation={door.rotation} />
           ))}
           <RigidBody colliders='hull' type='fixed'>
-            <Plane args={[10, 10, 10]} position-y={0.5} rotation-x={-Math.PI/2} visible={false}>
+            <Plane args={[10, 10, 10]} position-y={0.5} rotation-x={-Math.PI/2}>
               <meshBasicMaterial color='white' />
             </Plane>
           </RigidBody>
