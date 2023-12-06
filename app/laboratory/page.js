@@ -22,6 +22,7 @@ export default function Laboratory() {
 
   useEffect(() => {
     console.log(myContext.state.mode)
+    console.log(myContext.state.destination)
   })
   return (
     <div className='w-full h-full bg-white relative'>
