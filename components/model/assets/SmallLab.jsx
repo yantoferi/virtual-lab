@@ -5,12 +5,20 @@ Files: /home/TA/resource/Laboratory/assets/SmallLab.glb [5.13MB] > SmallLab-tran
 */
 
 import { useGLTF } from '@react-three/drei'
+import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
 export function SmallLab(props) {
   const { nodes, materials } = useGLTF('models/SmallLab-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh castShadow receiveShadow geometry={nodes.Lab_small.geometry} material={materials['Plaster lab small']} position={[0, 0, 0.003]} />
+      <RigidBody>
+        <mesh castShadow receiveShadow geometry={nodes.Lab_small.geometry} material={materials['Plaster lab small']} position={[0, 0, 0.003]} />
+        <CuboidCollider args={[0.6, 2, 5.8]} position={[4.2, 2, 0]} />
+        <CuboidCollider args={[0.2, 2, 8]} position={[-4.6, 2, 0]} />
+        <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, 8]} />
+        <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, -8]} />
+        <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, 0]} />
+      </RigidBody>
       <mesh castShadow receiveShadow geometry={nodes['Lab-top_small'].geometry} material={materials['Plaster lab small top']} position={[-0.092, 4.15, 0]} />
     </group>
   )

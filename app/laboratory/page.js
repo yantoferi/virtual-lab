@@ -26,7 +26,7 @@ export default function Laboratory() {
       <Views styling='w-full h-full'>
         <Suspense fallback={null}>
           <PerspectiveCamera position={[0, 3, 4]} fov={55} />
-          <SimulationLight position={[23, 15, -32.4185]} targetPos={[21.7127, 9.5, -30.4185]} />
+          <SimulationLight position={[27, 15, -32.4185]} targetPos={[21.7127, 9.5, -30.4185]} />
           {myContext.mode === 'fps' && <PointerLockControls selector='#startFps' />}
           {/* <OrbitControls /> */}
           <Wrapper>
