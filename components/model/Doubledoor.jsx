@@ -44,7 +44,7 @@ export function Door(props) {
         return;
       })
     }
-    route.replace('/laboratory')
+    route.prefetch('/laboratory')
     setIsOpen(!isOpen)
   }
 
