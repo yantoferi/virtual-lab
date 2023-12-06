@@ -30,7 +30,7 @@ export default function Simulation(props) {
       <Suspense fallback={null}>
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={25} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
-        <SimulationLight position={[30, 30, -10]} />
+        <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
           <Adam position-y={2} />
@@ -45,7 +45,7 @@ export default function Simulation(props) {
             <Door key={door.id} position={door.position} rotation={door.rotation} />
           ))}
           <RigidBody colliders='hull' type='fixed'>
-            <Plane args={[10, 10, 10]} position-y={0.5} visible={false}>
+            <Plane args={[10, 10, 10]} position-y={0.5}>
               <meshBasicMaterial color='white' />
             </Plane>
           </RigidBody>
