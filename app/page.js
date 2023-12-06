@@ -18,7 +18,7 @@ export default function Home() {
           <p className="text-[#ac1ed0] mb-2">SIMULASI VIRTUAL LAB</p>
           <h1 className="text-4xl font-bold mb-6 text-white leading-tight">Virtual Reality Lab Terpadu ITK</h1>
           <p className="text-[#5b5f73] mb-5">Sebuah simulasi virtual untuk berkenalan dengan lingkungan lab terpadu itk melalui pengalaman yang baru.</p>
-          <div className="flex items-center">
+          <div className="flex items-center justify-center md:justify-start">
             <Menu as="div" className="relative mx-3">
               <Menu.Button className="bg-[#3686ff] w-28 py-2 rounded-md">
                 <div className="flex items-center text-white justify-center gap-x-2">
@@ -28,17 +28,17 @@ export default function Home() {
               </Menu.Button>
               <Menu.Items className="absolute top-full left-0 text-white">
                 <Menu.Item>
-                  <Link href='/modfpssimulasi' className="block">Hello</Link>
+                  <Link href='/modfpstutorial' className="block">Hello</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href='/modvrsimulasi' className="block">Hello</Link>
+                  <Link href='/modvrtutorial' className="block">Hello</Link>
                 </Menu.Item>
               </Menu.Items>
             </Menu>
             <Menu as="div" className="relative mx-3">
               <Menu.Button className="bg-[#3686ff] w-28 py-2 rounded-md">
                 <div className="flex items-center text-white justify-center gap-x-2">
-                  <span>Tutorial</span>
+                  <span>Simulasi</span>
                   <HiMiniChevronDown />
                 </div>
               </Menu.Button>
