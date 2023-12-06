@@ -17,7 +17,7 @@ export default function Template({ children }) {
     setDestination(target)
   }
   return (
-    <div ref={parent} className='parent w-full text-white relative'>
+    <div ref={parent} className='parent w-full h-screen relative'>
       <ContextData.Provider value={{ state: {mode, destination}, updated: changeMode, changedest: changeDestination}}>
         {children}
         <Scene source={parent} />
