@@ -11,6 +11,7 @@ import { Controllers, VRButton } from '@react-three/xr'
 import MyButton from "@/components/base/button"
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
+const SmallLab = dynamic(() => import('@/components/model/assets/SmallLab').then(mod => mod.SmallLab), {ssr: false})
 const Views = dynamic(() => import('@/components/canvas/views'), { ssr: false })
 
 export default function Laboratory() {
@@ -32,6 +33,7 @@ export default function Laboratory() {
             {myContext.mode === 'vr' && <Controllers rayMaterial='red' />}
             <Adam position={[21.7127, 10.5, -30.4185]} />
             <LabkomE />
+            <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
           </Wrapper>
         </Suspense>
       </Views>
