@@ -123,6 +123,24 @@ export default function Laboratory() {
                       <BigLab position={[21.7127, 5, -14.2114]} rotation={[0, -Math.PI, 0]} />
                     </>
                   )
+                
+                case 'electronic':
+                  return (
+                    <>
+                      <Adam position={[21.7127, 2, 1.98262]} />
+                      <BigLab position={[21.7127, 0.5, 1.98262]} rotation={[0, -Math.PI, 0]} />
+                      <InitialPlane position={[21.7127, 0.5, 1.98262]} />
+                    </>
+                  )
+                
+                case 'teknologi_process':
+                  return (
+                    <>
+                      <Adam position={[21.7127, 2, -14.2114]} />
+                      <BigLab position={[21.7127, 0.5, -14.2114]} rotation={[0, -Math.PI, 0]} />
+                      <InitialPlane position={[21.7127, 0.5, -14.2114]} />
+                    </>
+                  )
 
                 default:
                   return null
