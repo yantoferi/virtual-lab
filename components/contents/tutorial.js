@@ -22,7 +22,7 @@ export default function Tutorial(props) {
 				<Wrapper>
 					{props.mode === 'vr' && <Controllers rayMaterial='red' />}
 					<Room />
-					<Adam isLocked={props.locked} />
+					<Adam isLocked={props.locked} position={[0, 2, 0]} />
 					<RoomTV />
 					<Experiences />
 				</Wrapper>
