@@ -32,12 +32,12 @@ export default function Laboratory() {
           {/* <OrbitControls /> */}
           <Wrapper>
             {myContext.state.mode === 'vr' && <Controllers rayMaterial='red' />}
-            <Adam position={[21.7127, 10.5, -32.4185]} />
             {(() => {
               switch (myContext.state.destination) {
                 case 'labkom_e':
                   return (
                     <>
+                      <Adam position={[21.7127, 10.5, -32.4185]} />
                       <LabkomE />
                       <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                     </>
@@ -46,6 +46,7 @@ export default function Laboratory() {
                 case 'labkom_d':
                   return (
                     <>
+                      <Adam position={[21.7127, 10.5, -28.4185]} />
                       <LabkomD />
                       <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                     </>

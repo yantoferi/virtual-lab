@@ -12,7 +12,7 @@ export function Computer(props) {
   const texture = useVideoTexture('/videos/video_1.mp4')
   useFrame(() => {
     // 
-  }, 14)
+  }, 8)
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Untitled075.geometry} material={materials.PaletteMaterial002} />
