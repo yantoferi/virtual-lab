@@ -7,6 +7,7 @@ import LabkomE from '@/components/rooms/labkome'
 import Wrapper from '@/components/utils/wrapper'
 import { SimulationLight } from '@/components/lighting/light'
 import { ContextData } from '@/components/utils/context'
+import { VRButton } from '@react-three/xr'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const Views = dynamic(() => import('@/components/canvas/views'), { ssr: false })
@@ -15,10 +16,11 @@ export default function Laboratory() {
   const myContext = useContext(ContextData)
 
   useEffect(() => {
-    console.log(myContext.status)
+    console.log(myContext.mode)
   })
   return (
     <div className='w-full h-full bg-white relative'>
+      {myContext.mode === 'vr' && <VRButton />}
       <Views styling='w-full h-full'>
         <Suspense fallback={null}>
           <PerspectiveCamera position={[0, 3, 4]} fov={55} />
