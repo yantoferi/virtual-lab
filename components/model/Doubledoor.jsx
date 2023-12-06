@@ -39,12 +39,12 @@ export function Door(props) {
     myContext.changedest(props.destination)
     if (session) {
       session.end().then(() => {
-        route.prefetch('/laboratory')
+        route.push('/laboratory')
         setIsOpen(!isOpen)
         return;
       })
     }
-    route.prefetch('/laboratory')
+    route.push('/laboratory')
     setIsOpen(!isOpen)
   }
 
