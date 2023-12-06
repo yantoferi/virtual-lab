@@ -94,7 +94,6 @@ export default function Laboratory() {
                       <Adam position={[21.7127, 5, -28.4185]} />
                       <Bioprocess />
                       <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
-                      <InitialPlane position={[21.7127, 5, -30.4185]} />
                     </>
                   )
 

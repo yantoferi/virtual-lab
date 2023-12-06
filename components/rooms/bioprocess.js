@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const Laminar = dynamic(() => import('../model/assets/AirFlow').then(mod => mod.Laminar), {ssr: false})
 const GreyCabinet = dynamic(() => import('../model/assets/GreyCabinet').then(mod => mod.GreyCabinet), { ssr: false })
@@ -27,6 +29,11 @@ export default function Bioprocess() {
       {woodShelfPos.map((table, id) => (
         <WoodShelf key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
+      <RigidBody colliders='hull' type='fixed' position={[21.7127, 5, -30.4185]}>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }
