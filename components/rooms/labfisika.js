@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const CabinetClose = dynamic(() => import('../model/assets/CabinetClose').then(mod => mod.CloseCabinet), { ssr: false })
 const GreyCabinet = dynamic(() => import('../model/assets/GreyCabinet').then(mod => mod.GreyCabinet), { ssr: false })
@@ -35,6 +37,11 @@ export default function PhysicLab() {
       {officeChairPos.map((chair, id) => (
         <OfficeChair key={id} position={[...chair.position]} rotation={[...chair.rotation]} />
       ))}
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[0, 5, -16.2002]} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }

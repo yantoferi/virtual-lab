@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const GreyCabinet = dynamic(() => import('../model/assets/GreyCabinet').then(mod => mod.GreyCabinet), {ssr: false})
 const ReadTable = dynamic(() => import('../model/assets/TableReading').then(mod => mod.TableReading), {ssr: false})
@@ -25,6 +27,11 @@ export default function Chemistry() {
           <GreyCabinet key={id} position={[posX, 5, posZ]} rotation-y={id === 1?  Math.PI/2:-Math.PI/2} />
         ))
       ))}
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[0, 5, 0]} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }

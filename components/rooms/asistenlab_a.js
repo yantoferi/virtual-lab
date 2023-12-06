@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const CabinetClose = dynamic(() => import('../model/assets/CabinetClose').then(mod => mod.CloseCabinet), { ssr: false })
 const ChairOffice = dynamic(() => import('../model/assets/OfficeChair').then(mod => mod.OfficeChair), {ssr: false})
@@ -27,6 +29,11 @@ export default function AsistenLabA() {
       {fileCabinetPos.map((file, id) => (
         <FileCabinet key={id} position={[...file.position]} rotation={[...file.rotation]} />
       ))}
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[0, 5, -32.4005]} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }
