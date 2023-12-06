@@ -11,29 +11,41 @@ import { Controllers, VRButton } from '@react-three/xr'
 import MyButton from "@/components/base/button"
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
-const SmallLab = dynamic(() => import('@/components/model/assets/SmallLab').then(mod => mod.SmallLab), {ssr: false})
+const SmallLab = dynamic(() => import('@/components/model/assets/SmallLab').then(mod => mod.SmallLab), { ssr: false })
 const Views = dynamic(() => import('@/components/canvas/views'), { ssr: false })
 
 export default function Laboratory() {
   const myContext = useContext(ContextData)
 
   useEffect(() => {
-    console.log(myContext.mode)
+    console.log(myContext.state.mode)
   })
   return (
     <div className='w-full h-full bg-white relative'>
-      {myContext.mode === 'vr'? <VRButton />:<MyButton />}
+      {myContext.state.mode === 'vr' ? <VRButton /> : <MyButton />}
       <Views styling='w-full h-full'>
         <Suspense fallback={null}>
           <PerspectiveCamera position={[0, 3, 4]} fov={55} />
           <SimulationLight position={[27, 15, -32.4185]} targetPos={[21.7127, 9.5, -30.4185]} />
-          {myContext.mode === 'fps' && <PointerLockControls selector='#startFps' />}
+          {myContext.state.mode === 'fps' && <PointerLockControls selector='#startFps' />}
           {/* <OrbitControls /> */}
           <Wrapper>
-            {myContext.mode === 'vr' && <Controllers rayMaterial='red' />}
+            {myContext.state.mode === 'vr' && <Controllers rayMaterial='red' />}
             <Adam position={[21.7127, 10.5, -32.4185]} />
-            <LabkomE />
-            <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+            {(() => {
+              switch (myContext.state.destination) {
+                case 'labkom_e':
+                  return (
+                    <>
+                      <LabkomE />
+                      <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+                    </>
+                  )
+
+                default:
+                  return null
+              }
+            })()}
           </Wrapper>
         </Suspense>
       </Views>
