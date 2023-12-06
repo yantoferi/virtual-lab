@@ -62,18 +62,8 @@ export default function Experiences(props) {
 	}, 3)
 	return (
 		<Suspense fallback={null}>
-			{props.simulasi ?
-				<RigidBody colliders='cuboid' type='dynamic' mass={5}>
-					<Box args={[0.3, 0.3, 0.3]} position={[19.7127, 10.5, -30.4185]}>
-						<meshBasicMaterial color='orange' />
-					</Box>
-				</RigidBody>
-				:
-				<>
-					<Bottle getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[1, 1, -5]} />
-					<Book getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[4, 1, -0.7]} />
-				</>
-			}
+			<Bottle getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[1, 1, -5]} />
+			<Book getObject={getObject} dynamic={isDynamic} objectId={objectUuid} position={[4, 1, -0.7]} />
 		</Suspense>
 	)
 }
