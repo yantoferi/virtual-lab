@@ -2,8 +2,6 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
-import { RigidBody } from "@react-three/rapier"
-import { Plane } from "@react-three/drei"
 
 const CabinetBook = dynamic(() => import('../model/assets/CabinetBook').then(mod => mod.CabinetBook), {ssr: false})
 const Helmet = dynamic(() => import('../model/assets/Helmet').then(mod => mod.Helmet), {ssr: false})
@@ -37,11 +35,6 @@ export default function Industri() {
       {officeChairPos.map((chair, id) => (
         <OfficeChair key={id} position={[...chair.position]} rotation={[...chair.rotation]} />
       ))}
-      <RigidBody colliders='hull' type='fixed' position={[21.7127, 5, -30.4185]}>
-        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
-          <meshStandardMaterial color='whitesmoke' />
-        </Plane>
-      </RigidBody>
     </Suspense>
   )
 }

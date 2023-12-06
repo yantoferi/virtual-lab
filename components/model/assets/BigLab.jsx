@@ -5,6 +5,8 @@ Files: /home/TA/resource/Laboratory/assets/BigLab.glb [5.12MB] > BigLab-transfor
 */
 
 import { useGLTF } from '@react-three/drei'
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 export function BigLab(props) {
   const { nodes, materials } = useGLTF('models/BigLab-transformed.glb')
@@ -12,6 +14,11 @@ export function BigLab(props) {
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Lab.geometry} material={materials['Plaster labs']} />
       <mesh castShadow receiveShadow geometry={nodes['Lab-top'].geometry} material={materials['Plaster labs top']} position={[-0.092, 4.15, 0]} />
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </group>
   )
 }
