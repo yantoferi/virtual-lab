@@ -18,8 +18,8 @@ export default function Home() {
           <p className="text-[#ac1ed0] mb-2">SIMULASI VIRTUAL LAB</p>
           <h1 className="text-4xl font-bold mb-6 text-white leading-tight">Virtual Reality Lab Terpadu ITK</h1>
           <p className="text-[#5b5f73] mb-5">Sebuah simulasi virtual untuk berkenalan dengan lingkungan lab terpadu itk melalui pengalaman yang baru.</p>
-          <div>
-            <Menu as="div" className="relative">
+          <div className="flex items-center">
+            <Menu as="div" className="relative mx-3">
               <Menu.Button className="bg-[#3686ff] w-28 py-2 rounded-md">
                 <div className="flex items-center text-white justify-center gap-x-2">
                   <span>Tutorial</span>
@@ -33,8 +33,21 @@ export default function Home() {
                 <Menu.Item>
                   <Link href='/modvrsimulasi' className="block">Hello</Link>
                 </Menu.Item>
+              </Menu.Items>
+            </Menu>
+            <Menu as="div" className="relative mx-3">
+              <Menu.Button className="bg-[#3686ff] w-28 py-2 rounded-md">
+                <div className="flex items-center text-white justify-center gap-x-2">
+                  <span>Tutorial</span>
+                  <HiMiniChevronDown />
+                </div>
+              </Menu.Button>
+              <Menu.Items className="absolute top-full left-0 text-white">
                 <Menu.Item>
-                  <Link href='/laboratory' className="block">Hello</Link>
+                  <Link href='/modfpssimulasi' className="block">Hello</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link href='/modvrsimulasi' className="block">Hello</Link>
                 </Menu.Item>
               </Menu.Items>
             </Menu>
