@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const Drone = dynamic(() => import('../model/assets/Drone').then(mod => mod.Drone), {ssr: false})
 const MiniHouse = dynamic(() => import('../model/assets/MiniHouse').then(mod => mod.MiniHouse), {ssr: false})
@@ -26,6 +28,11 @@ export default function DesignRoom() {
       {labChairPos.map((chair, id) => (
         <OfficeChair key={id} position={[...chair.position]} rotation={[...chair.rotation]} />
       ))}
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[21.7127, 5, -14.2114]} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }
