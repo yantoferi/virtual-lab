@@ -39,14 +39,14 @@ export default function Simulation(props) {
           <Cover />
           <Roof />
 
-          {doorsLocate.map(door => (
-            <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
-          ))}
           <RigidBody colliders='hull' type='fixed'>
             <Plane args={[10, 10, 10]} position-y={0.5} rotation-x={-Math.PI/2}>
               <meshBasicMaterial color='white' />
             </Plane>
           </RigidBody>
+          {doorsLocate.map(door => (
+            <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
+          ))}
           {toiletLocate.map(toilet => (
             <Toilet key={toilet.id} position={toilet.position} rotation={toilet.rotation} />
           ))}

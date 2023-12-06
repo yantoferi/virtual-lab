@@ -81,7 +81,7 @@ export default function Laboratory() {
                 case 'industri':
                   return (
                     <>
-                      <Adam position={[21.7127, 5, -32.4185]} />
+                      <Adam position={[21.7127, 7, -32.4185]} />
                       <Industri />
                       <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                       <InitialPlane position={[21.7127, 5, -30.4185]} />
@@ -91,7 +91,7 @@ export default function Laboratory() {
                 case 'bioprocess':
                   return (
                     <>
-                      <Adam position={[21.7127, 5, -28.4185]} />
+                      <Adam position={[21.7127, 7, -28.4185]} />
                       <Bioprocess />
                       <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                     </>
