@@ -9,6 +9,7 @@ import { SimulationLight } from '@/components/lighting/light'
 import { ContextData } from '@/components/utils/context'
 import { Controllers, VRButton } from '@react-three/xr'
 import MyButton from "@/components/base/button"
+import LabkomD from '@/components/rooms/labkomd'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const SmallLab = dynamic(() => import('@/components/model/assets/SmallLab').then(mod => mod.SmallLab), { ssr: false })
@@ -38,6 +39,14 @@ export default function Laboratory() {
                   return (
                     <>
                       <LabkomE />
+                      <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+                    </>
+                  )
+
+                case 'labkom_d':
+                  return (
+                    <>
+                      <LabkomD />
                       <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                     </>
                   )

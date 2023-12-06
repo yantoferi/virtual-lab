@@ -36,7 +36,7 @@ export function Door(props) {
 
   const openDoor = (mode) => {
     myContext.updated(mode)
-    myContext.changedest('labkom_e')
+    myContext.changedest('labkom_d')
     if (session) {
       session.end().then(() => {
         route.replace('/laboratory')
