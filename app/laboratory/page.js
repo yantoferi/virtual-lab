@@ -16,6 +16,7 @@ import LabkomB from '@/components/rooms/labkomb'
 import Industri from '@/components/rooms/labindustri'
 import Bioprocess from '@/components/rooms/bioprocess'
 import LabkomA from '@/components/rooms/labkoma'
+import KuliahUmum from '@/components/rooms/kuliahumum'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const InitialPlane = dynamic(() => import('@/components/model/assets/initialplane'), {ssr: false})
@@ -139,6 +140,15 @@ export default function Laboratory() {
                       <Adam position={[21.7127, 2, -14.2114]} />
                       <BigLab position={[21.7127, 0.5, -14.2114]} rotation={[0, -Math.PI, 0]} />
                       <InitialPlane position={[21.7127, 0.5, -14.2114]} />
+                    </>
+                  )
+                
+                case 'kultam_a':
+                  return (
+                    <>
+                      <Adam position={[0, 11, 0]} />
+                      <KuliahUmum />
+                      <BigLab position={[0, 9.5, 0]} rotation={[0, -Math.PI, 0]} />
                     </>
                   )
 

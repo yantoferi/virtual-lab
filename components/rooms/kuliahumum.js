@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const ClassChair = dynamic(() => import('../model/assets/StudentChair').then(mod => mod.ClassChair), { ssr: false })
 
@@ -13,6 +15,11 @@ export default function KuliahUmum() {
           <ClassChair key={id} position={[posX, 9.5, posZ]} />
         ))
       ))}
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[0, 9.5, 0]} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }
