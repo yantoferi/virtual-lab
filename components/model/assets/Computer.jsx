@@ -4,12 +4,24 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/assets/Computer.glb --t
 Files: /home/TA/resource/Laboratory/assets/Computer.glb [11.35MB] > Computer-transformed.glb [1.68MB] (85%)
 */
 
+import { useState } from 'react'
 import { useGLTF, useVideoTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
+import { Interactive } from '@react-three/xr'
 
 export function Computer(props) {
   const { nodes, materials } = useGLTF('models/Computer-transformed.glb')
-  const texture = useVideoTexture('/videos/video_1.mp4', {loop: true})
+  const [idVideo, setIdVideo] = useState(1)
+
+  const texture = useVideoTexture(`/videos/video_${idVideo}.mp4`)
+
+  const changeVideo = (event) => {
+    if (idVideo === 4) {
+      setIdVideo(1)
+      return;
+    }
+    setIdVideo(idVideo + 1)
+  }
   useFrame({
     // 
   }, 6)
@@ -17,9 +29,29 @@ export function Computer(props) {
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Untitled075.geometry} material={materials.PaletteMaterial002} />
       <mesh castShadow receiveShadow geometry={nodes.Untitled075_1.geometry} material={materials.display} />
-      <mesh castShadow receiveShadow geometry={nodes.Untitled075_2.geometry}>
-        <meshStandardMaterial map={texture} />
-      </mesh>
+      <Interactive
+        onSelect={xrEvent => {
+          if (xrEvent.intersection?.distance >= 0.5) {
+            return;
+          }
+          changeVideo()
+        }}
+        onHover={(xrEvent) => {
+          if ((xrEvent.intersection?.distance <= 0.5) && props.objectId === '') {
+            toast.info('Klik trigger untuk ubah video', { autoClose: 1000 })
+          }
+        }}
+      >
+
+        <mesh castShadow receiveShadow geometry={nodes.Untitled075_2.geometry}
+          onPointerEnter={event => {
+            if (event.distance <= 1.5) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
+          }}
+          onClick={changeVideo}
+        >
+          <meshStandardMaterial map={texture} />
+        </mesh>
+      </Interactive>
       <mesh castShadow receiveShadow geometry={nodes.Untitled075_3.geometry} material={materials.PaletteMaterial001} />
     </group>
   )

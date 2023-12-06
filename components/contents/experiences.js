@@ -64,7 +64,7 @@ export default function Experiences(props) {
 		<Suspense fallback={null}>
 			{props.simulasi ?
 				<RigidBody colliders='cuboid' type='dynamic' mass={5}>
-					<Box args={[0.3, 0.3, 0.3]} position={[21.7127, 10.5, -30.4185]}>
+					<Box args={[0.3, 0.3, 0.3]} position={[19.7127, 10.5, -30.4185]}>
 						<meshBasicMaterial color='orange' />
 					</Box>
 				</RigidBody>
