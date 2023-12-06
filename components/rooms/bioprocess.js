@@ -29,8 +29,8 @@ export default function Bioprocess() {
       {woodShelfPos.map((table, id) => (
         <WoodShelf key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
-      <RigidBody colliders='hull' type='fixed' position={[21.7127, 5, -30.4185]}>
-        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[21.7127, 5, -30.4185]} receiveShadow>
           <meshStandardMaterial color='whitesmoke' />
         </Plane>
       </RigidBody>

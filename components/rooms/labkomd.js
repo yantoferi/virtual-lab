@@ -21,8 +21,8 @@ export default function LabkomD() {
       {officeChairPos.map((chair, id) => (
         <OfficeChair key={id} position={[...chair.position]} rotation={[...chair.rotation]} />
       ))}
-      <RigidBody colliders='hull' type='fixed' position={[21.7127, 9.5, -30.4185]}>
-        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[21.7127, 9.5, -30.4185]} receiveShadow>
           <meshStandardMaterial color='whitesmoke' />
         </Plane>
       </RigidBody>

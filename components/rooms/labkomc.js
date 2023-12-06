@@ -28,8 +28,8 @@ export default function LabkomC() {
           <OfficeChair key={id} position={[posX, 9.5, posZ]} rotation-y={-Math.PI} />
         ))
       ))}
-      <RigidBody colliders='hull' type='fixed' position={[21.7127, 9.5, -14.2114]}>
-        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+      <RigidBody colliders='hull' type='fixed'>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} position={[21.7127, 9.5, -14.2114]} receiveShadow>
           <meshStandardMaterial color='whitesmoke' />
         </Plane>
       </RigidBody>
