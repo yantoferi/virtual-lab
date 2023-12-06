@@ -28,10 +28,10 @@ export default function Home() {
               </Menu.Button>
               <Menu.Items className="absolute top-full left-0 text-white">
                 <Menu.Item>
-                  <Link href='/modfpstutorial' className="block">Hello</Link>
+                  <Link href='/modfpstutorial' className="block">Mode fps</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href='/modvrtutorial' className="block">Hello</Link>
+                  <Link href='/modvrtutorial' className="block">Mode VR</Link>
                 </Menu.Item>
               </Menu.Items>
             </Menu>
@@ -44,10 +44,10 @@ export default function Home() {
               </Menu.Button>
               <Menu.Items className="absolute top-full left-0 text-white">
                 <Menu.Item>
-                  <Link href='/modfpssimulasi' className="block">Hello</Link>
+                  <Link href='/modfpssimulasi' className="block">Mode fps</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href='/modvrsimulasi' className="block">Hello</Link>
+                  <Link href='/modvrsimulasi' className="block">Mode VR</Link>
                 </Menu.Item>
               </Menu.Items>
             </Menu>
