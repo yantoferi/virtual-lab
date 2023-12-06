@@ -4,17 +4,33 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/assets/SmartTv.glb --tr
 Files: /home/TA/resource/Laboratory/assets/SmartTv.glb [1.99MB] > SmartTv-transformed.glb [204.9KB] (90%)
 */
 
+import { useState } from 'react'
 import { useGLTF, useVideoTexture } from '@react-three/drei'
 
 export function SmartTv(props) {
   const { nodes, materials } = useGLTF('models/SmartTv-transformed.glb')
-  const texture = useVideoTexture('/videos/video_1.mp4')
+  const [idVideo, setIdVideo] = useState(1)
+
+  const texture = useVideoTexture(`/videos/video_${idVideo}.mp4`)
+
+  const changeVideo = (event) => {
+    if (idVideo === 4) {
+      setIdVideo(1)
+      return;
+    }
+    setIdVideo(idVideo + 1)
+  }
   return (
     <group {...props} dispose={null}>
       <group scale={[-1.641, 1.641, 1.641]}>
         <mesh castShadow receiveShadow geometry={nodes.Cube027.geometry} material={materials.tv_wood} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_1.geometry} material={materials['tv_table glass']} />
-        <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry}>
+        <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry}
+          onPointerEnter={event => {
+            if (event.distance <= 1.5) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
+          }}
+          onClick={changeVideo}
+        >
           <meshStandardMaterial map={texture} />
         </mesh>
         <mesh castShadow receiveShadow geometry={nodes.Cube027_3.geometry} material={materials.tv_casing} />
