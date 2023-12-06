@@ -20,7 +20,7 @@ export default function WorkshopC() {
       {tableReadPos.map((table, id) => (
         <TableRead key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
-      <Printer position={[4.04788, 1.41249, 4.6743]} />
+      <Printer position={[4.04788, 1.41249, 4.6743]} scale={0.03} />
       <RigidBody colliders='hull' type='fixed' position={[0, 0.5, 0]}>
         <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
           <meshStandardMaterial color='whitesmoke' />

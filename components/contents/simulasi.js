@@ -33,7 +33,7 @@ export default function Simulation(props) {
         <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
-          <Adam position-y={2} />
+          <Adam position={[5, 2, 0]} />
           <Labter />
           <Labs />
           {/* <Bigroom />
