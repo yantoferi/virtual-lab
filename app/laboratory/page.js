@@ -11,6 +11,7 @@ import MyButton from "@/components/base/button"
 import LabkomD from '@/components/rooms/labkomd'
 import LabkomE from '@/components/rooms/labkome'
 import WorkshopC from '@/components/rooms/WorkshopC'
+import LabkomC from '@/components/rooms/labkomc'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const SmallLab = dynamic(() => import('@/components/model/assets/SmallLab').then(mod => mod.SmallLab), { ssr: false })
@@ -52,6 +53,15 @@ export default function Laboratory() {
                       <Adam position={[21.7127, 10.5, -28.4185]} />
                       <LabkomD />
                       <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+                    </>
+                  )
+                
+                case 'labkom_c':
+                  return (
+                    <>
+                      <Adam position={[21.7127, 10.5, -28.4185]} />
+                      <LabkomC />
+                      <BigLab position={[21.7127, 9.5, -14.2114]} rotation={[0, -Math.PI, 0]} />
                     </>
                   )
                 

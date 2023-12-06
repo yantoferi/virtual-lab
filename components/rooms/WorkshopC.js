@@ -8,7 +8,6 @@ import { Plane } from "@react-three/drei"
 const CncMachine = dynamic(() => import('../model/assets/CncMachine').then(mod => mod.CncMachine), {ssr: false})
 const DrillPress = dynamic(() => import('../model/assets/Drill_press').then(mod => mod.DrillPress), {ssr: false})
 const LatheMachine = dynamic(() => import('../model/assets/Desk_lathe_animated').then(mod => mod.LatheMachine), {ssr: false})
-const Printer = dynamic(() => import('../model/assets/PrinterThree').then(mod => mod.PrinterThree), {ssr: false})
 const TableRead = dynamic(() => import('../model/assets/TableReading').then(mod => mod.TableReading), {ssr: false})
 
 export default function WorkshopC() {
@@ -20,7 +19,6 @@ export default function WorkshopC() {
       {tableReadPos.map((table, id) => (
         <TableRead key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
-      <Printer position={[4.04788, 1.41249, 4.6743]} scale={0.03} />
       <RigidBody colliders='hull' type='fixed' position={[0, 0.5, 0]}>
         <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
           <meshStandardMaterial color='whitesmoke' />
