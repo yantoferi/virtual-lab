@@ -6,6 +6,7 @@ Files: /home/TA/resource/Laboratory/assets/SmartTv.glb [1.99MB] > SmartTv-transf
 
 import { useState } from 'react'
 import { useGLTF, useVideoTexture } from '@react-three/drei'
+import { Interactive } from '@react-three/xr'
 
 export function SmartTv(props) {
   const { nodes, materials } = useGLTF('models/SmartTv-transformed.glb')
@@ -25,14 +26,30 @@ export function SmartTv(props) {
       <group scale={[-1.641, 1.641, 1.641]}>
         <mesh castShadow receiveShadow geometry={nodes.Cube027.geometry} material={materials.tv_wood} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_1.geometry} material={materials['tv_table glass']} />
-        <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry}
-          onPointerEnter={event => {
-            if (event.distance <= 1.5) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
-          }}
-          onClick={changeVideo}
-        >
-          <meshStandardMaterial map={texture} />
-        </mesh>
+        <group>
+          <Interactive
+            onSelect={xrEvent => {
+              if (xrEvent.intersection?.distance >= 0.5) {
+                return;
+              }
+              changeVideo()
+            }}
+            onHover={(xrEvent) => {
+              if ((xrEvent.intersection?.distance <= 0.5) && props.objectId === '') {
+                toast.info('Klik trigger untuk ubah video', { autoClose: 1000 })
+              }
+            }}
+          >
+            <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry}
+              onPointerEnter={event => {
+                if (event.distance <= 1.5) toast.info('Klik untuk mengubah video', { autoClose: 1000 })
+              }}
+              onClick={changeVideo}
+            >
+              <meshStandardMaterial map={texture} />
+            </mesh>
+          </Interactive>
+        </group>
         <mesh castShadow receiveShadow geometry={nodes.Cube027_3.geometry} material={materials.tv_casing} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_4.geometry} material={materials['tv_metal silver']} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_5.geometry} material={materials['tv_black material']} />
