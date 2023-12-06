@@ -28,10 +28,13 @@ export default function Home() {
               </Menu.Button>
               <Menu.Items className="absolute top-full left-0 text-white">
                 <Menu.Item>
-                  <Link href='/modfpssimulasi'>Hello</Link>
+                  <Link href='/modfpssimulasi' className="block">Hello</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href='/modfvrsimulasi'>Hello</Link>
+                  <Link href='/modfvrsimulasi' className="block">Hello</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link href='/laboratory' className="block">Hello</Link>
                 </Menu.Item>
               </Menu.Items>
             </Menu>
