@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Popover } from "@headlessui/react"
 import Image from "next/image"
 import { CiMenuFries } from "react-icons/ci"
@@ -18,20 +19,14 @@ export default function Menus() {
         <Popover.Panel className="absolute right-0">
           <div className="w-28 bg-[#5b5f73] backdrop-opacity-50 backdrop-blur-xl rounded p-3">
             <ul className="text-sm">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li>Feature</li>
-              <li>GitHub</li>
+              <Link href="https://github.com/yantoferi/virtual-lab">GitHub</Link>
             </ul>
           </div>
         </Popover.Panel>
       </Popover>
       <div className="hidden md:block basis-80">
         <ul className="flex justify-around text-sm text-[#5b5f73]">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li>Feature</li>
-          <li>GitHub</li>
+          <Link href="https://github.com/yantoferi/virtual-lab">GitHub</Link>
         </ul>
       </div>
     </div>
