@@ -59,7 +59,7 @@ export default function Laboratory() {
                 case 'labkom_c':
                   return (
                     <>
-                      <Adam position={[21.7127, 10.5, -28.4185]} />
+                      <Adam position={[21.7127, 10.5, -14.2114]} />
                       <LabkomC />
                       <BigLab position={[21.7127, 9.5, -14.2114]} rotation={[0, -Math.PI, 0]} />
                     </>
