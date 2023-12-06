@@ -7,6 +7,7 @@ Files: /home/TA/resource/Laboratory/assets/SmartTv.glb [1.99MB] > SmartTv-transf
 import { useState } from 'react'
 import { useGLTF, useVideoTexture } from '@react-three/drei'
 import { Interactive } from '@react-three/xr'
+import { toast } from 'react-toastify'
 
 export function SmartTv(props) {
   const { nodes, materials } = useGLTF('models/SmartTv-transformed.glb')
