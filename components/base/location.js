@@ -247,13 +247,13 @@ const doorsLocate = [
   },
   {
     id: 'door.031',
-    destination: 'labkom_b',
+    destination: 'labkom_e',
     position: [18.2069, 9.5, -37.2679],
     rotation: [0, 0, 0],
   },
   {
     id: 'door.032',
-    destination: 'labkom_b',
+    destination: 'labkom_d',
     position: [18.2069, 9.5, -23.4679],
     rotation: [0, 0, 0],
   },
@@ -271,13 +271,13 @@ const doorsLocate = [
   },
   {
     id: 'door.035',
-    destination: 'labkom_d',
+    destination: 'labkom_b',
     position: [18.2069, 9.5, -4.86739],
     rotation: [0, 0, 0],
   },
   {
     id: 'door.036',
-    destination: 'labkom_e',
+    destination: 'labkom_b',
     position: [18.2069, 9.5, 8.93261],
     rotation: [0, 0, 0],
   },
