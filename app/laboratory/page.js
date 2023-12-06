@@ -2,7 +2,8 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense, useContext, useEffect } from 'react'
-import { OrbitControls, PerspectiveCamera, PointerLockControls } from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera, PointerLockControls, Plane } from '@react-three/drei'
+import { RigidBody } from "@react-three/rapier"
 import Wrapper from '@/components/utils/wrapper'
 import { SimulationLight } from '@/components/lighting/light'
 import { ContextData } from '@/components/utils/context'
@@ -57,7 +58,7 @@ export default function Laboratory() {
                       <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
                     </>
                   )
-                
+
                 case 'labkom_c':
                   return (
                     <>
@@ -68,23 +69,28 @@ export default function Laboratory() {
                   )
 
                 case 'labkom_b':
-                    return (
-                      <>
-                        <Adam position={[21.7127, 10.5, 1.98262]} />
-                        <LabkomB />
-                        <BigLab position={[21.7127, 9.5, 1.98262]} rotation={[0, -Math.PI, 0]} />
-                      </>
-                    )
-                
+                  return (
+                    <>
+                      <Adam position={[21.7127, 10.5, 1.98262]} />
+                      <LabkomB />
+                      <BigLab position={[21.7127, 9.5, 1.98262]} rotation={[0, -Math.PI, 0]} />
+                    </>
+                  )
+
                 case 'industri':
-                    return (
-                      <>
-                        <Adam position={[21.7127, 5, -32.4185]} />
-                        <Industri />
-                        <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
-                      </>
-                    )
-                
+                  return (
+                    <>
+                      <Adam position={[21.7127, 5, -32.4185]} />
+                      <Industri />
+                      <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+                      <RigidBody colliders='hull' type='fixed' position={[1.7127, 5, -30.4185]}>
+                        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+                          <meshStandardMaterial color='whitesmoke' />
+                        </Plane>
+                      </RigidBody>
+                    </>
+                  )
+
                 case 'workshop_c':
                   return (
                     <>
