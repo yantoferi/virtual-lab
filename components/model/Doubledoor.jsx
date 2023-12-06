@@ -40,7 +40,7 @@ export function Door(props) {
       session.end().then(() => {
         route.replace('/laboratory')
         setIsOpen(!isOpen)
-        return
+        return;
       })
     }
     route.replace('/laboratory')
