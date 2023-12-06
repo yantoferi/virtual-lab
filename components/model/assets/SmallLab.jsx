@@ -11,7 +11,7 @@ export function SmallLab(props) {
   const { nodes, materials } = useGLTF('models/SmallLab-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <RigidBody>
+      <RigidBody colliders={false} type="fixed">
         <mesh castShadow receiveShadow geometry={nodes.Lab_small.geometry} material={materials['Plaster lab small']} position={[0, 0, 0.003]} />
         <CuboidCollider args={[0.6, 2, 5.8]} position={[4.2, 2, 0]} />
         <CuboidCollider args={[0.2, 2, 8]} position={[-4.6, 2, 0]} />

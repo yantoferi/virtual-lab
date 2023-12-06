@@ -31,7 +31,7 @@ export default function Laboratory() {
           {/* <OrbitControls /> */}
           <Wrapper>
             {myContext.mode === 'vr' && <Controllers rayMaterial='red' />}
-            <Adam position={[21.7127, 10.5, -30.4185]} />
+            <Adam position={[21.7127, 10.5, -32.4185]} />
             <LabkomE />
             <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
           </Wrapper>
