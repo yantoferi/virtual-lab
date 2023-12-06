@@ -191,7 +191,7 @@ export default function Laboratory() {
                 case 'aslab_a':
                   return (
                     <>
-                      <Adam position={[0, 7, -28.4005]} />
+                      <Adam pos={[0, 7, -28.4005]} />
                       <AsistenLabA />
                       <SmallLab position={[0, 5, -32.4005]} rotation={[0, 0, 0]} />
                     </>

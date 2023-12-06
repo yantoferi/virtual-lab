@@ -4,16 +4,19 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/assets/SmartTv.glb --tr
 Files: /home/TA/resource/Laboratory/assets/SmartTv.glb [335.18KB] > SmartTv-transformed.glb [110.64KB] (67%)
 */
 
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, useVideoTexture } from '@react-three/drei'
 
 export function SmartTv(props) {
   const { nodes, materials } = useGLTF('models/SmartTv-transformed.glb')
+  const texture = useVideoTexture('/videos/video_1.mp4')
   return (
     <group {...props} dispose={null}>
       <group scale={1.641}>
         <mesh castShadow receiveShadow geometry={nodes.Cube027.geometry} material={materials.tv_wood} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_1.geometry} material={materials['tv_table glass']} />
-        <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry} material={materials.tv_screen} />
+        <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry} material={materials.tv_screen}>
+          <meshStandardMaterial map={texture} />
+        </mesh>
         <mesh castShadow receiveShadow geometry={nodes.Cube027_3.geometry} material={materials.tv_casing} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_4.geometry} material={materials['tv_metal silver']} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_5.geometry} material={materials['tv_black material']} />
