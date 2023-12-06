@@ -42,7 +42,7 @@ export default function Simulation(props) {
           {/* <AllRooms /> */}
 
           {doorsLocate.map(door => (
-            <Door key={door.id} position={door.position} rotation={door.rotation} />
+            <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
           ))}
           <RigidBody colliders='hull' type='fixed'>
             <Plane args={[10, 10, 10]} position-y={0.5} rotation-x={-Math.PI/2}>

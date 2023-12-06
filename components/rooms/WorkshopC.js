@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
+import { RigidBody } from "@react-three/rapier"
+import { Plane } from "@react-three/drei"
 
 const CncMachine = dynamic(() => import('../model/assets/CncMachine').then(mod => mod.CncMachine), {ssr: false})
 const DrillPress = dynamic(() => import('../model/assets/Drill_press').then(mod => mod.DrillPress), {ssr: false})
@@ -19,6 +21,11 @@ export default function WorkshopC() {
         <TableRead key={id} position={[...table.position]} rotation={[...table.rotation]} />
       ))}
       <Printer position={[4.04788, 1.41249, 4.6743]} />
+      <RigidBody colliders='hull' type='fixed' position={[0, 0.5, 0]}>
+        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
+          <meshStandardMaterial color='whitesmoke' />
+        </Plane>
+      </RigidBody>
     </Suspense>
   )
 }
