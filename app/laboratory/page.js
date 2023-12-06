@@ -121,15 +121,6 @@ export default function Laboratory() {
                     </>
                   )
 
-                case 'workshop_c':
-                  return (
-                    <>
-                      <Adam position={[0, 2, 0]} />
-                      <WorkshopC />
-                      <BigLab position={[0, 0.5, 0]} rotation={[0, 0, 0]} />
-                    </>
-                  )
-
                 case 'teknologi_process':
                   return (
                     <>
@@ -220,6 +211,33 @@ export default function Laboratory() {
                       <Adam position={[0, 7, 0]} />
                       <Chemistry />
                       <BigLab position={[0, 5, 0]} rotation={[0, 0, 0]} />
+                    </>
+                  )
+                
+                case 'workshop_c':
+                  return (
+                    <>
+                      <Adam position={[0, 2, 0]} />
+                      <WorkshopC />
+                      <BigLab position={[0, 0.5, 0]} rotation={[0, 0, 0]} />
+                    </>
+                  )
+                
+                case 'assembly':
+                  return (
+                    <>
+                      <Adam position={[0, 2, -16.2002]} />
+                      <BigLab position={[0, 0.5, -16.2002]} rotation={[0, 0, 0]} />
+                      <InitialPlane position={[0, 0.5, -16.2002]} />
+                    </>
+                  )
+                
+                case 'civil':
+                  return (
+                    <>
+                      <Adam position={[0, 2, -32.397]} />
+                      <BigLab position={[0, 0.5, -32.397]} rotation={[0, 0, 0]} />
+                      <InitialPlane position={[0, 0.5, -32.397]} />
                     </>
                   )
 
