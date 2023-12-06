@@ -31,7 +31,7 @@ export default function Home() {
                   <Link href='/modfpssimulasi' className="block">Hello</Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href='/modfvrsimulasi' className="block">Hello</Link>
+                  <Link href='/modvrsimulasi' className="block">Hello</Link>
                 </Menu.Item>
                 <Menu.Item>
                   <Link href='/laboratory' className="block">Hello</Link>
