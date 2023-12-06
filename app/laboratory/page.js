@@ -2,8 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense, useContext, useEffect } from 'react'
-import { OrbitControls, PerspectiveCamera, PointerLockControls, Plane } from '@react-three/drei'
-import { RigidBody } from "@react-three/rapier"
+import { OrbitControls, PerspectiveCamera, PointerLockControls } from '@react-three/drei'
 import Wrapper from '@/components/utils/wrapper'
 import { SimulationLight } from '@/components/lighting/light'
 import { ContextData } from '@/components/utils/context'
@@ -17,6 +16,7 @@ import LabkomB from '@/components/rooms/labkomb'
 import Industri from '@/components/rooms/labindustri'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
+const InitialPlane = dynamic(() => import('@/components/model/assets/initialplane'), {ssr: false})
 const SmallLab = dynamic(() => import('@/components/model/assets/SmallLab').then(mod => mod.SmallLab), { ssr: false })
 const BigLab = dynamic(() => import('@/components/model/assets/BigLab').then(mod => mod.BigLab), { ssr: false })
 const Views = dynamic(() => import('@/components/canvas/views'), { ssr: false })
@@ -83,11 +83,7 @@ export default function Laboratory() {
                       <Adam position={[21.7127, 5, -32.4185]} />
                       <Industri />
                       <SmallLab position={[21.7127, 5, -30.4185]} rotation={[0, -Math.PI, 0]} />
-                      <RigidBody colliders='hull' type='fixed' position={[1.7127, 5, -30.4185]}>
-                        <Plane args={[20, 20, 20]} rotation-x={-Math.PI / 2} receiveShadow>
-                          <meshStandardMaterial color='whitesmoke' />
-                        </Plane>
-                      </RigidBody>
+                      <InitialPlane position={[21.7127, 5, -30.4185]} />
                     </>
                   )
 
