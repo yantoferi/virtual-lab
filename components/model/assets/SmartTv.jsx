@@ -11,7 +11,7 @@ export function SmartTv(props) {
   const texture = useVideoTexture('/videos/video_1.mp4')
   return (
     <group {...props} dispose={null}>
-      <group rotation={[-Math.PI, 0, -Math.PI]} scale={[-1.641, 1.641, 1.641]}>
+      <group scale={[-1.641, 1.641, 1.641]}>
         <mesh castShadow receiveShadow geometry={nodes.Cube027.geometry} material={materials.tv_wood} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_1.geometry} material={materials['tv_table glass']} />
         <mesh castShadow receiveShadow geometry={nodes.Cube027_2.geometry}>
