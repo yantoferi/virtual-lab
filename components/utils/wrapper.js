@@ -19,7 +19,7 @@ export default function Wrapper({ children }) {
 	return (
 		<XR referenceSpace='local'>
 			<KeyboardControls map={mapKeys}>
-				<Physics debug>
+				<Physics>
 					{children}
 				</Physics>
 			</KeyboardControls>
