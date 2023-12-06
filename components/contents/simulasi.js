@@ -3,8 +3,9 @@
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo } from "react"
 import { useLoader, useThree } from "@react-three/fiber"
-import { PerspectiveCamera, PointerLockControls } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls, Plane } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
+import { RigidBody } from "@react-three/rapier"
 import { Audio, AudioListener, AudioLoader } from "three"
 import { SimulationLight } from "../lighting/light"
 import Wrapper from "../utils/wrapper"
@@ -43,6 +44,11 @@ export default function Simulation(props) {
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} />
           ))}
+          <RigidBody colliders='hull' type='fixed'>
+            <Plane args={[10, 10, 10]} position-y={0.5} visible={false}>
+              <meshBasicMaterial color='white' />
+            </Plane>
+          </RigidBody>
           {/* {toiletLocate.map(toilet => (
             <Toilet key={toilet.id} position={toilet.position} rotation={toilet.rotation} />
           ))}
