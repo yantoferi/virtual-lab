@@ -23,6 +23,7 @@ import AsistenLabA from '@/components/rooms/asistenlab_a'
 import PhysicLab from '@/components/rooms/labfisika'
 import Chemistry from '@/components/rooms/labkimia'
 import Lppm from '@/components/rooms/lppm'
+import Experiences from '@/components/contents/experiences'
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const InitialPlane = dynamic(() => import('@/components/model/assets/initialplane'), { ssr: false })
@@ -56,6 +57,7 @@ export default function Laboratory() {
                       <Adam position={[21.7127, 10.5, -32.4185]} />
                       <LabkomE />
                       <SmallLab position={[21.7127, 9.5, -30.4185]} rotation={[0, -Math.PI, 0]} />
+                      <Experiences simulasi={true} />
                     </>
                   )
 
@@ -246,6 +248,7 @@ export default function Laboratory() {
                   return (
                     <>
                       <Adam position={[-4.44851, 7, 19.396]} />
+                      <Lppm />
                       <BigLab position={[-4.44851, 5, 19.396]} rotation={[0, 0, 0]} />
                       <InitialPlane position={[-4.44851, 5, 19.396]} />
                     </>

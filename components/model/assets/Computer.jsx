@@ -9,7 +9,7 @@ import { useFrame } from '@react-three/fiber'
 
 export function Computer(props) {
   const { nodes, materials } = useGLTF('models/Computer-transformed.glb')
-  const videoTexture = useVideoTexture('/videos/video_1.mp4', {loop: true})
+  const texture = useVideoTexture('/videos/video_1.mp4', {loop: true})
   useFrame({
     // 
   }, 6)
@@ -18,7 +18,7 @@ export function Computer(props) {
       <mesh castShadow receiveShadow geometry={nodes.Untitled075.geometry} material={materials.PaletteMaterial002} />
       <mesh castShadow receiveShadow geometry={nodes.Untitled075_1.geometry} material={materials.display} />
       <mesh castShadow receiveShadow geometry={nodes.Untitled075_2.geometry}>
-        <meshStandardMaterial map={videoTexture} />
+        <meshStandardMaterial map={texture} />
       </mesh>
       <mesh castShadow receiveShadow geometry={nodes.Untitled075_3.geometry} material={materials.PaletteMaterial001} />
     </group>
