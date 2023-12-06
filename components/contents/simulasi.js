@@ -32,7 +32,7 @@ export default function Simulation(props) {
         <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
-          <Adam position={[5, 2, 0]} />
+          <Adam position={[8, 2, 0]} />
           <Labter />
           <Labs />
           <Bigroom />
@@ -40,7 +40,7 @@ export default function Simulation(props) {
           <Roof />
 
           <RigidBody colliders='hull' type='fixed'>
-            <Plane args={[10, 10, 10]} position-y={0.5} rotation-x={-Math.PI/2}>
+            <Plane args={[10, 10, 10]} position={[5, 2, 0]} rotation-x={-Math.PI/2}>
               <meshBasicMaterial color='white' />
             </Plane>
           </RigidBody>
