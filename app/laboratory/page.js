@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from 'next/dynamic'
-import { Suspense, useContext, useEffect, useRef } from 'react'
+import { Suspense, useContext, useEffect, useState } from 'react'
 import ReactLoading from "react-loading"
 import { PerspectiveCamera, PointerLockControls, Stats } from '@react-three/drei'
 import Wrapper from '@/components/utils/wrapper'
