@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import { Suspense, useContext, useEffect, useRef } from 'react'
 import ReactLoading from "react-loading"
-import { OrbitControls, PerspectiveCamera, PointerLockControls } from '@react-three/drei'
+import { PerspectiveCamera, PointerLockControls, Stats } from '@react-three/drei'
 import Wrapper from '@/components/utils/wrapper'
 import { SimulationLight } from '@/components/lighting/light'
 import { ContextData } from '@/components/utils/context'
@@ -42,28 +42,33 @@ const Views = dynamic(() => import('@/components/canvas/views'), {
 export default function Laboratory() {
   const myContext = useContext(ContextData)
 
+  const [isLock, setIsLock] = useState(false)
+
+  const changeLocked = status => {
+    setIsLock(status)
+  }
+
   useEffect(() => {
     console.log(myContext.state.mode)
     console.log(myContext.state.destination)
   })
   return (
     <div className='w-full h-full bg-white relative'>
-      {myContext.state.mode === 'vr' ? <VRButton /> : <MyButton />}
+      {myContext.state.mode === 'vr' ? <VRButton /> : isLock? <MyButton />:<h1>cursor</h1>}
       <Views styling='w-full h-full'>
-        <Content context={{mode: myContext.state.mode, destination: myContext.state.destination}} />
+        <Content context={{mode: myContext.state.mode, destination: myContext.state.destination}} updateIsLock={changeLocked} locked={isLock} />
       </Views>
     </div>
   )
 }
 
 function Content(props) {
-  const cam = useRef()
   return (
     <Suspense fallback={null}>
-      <PerspectiveCamera ref={cam} position={[0, 3, 4]} fov={55} />
+      <Stats />
+      <PerspectiveCamera position={[0, 3, 4]} fov={55} />
       <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
-      {props.context.mode === 'fps' && <PointerLockControls selector='#startFps' />}
-      {/* <OrbitControls /> */}
+      {props.context.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
       <Wrapper>
         {props.context.mode === 'vr' && <Controllers rayMaterial='red' />}
         {(() => {
