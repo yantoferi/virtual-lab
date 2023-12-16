@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo } from "react"
 import ReactLoading from "react-loading"
 import { useLoader, useThree } from "@react-three/fiber"
-import { PerspectiveCamera, PointerLockControls, Plane, OrbitControls, Stats, Environment } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls, Plane, OrbitControls, Stats } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import { RigidBody } from "@react-three/rapier"
 import { Audio, AudioListener, AudioLoader } from "three"
@@ -36,7 +36,6 @@ export default function Simulation(props) {
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
         <Stats />
-        <Environment files="/hdr/cloudy.hdr" background />
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={100} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
         {/* <OrbitControls /> */}
@@ -46,14 +45,10 @@ export default function Simulation(props) {
           <Adam position={[8, 2, 0]} />
           <Labter />
           <Labs />
-          {/* <Cabinet />
           <Bigroom />
           <Cover />
           <Roof />
           
-          {doorsLocate.map(door => (
-            <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
-          ))}
           {toiletLocate.map(toilet => (
             <Toilet key={toilet.id} position={toilet.position} rotation={toilet.rotation} />
           ))}
@@ -62,7 +57,7 @@ export default function Simulation(props) {
           ))}
           {stairsLocate.map(stair => (
             <Stair key={stair.id} pos={stair.position} rot={stair.rotation} />
-          ))} */}
+          ))}
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
           ))}
