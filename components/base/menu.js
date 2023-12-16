@@ -1,32 +1,23 @@
 "use client"
 
-import Link from "next/link"
-import { Popover } from "@headlessui/react"
 import Image from "next/image"
+import Link from "next/link"
 import { CiMenuFries } from "react-icons/ci"
 
 export default function Menus() {
   return (
-    <div className="flex items-center justify-between">
-      <div className="w-14 h-14 relative">
-        <Image src='/images/pngwing.png' alt="logo" fill />
+    <div className="col-span-12 flex items-center justify-between px-3">
+      <div id="logo">
+        <Image src='/images/vr-glasses.png' alt="Logo" width={60} height={60} />
       </div>
-      <Popover className="relative md:hidden">
-        <Popover.Button className="p-2 outline-none">
-          <CiMenuFries className="w-6 h-6 text-white" />
-        </Popover.Button>
-
-        <Popover.Panel className="absolute right-0">
-          <div className="w-28 bg-[#5b5f73] backdrop-opacity-50 backdrop-blur-xl rounded p-3">
-            <ul className="text-sm">
-              <Link href="https://github.com/yantoferi/virtual-lab">GitHub</Link>
-            </ul>
-          </div>
-        </Popover.Panel>
-      </Popover>
-      <div className="hidden md:block basis-80">
-        <ul className="flex justify-around text-sm text-[#5b5f73]">
-          <Link href="https://github.com/yantoferi/virtual-lab">GitHub</Link>
+      <div id="option-icon" className="md:hidden">
+        <CiMenuFries className="w-6 h-6" />
+      </div>
+      <div className="menu-item hidden md:block">
+        <ul className="flex items-center gap-5">
+          <li><Link href="#">Home</Link></li>
+          <li><Link href="#">About</Link></li>
+          <li><Link href="#">GitHub</Link></li>
         </ul>
       </div>
     </div>

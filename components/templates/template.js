@@ -1,10 +1,12 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useRef, useState } from "react"
-import Scene from "../canvas/scene"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { ContextData } from "../utils/context"
+
+const Scene = dynamic(() => import('../canvas/scene'), {ssr: false})
 
 export default function Template({ children }) {
   const parent = useRef(null)

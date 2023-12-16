@@ -2,8 +2,9 @@
 
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo } from "react"
+import ReactLoading from "react-loading"
 import { useLoader, useThree } from "@react-three/fiber"
-import { PerspectiveCamera, PointerLockControls, Plane } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls, Plane, OrbitControls, Stats, Environment } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import { RigidBody } from "@react-three/rapier"
 import { Audio, AudioListener, AudioLoader } from "three"
@@ -13,37 +14,43 @@ import { stairsLocate, toiletLocate, doorsLocate, singleDoorPos } from "../base/
 
 const Adam = dynamic(() => import('../model/Adam').then(mod => mod.Adam))
 const Bigroom = dynamic(() => import('../model/Bigroom').then(mod => mod.Bigroom), { ssr: false })
-const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), {ssr: false})
+const Cover = dynamic(() => import('../model/Cover').then(mod => mod.Cover), { ssr: false })
 const Door = dynamic(() => import('../model/Doubledoor').then(mod => mod.Door), { ssr: false })
 const Labs = dynamic(() => import('../model/Lab').then(mod => mod.Labs), { ssr: false })
 const Labter = dynamic(() => import('../model/Labter').then(mod => mod.Labter), { ssr: false })
-const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), {ssr: false})
+const Roof = dynamic(() => import('../model/Rooftop').then(mod => mod.Rooftop), { ssr: false })
 const Stair = dynamic(() => import('../model/Stair').then(mod => mod.Stair), { ssr: false })
 const SingleDoor = dynamic(() => import('../model/assets/SingleDoor').then(mod => mod.SingleDoor), { ssr: false })
 const Toilet = dynamic(() => import('../model/Toilet').then(mod => mod.Toilet), { ssr: false })
-const Views = dynamic(() => import('@/components/canvas/views'), { ssr: false })
+const Views = dynamic(() => import('@/components/canvas/views'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full relative bg-black">
+      <ReactLoading type="bars" color="orange" width={80} height={80} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+    </div>
+  )
+})
 
 export default function Simulation(props) {
   return (
     <Views styling='w-full h-full'>
       <Suspense fallback={null}>
-        <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={25} />
+        <Stats />
+        <Environment files="/hdr/cloudy.hdr" background />
+        <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={100} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
+        {/* <OrbitControls /> */}
         <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
           <Adam position={[8, 2, 0]} />
           <Labter />
           <Labs />
+          {/* <Cabinet />
           <Bigroom />
           <Cover />
           <Roof />
-
-          <RigidBody colliders='hull' type='fixed'>
-            <Plane args={[10, 10, 10]} position={[5, 2, 0]} rotation-x={-Math.PI/2}>
-              <meshBasicMaterial color='white' />
-            </Plane>
-          </RigidBody>
+          
           {doorsLocate.map(door => (
             <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
           ))}
@@ -55,7 +62,15 @@ export default function Simulation(props) {
           ))}
           {stairsLocate.map(stair => (
             <Stair key={stair.id} pos={stair.position} rot={stair.rotation} />
+          ))} */}
+          {doorsLocate.map(door => (
+            <Door key={door.id} position={door.position} rotation={door.rotation} destination={door.destination} />
           ))}
+          <RigidBody colliders='hull' type='fixed'>
+            <Plane args={[10, 10, 10]} position={[5, 2, 0]} rotation-x={-Math.PI/2}>
+              <meshBasicMaterial color='white' />
+            </Plane>
+          </RigidBody>
         </Wrapper>
       </Suspense>
     </Views>
