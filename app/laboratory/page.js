@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { Suspense, useContext, useEffect, useState } from 'react'
 import ReactLoading from "react-loading"
 import { PerspectiveCamera, PointerLockControls, Stats } from '@react-three/drei'
+import { TfiTarget } from "react-icons/tfi"
 import Wrapper from '@/components/utils/wrapper'
 import { SimulationLight } from '@/components/lighting/light'
 import { ContextData } from '@/components/utils/context'
@@ -54,7 +55,12 @@ export default function Laboratory() {
   })
   return (
     <div className='w-full h-full bg-white relative'>
-      {myContext.state.mode === 'vr' ? <VRButton /> : isLock? <h1>cursor</h1>:<MyButton />}
+      {myContext.state.mode === 'vr' ? <VRButton /> :
+      isLock?
+      <div className='absolute left-1/2 top-1/2 -transform-y-1/2 -transform-x-1/2 z-10'>
+        <TfiTarget className='w-6 h-6 text-sky-600' />
+      </div>:
+      <MyButton />}
       <Views styling='w-full h-full'>
         <Content context={{mode: myContext.state.mode, destination: myContext.state.destination}} updateIsLock={changeLocked} locked={isLock} />
       </Views>
