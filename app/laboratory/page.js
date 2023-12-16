@@ -54,7 +54,7 @@ export default function Laboratory() {
   })
   return (
     <div className='w-full h-full bg-white relative'>
-      {myContext.state.mode === 'vr' ? <VRButton /> : isLock? <MyButton />:<h1>cursor</h1>}
+      {myContext.state.mode === 'vr' ? <VRButton /> : isLock? <h1>cursor</h1>:<MyButton />}
       <Views styling='w-full h-full'>
         <Content context={{mode: myContext.state.mode, destination: myContext.state.destination}} updateIsLock={changeLocked} locked={isLock} />
       </Views>
