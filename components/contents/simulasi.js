@@ -45,11 +45,11 @@ export default function Simulation(props) {
           {/* <Adam position={[8, 2, 0]} /> */}
           <Labter />
           <Labs />
-          <Bigroom />
-          <Cover />
-          <Roof />
+          {/* <Bigroom /> */}
+          {/* <Cover /> */}
+          {/* <Roof /> */}
           
-          {toiletLocate.map(toilet => (
+          {/* {toiletLocate.map(toilet => (
             <Toilet key={toilet.id} position={toilet.position} rotation={toilet.rotation} />
           ))}
           {singleDoorPos.map((door, id) => (
@@ -65,7 +65,7 @@ export default function Simulation(props) {
             <Plane args={[10, 10, 10]} position={[5, 0.5, 0]} rotation-x={-Math.PI/2}>
               <meshBasicMaterial color='white' />
             </Plane>
-          </RigidBody>
+          </RigidBody> */}
         </Wrapper>
       </Suspense>
     </Views>
