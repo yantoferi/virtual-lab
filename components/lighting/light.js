@@ -4,10 +4,10 @@ import { DirectionalLightHelper, PointLightHelper } from "three"
 
 function SimulationLight(props) {
   const light = useRef(null)
-  useHelper(light, DirectionalLightHelper, 3, 'blue')
+  useHelper(light, DirectionalLightHelper, 2, 'blue')
   return (
     <>
-      <directionalLight ref={light} color='#ffffff' intensity={4} position={props.position} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0001}>
+      <directionalLight ref={light} color='yellow' intensity={2} position={props.position} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0001}>
         <orthographicCamera args={[-50, 50, 50, -50]} attach='shadow-camera' />
         <object3D position={props.targetPos} attach='target' />
       </directionalLight>
