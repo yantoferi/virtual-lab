@@ -24,7 +24,7 @@ export function Labs(props) {
             <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, -8]} />
           </RigidBody>
           <mesh castShadow receiveShadow geometry={nodes['Lab-top'].geometry} material={materials['Plaster labs top']} position={[-0.092, 4.15, 0]} />
-          <pointLight color='white' intensity={2} position-y={3.5} />
+          <pointLight color='white' intensity={3} position-y={3.5} />
         </group>
       ))}
       {smallLabPos.map((smallLab, id) => (
