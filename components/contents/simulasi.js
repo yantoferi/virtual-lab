@@ -37,12 +37,12 @@ export default function Simulation(props) {
       <Suspense fallback={null}>
         <Stats />
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={100} />
-        {/* {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />} */}
-        <OrbitControls />
+        {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
+        {/* <OrbitControls /> */}
         <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
         <Wrapper>
           {props.mode === 'vr' && <Controllers rayMaterial='red' />}
-          {/* <Adam position={[8, 2, 0]} /> */}
+          <Adam position={[8, 2, 0]} />
           <Labter />
           <Labs />
           {/* <Bigroom /> */}
