@@ -17,7 +17,7 @@ export function Cover(props) {
     <group {...props} dispose={null}>
       <group position={[15.218, 0.25, -44.201]}>
         <RigidBody colliders='trimesh' type='fixed'>
-          <mesh castShadow receiveShadow geometry={nodes.Plane010.geometry} material={materials['Black glass']} />
+          <mesh receiveShadow geometry={nodes.Plane010.geometry} material={materials['Black glass']} />
         </RigidBody>
           <mesh castShadow receiveShadow geometry={nodes.Plane010_1.geometry} material={materials['Plaster wall cover']} />
       </group>
