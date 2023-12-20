@@ -7,7 +7,7 @@ Files: /home/TA/resource/Laboratory/assets/BigLab.glb [5.12MB] > BigLab-transfor
 import dynamic from "next/dynamic"
 import { useGLTF } from '@react-three/drei'
 
-const RoomLight = dynamic(() => import('../lighting/light').then(mod => mod.RoomLight), {ssr: false})
+const RoomLight = dynamic(() => import('../../lighting/light').then(mod => mod.RoomLight), {ssr: false})
 
 export function BigLab(props) {
   const { nodes, materials } = useGLTF('models/BigLab-transformed.glb')
