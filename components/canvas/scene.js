@@ -15,6 +15,7 @@ export default function Scene(props) {
         inset: 0,
         pointerEvents: 'none',
       }}
+      gl={{antialias: true}}
     >
       <gate.Out />
       <Preload all />

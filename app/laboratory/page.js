@@ -73,7 +73,7 @@ function Content(props) {
     <Suspense fallback={null}>
       <Stats />
       <PerspectiveCamera position={[0, 3, 4]} fov={55} />
-      <SimulationLight position={[30, 30, -10]} targetPos={[0, 0, 0]} />
+      <ambientLight color='white' intensity={2} />
       {props.context.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
       <Wrapper>
         {props.context.mode === 'vr' && <Controllers rayMaterial='red' />}

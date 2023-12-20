@@ -4,9 +4,12 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/Labter.glb --transform 
 Files: /home/TA/resource/Laboratory/Labter.glb [11.84MB] > Labter-transformed.glb [2.41MB] (80%)
 */
 
+import dynamic from "next/dynamic"
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
+
+const RoomLight = dynamic(() => import('../lighting/light').then(mod => mod.RoomLight), {ssr: false})
 
 export function Labter(props) {
   const { nodes, materials } = useGLTF('models/Labter-transformed.glb')
@@ -17,10 +20,11 @@ export function Labter(props) {
     <group {...props} dispose={null}>
       <group position={[0, 0.5, 0]}>
         <RigidBody colliders='trimesh' type='fixed'>
-          <mesh castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials.Plaster} />
-          <mesh castShadow receiveShadow geometry={nodes.Plane005_1.geometry} material={materials['ceramic floor 1']} />
-          <mesh castShadow receiveShadow geometry={nodes.Plane005_2.geometry} material={materials['Plaster wall floor 1']} />
+          <mesh castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials['ceramic floor 1']} />
+          <mesh castShadow receiveShadow geometry={nodes.Plane005_1.geometry} material={materials['plaster white']} />
         </RigidBody>
+        <RoomLight intensity={50} position={[11, 6, -5]} scale={5} />
+        <RoomLight intensity={50} position={[11, 6, -25]} scale={5} />
       </group>
     </group>
   )
