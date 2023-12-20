@@ -41,6 +41,8 @@ export function Labs(props) {
             <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, 0]} />
           </RigidBody>
           <mesh castShadow receiveShadow geometry={nodes['Lab-top_small'].geometry} material={materials['Plaster lab small top']} position={[-0.092, 4.15, 0]} />
+          <RoomLight intensity={15} position={[0, 2, -2]} scale={2} />
+          <RoomLight intensity={15} position={[0, 2, 2]} scale={2} />
         </group>
       ))}
     </group>
