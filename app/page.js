@@ -4,6 +4,7 @@ import Menus from "@/components/base/menu"
 import { FaReact, FaGithub } from "react-icons/fa"
 import { IoLogoJavascript } from "react-icons/io"
 import { SiBlender, SiVercel } from "react-icons/si"
+import Popup from "@/components/base/popup"
 
 export default function Home() {
   return (
@@ -16,8 +17,16 @@ export default function Home() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-4">Simulasi Virtual</h1>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-4 mb-8">Lab ITK</h1>
             <p className="text-[#5b5f73] lg:text-lg">Ayo mulai rasakan pengalaman immersive pada Lab Terpadu ITK secara virtual.</p>
-            <Link href='/modfpssimulasi'>To fps simulasi</Link>
-            <Link href='/modvrsimulasi'>To VR simulasi</Link>
+            <div className="flex items-center justify-center md:justify-start gap-5 mt-5">
+              <Popup title='Tutorial' items={[
+                {item: 'Mode FPS', destination: '/modfpstutorial'},
+                {item: 'Mode VR', destination: '/modvrtutorial'},
+              ]} />
+              <Popup title='Simulasi' items={[
+                {item: 'Mode FPS', destination: '/modfpssimulasi'},
+                {item: 'Mode VR', destination: '/modvrsimulasi'},
+              ]} />
+            </div>
           </div>
           <div className="col-span-12 md:col-span-6 order-2 md:order-3 md:basis-5/12">
             <Image src="/images/artist_male.png" alt="Hero-image" width={300} height={300} className="mx-auto" />
