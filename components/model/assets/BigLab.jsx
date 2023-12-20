@@ -4,8 +4,10 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/assets/BigLab.glb --tra
 Files: /home/TA/resource/Laboratory/assets/BigLab.glb [5.12MB] > BigLab-transformed.glb [1.33MB] (74%)
 */
 
+import dynamic from "next/dynamic"
 import { useGLTF } from '@react-three/drei'
 
+const RoomLight = dynamic(() => import('../lighting/light').then(mod => mod.RoomLight), {ssr: false})
 
 export function BigLab(props) {
   const { nodes, materials } = useGLTF('models/BigLab-transformed.glb')
@@ -13,6 +15,7 @@ export function BigLab(props) {
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Lab.geometry} material={materials['Plaster labs']} />
       <mesh castShadow receiveShadow geometry={nodes['Lab-top'].geometry} material={materials['Plaster labs top']} position={[-0.092, 4.15, 0]} />
+      <RoomLight intensity={20} position-y={2} scale={2} />
     </group>
   )
 }

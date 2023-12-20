@@ -25,7 +25,8 @@ import AsistenLabA from '@/components/rooms/asistenlab_a'
 import PhysicLab from '@/components/rooms/labfisika'
 import Chemistry from '@/components/rooms/labkimia'
 import Lppm from '@/components/rooms/lppm'
-import { useThree } from '@react-three/fiber'
+
+const SunLighting = dynamic(() => import('@/components/lighting/light').then(mod => mod.SunLighting), {ssr: false})
 
 const Adam = dynamic(() => import('@/components/model/Adam').then(mod => mod.Adam))
 const InitialPlane = dynamic(() => import('@/components/model/assets/initialplane'), { ssr: false })
@@ -74,6 +75,7 @@ function Content(props) {
       <Stats />
       <PerspectiveCamera position={[0, 3, 4]} fov={55} />
       <ambientLight color='white' intensity={2} />
+      <SunLighting intensity={4} position={[30, 30, 25]} targetPos={[5, 0, 0]} />
       {props.context.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
       <Wrapper>
         {props.context.mode === 'vr' && <Controllers rayMaterial='red' />}

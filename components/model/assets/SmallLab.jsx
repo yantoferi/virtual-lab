@@ -4,8 +4,11 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Laboratory/assets/SmallLab.glb --t
 Files: /home/TA/resource/Laboratory/assets/SmallLab.glb [5.13MB] > SmallLab-transformed.glb [1.33MB] (74%)
 */
 
+import dynamic from "next/dynamic"
 import { useGLTF } from '@react-three/drei'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
+
+const RoomLight = dynamic(() => import('../../lighting/light').then(mod => mod.RoomLight), { ssr: false })
 
 export function SmallLab(props) {
   const { nodes, materials } = useGLTF('models/SmallLab-transformed.glb')
@@ -20,6 +23,8 @@ export function SmallLab(props) {
         <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, 0]} />
       </RigidBody>
       <mesh castShadow receiveShadow geometry={nodes['Lab-top_small'].geometry} material={materials['Plaster lab small top']} position={[-0.092, 4.15, 0]} />
+      <RoomLight intensity={15} position={[0, 2, -4]} scale={2} />
+      <RoomLight intensity={15} position={[0, 2, 4]} scale={2} />
     </group>
   )
 }
