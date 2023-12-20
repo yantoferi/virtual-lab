@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { Suspense, useEffect, useMemo } from "react"
 import ReactLoading from "react-loading"
 import { useLoader, useThree } from "@react-three/fiber"
-import { PerspectiveCamera, PointerLockControls, Plane, OrbitControls, Stats, Environment } from "@react-three/drei"
+import { PerspectiveCamera, PointerLockControls, Plane, OrbitControls, Stats } from "@react-three/drei"
 import { Controllers } from "@react-three/xr"
 import { RigidBody } from "@react-three/rapier"
 import { Audio, AudioListener, AudioLoader } from "three"
@@ -39,7 +39,6 @@ export default function Simulation(props) {
         <PerspectiveCamera makeDefault position={[0, 7, 8]} fov={55} far={100} />
         {props.mode === 'fps' && <PointerLockControls onLock={() => props.updateIsLock(true)} onUnlock={() => props.updateIsLock(false)} selector='#startFps' />}
         {/* <OrbitControls /> */}
-        <Environment files='/hdr/cloudy.hdr' background='only' />
         <ambientLight color='white' intensity={2} />
         <SunLighting intensity={4} position={[30, 30, 25]} targetPos={[5, 0, 0]} />
         <SunLighting intensity={2} position={[-15, 30, -50]} targetPos={[6, 0, -35]} />
