@@ -4,11 +4,11 @@ Command: npx gltfjsx@6.2.13 /home/TA/resource/Lab.glb --shadows --keepgroups
 */
 
 import dynamic from "next/dynamic"
-import { useGLTF } from '@react-three/drei'
+import { Text, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
-const RoomLight = dynamic(() => import('../lighting/light').then(mod => mod.RoomLight), {ssr: false})
+const RoomLight = dynamic(() => import('../lighting/light').then(mod => mod.RoomLight), { ssr: false })
 
 export function Labs(props) {
   const { nodes, materials } = useGLTF('models/Lab-transformed.glb')
@@ -27,7 +27,8 @@ export function Labs(props) {
             <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, -8]} />
           </RigidBody>
           <mesh castShadow receiveShadow geometry={nodes['Lab-top'].geometry} material={materials['Plaster labs top']} position={[-0.092, 4.15, 0]} />
-          <RoomLight intensity={20} position-y={2} scale={2} />
+          <RoomLight intensity={20} position-y={3.7} scale={0.2} distance={15} decay={1.7} />
+          <Text color='yellow' rotation-y={Math.PI / 2} position={[5.2, 2, 0]} scale={0.3}>{bigLab.name}</Text>
         </group>
       ))}
       {smallLabPos.map((smallLab, id) => (
@@ -41,8 +42,11 @@ export function Labs(props) {
             <CuboidCollider args={[5, 2, 0.2]} position={[0, 2, 0]} />
           </RigidBody>
           <mesh castShadow receiveShadow geometry={nodes['Lab-top_small'].geometry} material={materials['Plaster lab small top']} position={[-0.092, 4.15, 0]} />
-          <RoomLight intensity={15} position={[0, 2, -4]} scale={2} />
-          <RoomLight intensity={15} position={[0, 2, 4]} scale={2} />
+          <RoomLight intensity={15} position={[0, 3.7, -4]} scale={0.2} distance={15} />
+          <RoomLight intensity={15} position={[0, 3.7, 4]} scale={0.2} distance={15} />
+          {smallLab.name.map((name, id) => (
+            <Text key={id} color='yellow' rotation-y={Math.PI / 2} position={[5.2, 2, id===0?-3:3]} scale={0.3}>{name}</Text>
+          ))}
         </group>
       ))}
     </group>
@@ -53,63 +57,77 @@ useGLTF.preload('models/Lab-transformed.glb')
 
 const bigLabPos = [
   {
+    name: 'Workshop C',
     position: [0, 0.5, 0],
     rotation: [0, 0, 0],
   },
   {
+    name: 'Lab Assembly',
     position: [0, 0.5, -16.2002],
     rotation: [0, 0, 0],
   },
   {
+    name: 'Lab Civil',
     position: [0, 0.5, -32.397],
     rotation: [0, 0, 0],
   },
   //
   {
+    name: 'Lab Kimia',
     position: [0, 5, 0],
     rotation: [0, 0, 0],
   },
   {
+    name: 'Lab Fisika',
     position: [0, 5, -16.2002],
     rotation: [0, 0, 0],
   },
   //
   {
+    name: 'R. kuliah Umum',
     position: [0, 9.5, 0],
     rotation: [0, 0, 0],
   },
   {
+    name: 'R. kuliah Umum',
     position: [0, 9.5, -16.2002],
     rotation: [0, 0, 0],
   },
   //
   {
+    name: 'Instrumen & Electronic',
     position: [21.7127, 0.5, 1.98262],
     rotation: [0, -Math.PI, 0],
   },
   {
+    name: 'Workshop A',
     position: [21.7127, 0.5, -14.2114],
     rotation: [0, -Math.PI, 0],
   },
   {
+    name: 'Maritim',
     position: [21.7127, 0.5, -30.4116],
     rotation: [0, -Math.PI, 0],
   },
   //
   {
+    name: 'Labkom A',
     position: [21.7127, 5, 1.98262],
     rotation: [0, -Math.PI, 0],
   },
   {
+    name: 'Lab Desain',
     position: [21.7127, 5, -14.2114],
     rotation: [0, -Math.PI, 0],
   },
   //
   {
+    name: 'Labkom B',
     position: [21.7127, 9.5, 1.98262],
     rotation: [0, -Math.PI, 0],
   },
   {
+    name: 'Labkom C',
     position: [21.7127, 9.5, -14.2114],
     rotation: [0, -Math.PI, 0],
   },
@@ -117,19 +135,23 @@ const bigLabPos = [
 
 const smallLabPos = [
   {
+    name: ['R. Asleb B', 'R. Asleb A'],
     position: [0, 5, -32.4005],
     rotation: [0, 0, 0],
   },
   {
+    name: ['Labkom', 'R. Kuliah Umum'],
     position: [0, 9.5, -32.4005],
     rotation: [0, 0, 0],
   },
 
   {
+    name: ['Lab Bioprocess', 'Lab Industri'],
     position: [21.7127, 5, -30.4185],
     rotation: [0, -Math.PI, 0],
   },
   {
+    name: ['Labkom D', 'Labkom E'],
     position: [21.7127, 9.5, -30.4185],
     rotation: [0, -Math.PI, 0],
   },

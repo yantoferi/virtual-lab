@@ -23,8 +23,8 @@ export function Labter(props) {
           <mesh castShadow receiveShadow geometry={nodes.Plane005.geometry} material={materials['ceramic floor 1']} />
           <mesh castShadow receiveShadow geometry={nodes.Plane005_1.geometry} material={materials['plaster white']} />
         </RigidBody>
-        <RoomLight intensity={50} position={[11, 6, -5]} scale={5} />
-        <RoomLight intensity={50} position={[11, 6, -25]} scale={5} />
+        <RoomLight intensity={50} position={[11, 6, -5]} scale={5} decay={1.5} />
+        <RoomLight intensity={50} position={[11, 6, -25]} scale={5} decay={1.5} />
       </group>
     </group>
   )
