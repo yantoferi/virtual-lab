@@ -11,7 +11,7 @@ export default function Menus() {
       </div>
       <div className="menu-item">
         <ul className="flex items-center gap-5">
-          <li><Link href="#">GitHub</Link></li>
+          <li><Link href="https://github.com/yantoferi/virtual-lab">GitHub</Link></li>
         </ul>
       </div>
     </div>
